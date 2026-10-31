@@ -12,6 +12,7 @@ import { FreshnessView } from '@/components/FreshnessView';
 import { EvidenceView } from '@/components/EvidenceView';
 import { ChecklistView } from '@/components/ChecklistView';
 import { HowItWorksModal } from '@/components/HowItWorksModal';
+import { Spline3DHero } from '@/components/Spline3DHero';
 import { 
   AlertTriangle, 
   ShieldAlert, 
@@ -100,6 +101,13 @@ export default function Home() {
             <button onClick={() => setErrorMsg(null)} className="underline font-medium">Dismiss</button>
           </div>
         )}
+
+        {/* Interactive 3D Spline Information Radar */}
+        <Spline3DHero
+          completenessScore={currentResult.metrics.completenessScore}
+          gapsCount={currentResult.gaps.length}
+          conflictsCount={currentResult.conflicts.length}
+        />
 
         {/* Input & Scenario Selector */}
         <SourceInputSection
