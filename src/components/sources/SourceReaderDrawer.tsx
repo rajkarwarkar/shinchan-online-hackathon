@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useDarkSpotStore } from '@/store/useDarkSpotStore';
 import { X, ExternalLink, ShieldCheck, Calendar, Globe, FileText } from 'lucide-react';
+import { formatDateDeterministic } from '@/lib/dates/format';
 
 export const SourceReaderDrawer: React.FC = () => {
   const { isSourceDrawerOpen, selectedSourceForDrawer, highlightedQuote, closeSourceDrawer } =
@@ -111,8 +112,8 @@ export const SourceReaderDrawer: React.FC = () => {
 
             <span className="flex items-center space-x-1.5">
               <Calendar className="w-3.5 h-3.5 text-amber-400" />
-              <span>
-                {hasDate ? new Date(displayDate!).toLocaleDateString() : 'No date detected'}
+              <span suppressHydrationWarning>
+                {hasDate ? formatDateDeterministic(displayDate) : 'No date detected'}
               </span>
             </span>
           </div>
@@ -162,3 +163,4 @@ export const SourceReaderDrawer: React.FC = () => {
     </div>
   );
 };
+

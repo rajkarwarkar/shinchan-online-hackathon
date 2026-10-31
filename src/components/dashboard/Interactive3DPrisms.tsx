@@ -466,3 +466,4 @@ export const Interactive3DPrisms: React.FC<Interactive3DPrismsProps> = ({
     </div>
   );
 };
+

@@ -157,3 +157,4 @@ export const ContradictionRadarView: React.FC = () => {
     </div>
   );
 };
+

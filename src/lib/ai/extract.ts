@@ -136,3 +136,4 @@ Respond in valid JSON adhering to:
     return extractHeuristicClaims(source, aspects);
   }
 }
+

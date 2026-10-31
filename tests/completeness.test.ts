@@ -45,3 +45,4 @@ describe('Completeness Index Scorer', () => {
     expect(result.breakdown.conflictPenalty).toBe(12);
   });
 });
+

@@ -98,3 +98,4 @@ export const DashboardTabsBar: React.FC = () => {
     </div>
   );
 };
+

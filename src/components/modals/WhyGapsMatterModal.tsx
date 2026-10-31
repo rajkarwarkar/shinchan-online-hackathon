@@ -105,3 +105,4 @@ export const WhyGapsMatterModal: React.FC = () => {
     </div>
   );
 };
+

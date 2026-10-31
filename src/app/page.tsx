@@ -20,6 +20,22 @@ import { Quote, Sparkles, HelpCircle } from 'lucide-react';
 
 export default function Home() {
   const { activeTab } = useDarkSpotStore();
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return (
+      <div className="min-h-screen bg-[#06080D] flex items-center justify-center text-zinc-400">
+        <div className="flex flex-col items-center space-y-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-amber-500 animate-pulse flex items-center justify-center shadow-lg shadow-purple-600/30" />
+          <span className="font-mono text-xs text-purple-300">Initializing Digital Dark Spot Cockpit...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#06080D] text-zinc-100 selection:bg-purple-500 selection:text-white">

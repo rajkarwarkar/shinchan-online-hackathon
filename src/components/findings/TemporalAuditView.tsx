@@ -3,6 +3,7 @@
 import React from 'react';
 import { useDarkSpotStore } from '@/store/useDarkSpotStore';
 import { Clock, Calendar, AlertTriangle, CheckCircle, ShieldAlert, ExternalLink } from 'lucide-react';
+import { formatDateDeterministic } from '@/lib/dates/format';
 
 export const TemporalAuditView: React.FC = () => {
   const { report, sources, openSourceDrawer } = useDarkSpotStore();
@@ -93,7 +94,7 @@ export const TemporalAuditView: React.FC = () => {
 
                 <div className="flex items-center space-x-2 text-[11px] font-mono text-zinc-400">
                   {source.publishedDate ? (
-                    <span>Published: {new Date(source.publishedDate).toLocaleDateString()}</span>
+                    <span suppressHydrationWarning>Published: {formatDateDeterministic(source.publishedDate)}</span>
                   ) : (
                     <span className="text-purple-400">No Publish Date Found</span>
                   )}
@@ -153,3 +154,4 @@ export const TemporalAuditView: React.FC = () => {
     </div>
   );
 };
+

@@ -143,3 +143,4 @@ export function extractTemporalData(html: string, plainText: string): ExtractedT
 
   return result;
 }
+

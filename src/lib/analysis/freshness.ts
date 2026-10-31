@@ -78,3 +78,4 @@ export function evaluateFreshness(sources: Source[]): FreshnessFinding[] {
 
   return findings;
 }
+

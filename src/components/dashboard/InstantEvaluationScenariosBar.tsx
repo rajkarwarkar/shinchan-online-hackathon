@@ -72,3 +72,4 @@ export const InstantEvaluationScenariosBar: React.FC = () => {
     </section>
   );
 };
+

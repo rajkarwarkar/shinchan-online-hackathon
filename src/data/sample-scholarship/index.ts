@@ -416,3 +416,4 @@ export const SAMPLE_REPORT: AnalysisReport = {
     'Scoring is strictly relative to reviewed publications and does not guarantee legal admissibility.'
   ]
 };
+

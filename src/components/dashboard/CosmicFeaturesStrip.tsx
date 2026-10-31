@@ -80,3 +80,4 @@ export const CosmicFeaturesStrip: React.FC = () => {
     </section>
   );
 };
+

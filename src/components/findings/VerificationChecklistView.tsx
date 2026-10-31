@@ -151,3 +151,4 @@ export const VerificationChecklistView: React.FC = () => {
     </div>
   );
 };
+

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useDarkSpotStore } from '@/store/useDarkSpotStore';
 import { Source } from '@/types';
+import { formatDateDeterministic } from '@/lib/dates/format';
 import { 
   Plus, 
   Globe, 
@@ -267,8 +268,8 @@ export const SourceManager: React.FC = () => {
                       <span>Timestamp</span>
                     </span>
                     {hasDate ? (
-                      <span className="font-mono text-zinc-300 text-[10px]">
-                        {new Date(displayDate!).toLocaleDateString()}
+                      <span suppressHydrationWarning className="font-mono text-zinc-300 text-[10px]">
+                        {formatDateDeterministic(displayDate)}
                       </span>
                     ) : (
                       <span className="font-mono text-amber-400 text-[10px] font-semibold">
@@ -314,3 +315,4 @@ export const SourceManager: React.FC = () => {
     </div>
   );
 };
+

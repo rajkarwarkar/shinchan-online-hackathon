@@ -144,3 +144,4 @@ npm run build
 npm run start
 ```
 *Note: Set `GEMINI_API_KEY` in `.env.local` to enable live web extraction with Google Generative AI, or use the built-in offline Sample Mode without any API keys.*
+

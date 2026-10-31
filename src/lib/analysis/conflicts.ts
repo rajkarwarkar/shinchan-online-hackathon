@@ -160,3 +160,4 @@ Respond in strict JSON:
     return detectHeuristicConflicts(aspects, claims, sources);
   }
 }
+
