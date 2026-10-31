@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { SAMPLE_SCENARIOS } from '@/data/sampleScenarios';
 import { AnalysisResult } from '@/types';
-import { Header } from '@/components/Header';
 import { Spline3DDashboard } from '@/components/Spline3DDashboard';
 import { GapsView } from '@/components/GapsView';
 import { ConflictsView } from '@/components/ConflictsView';
@@ -11,13 +10,14 @@ import { FreshnessView } from '@/components/FreshnessView';
 import { EvidenceView } from '@/components/EvidenceView';
 import { ChecklistView } from '@/components/ChecklistView';
 import { HowItWorksModal } from '@/components/HowItWorksModal';
+import { X } from 'lucide-react';
 
 export default function Home() {
   const [activeScenarioId, setActiveScenarioId] = useState<string>('scholarship-2026');
   const [currentResult, setCurrentResult] = useState<AnalysisResult>(
     SAMPLE_SCENARIOS[0].precomputedResult
   );
-  const [activeTab, setActiveTab] = useState<'gaps' | 'conflicts' | 'freshness' | 'evidence' | 'checklist'>('gaps');
+  const [activeTab, setActiveTab] = useState<'gaps' | 'conflicts' | 'freshness' | 'evidence' | 'checklist' | 'none'>('gaps');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isHowItWorksOpen, setIsHowItWorksOpen] = useState<boolean>(false);
@@ -78,73 +78,76 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07080c] text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
-      {/* Navigation Header */}
-      <Header onOpenHowItWorks={() => setIsHowItWorksOpen(true)} />
+    <div className="relative min-h-screen w-full bg-[#07080c] text-slate-100 flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+      
+      {/* 1. Master Fullscreen 3D Spline Dashboard Covering Whole Website */}
+      <Spline3DDashboard
+        metrics={currentResult.metrics}
+        topic={currentResult.topic}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onSelectScenario={handleSelectScenario}
+        onAnalyzeCustom={handleAnalyzeCustom}
+        onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
+        activeScenarioId={activeScenarioId}
+        isLoading={isLoading}
+      />
 
-      {/* Main Unified Dashboard Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
-        
-        {/* Error notification banner if any */}
-        {errorMsg && (
-          <div className="p-4 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-300 text-xs flex items-center justify-between">
-            <span>{errorMsg}</span>
-            <button onClick={() => setErrorMsg(null)} className="underline font-medium">Dismiss</button>
-          </div>
-        )}
-
-        {/* Master 3D Intelligence Dashboard Cockpit */}
-        <Spline3DDashboard
-          metrics={currentResult.metrics}
-          topic={currentResult.topic}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-          onSelectScenario={handleSelectScenario}
-          onAnalyzeCustom={handleAnalyzeCustom}
-          activeScenarioId={activeScenarioId}
-          isLoading={isLoading}
-        />
-
-        {/* Active Analysis Detail Panel */}
-        <div className="pt-2">
-          {activeTab === 'gaps' && <GapsView gaps={currentResult.gaps} />}
-          {activeTab === 'conflicts' && (
-            <ConflictsView conflicts={currentResult.conflicts} sources={currentResult.sources} />
-          )}
-          {activeTab === 'freshness' && (
-            <FreshnessView warnings={currentResult.temporalWarnings} sources={currentResult.sources} />
-          )}
-          {activeTab === 'evidence' && (
-            <EvidenceView sources={currentResult.sources} facts={currentResult.facts} />
-          )}
-          {activeTab === 'checklist' && (
-            <ChecklistView tasks={currentResult.checklist} fullResult={currentResult} />
-          )}
+      {/* Error notification banner if any */}
+      {errorMsg && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 p-4 rounded-2xl bg-rose-950/90 border border-rose-500/50 text-rose-300 text-xs flex items-center space-x-3 shadow-2xl backdrop-blur-xl">
+          <span>{errorMsg}</span>
+          <button onClick={() => setErrorMsg(null)} className="underline font-medium">Dismiss</button>
         </div>
+      )}
 
-      </main>
+      {/* 2. Slide-up Detail Investigation Panel (Opens when tab is active) */}
+      {activeTab !== 'none' && (
+        <div className="relative z-30 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 pt-6">
+          <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 bg-black/75 backdrop-blur-3xl shadow-2xl space-y-5 animate-in slide-in-from-bottom-6 duration-300">
+            
+            {/* Panel Header with Close Button */}
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div className="flex items-center space-x-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse" />
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-indigo-300">
+                  Detailed Evidence & Audit Stream
+                </span>
+                <span className="text-zinc-600">•</span>
+                <span className="text-xs text-zinc-400 font-mono">
+                  View Mode: {activeTab.toUpperCase()}
+                </span>
+              </div>
 
-      {/* Footer */}
-      <footer className="w-full border-t border-white/10 py-6 mt-16 bg-black/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-zinc-300">DarkSpot AI</span>
-            <span>•</span>
-            <span>Shinchan Online Hackathon 2026 Official Project</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <span className="text-zinc-400">
-              Scoring Aligned with Official 10-Mark Rubric
-            </span>
-            <button
-              onClick={() => setIsHowItWorksOpen(true)}
-              className="text-indigo-400 hover:text-indigo-300 transition-colors"
-            >
-              Methodology
-            </button>
+              <button
+                onClick={() => setActiveTab('none')}
+                className="flex items-center space-x-1 px-3 py-1.5 rounded-xl text-xs font-medium text-zinc-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+              >
+                <span>Collapse Panel</span>
+                <X className="w-3.5 h-3.5 text-zinc-400" />
+              </button>
+            </div>
+
+            {/* Active Tab View Body */}
+            <div>
+              {activeTab === 'gaps' && <GapsView gaps={currentResult.gaps} />}
+              {activeTab === 'conflicts' && (
+                <ConflictsView conflicts={currentResult.conflicts} sources={currentResult.sources} />
+              )}
+              {activeTab === 'freshness' && (
+                <FreshnessView warnings={currentResult.temporalWarnings} sources={currentResult.sources} />
+              )}
+              {activeTab === 'evidence' && (
+                <EvidenceView sources={currentResult.sources} facts={currentResult.facts} />
+              )}
+              {activeTab === 'checklist' && (
+                <ChecklistView tasks={currentResult.checklist} fullResult={currentResult} />
+              )}
+            </div>
+
           </div>
         </div>
-      </footer>
+      )}
 
       {/* How it Works / Problem Background Modal */}
       <HowItWorksModal
