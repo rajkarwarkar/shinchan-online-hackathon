@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { useDarkSpotStore } from '@/store/useDarkSpotStore';
+import { SourceManager } from '@/components/sources/SourceManager';
+import { SourceReaderDrawer } from '@/components/sources/SourceReaderDrawer';
 import { 
   Compass, 
   Quote, 
@@ -10,8 +12,7 @@ import {
   AlertTriangle, 
   ShieldCheck, 
   Layers, 
-  FileCheck2, 
-  CalendarClock 
+  FileCheck2
 } from 'lucide-react';
 
 export default function Home() {
@@ -94,17 +95,17 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Phase 1 Verification Hero */}
+        {/* Question & Summary Hero Card */}
         <div className="darkspot-panel rounded-3xl p-6 sm:p-8 space-y-6">
           <div className="space-y-2">
             <span className="text-xs font-mono font-bold uppercase text-amber-400 tracking-wider">
-              Phase 1 Foundation Verification
+              Research Objective & Decision Goal
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
               {question}
             </h1>
             <p className="text-xs text-zinc-400">
-              {sources.length} sources loaded • {report?.gaps.length || 0} gaps detected • {report?.conflicts.length || 0} conflicts flagged
+              {sources.length} sources reviewed • {report?.gaps.length || 0} gaps detected • {report?.conflicts.length || 0} conflicts flagged
             </p>
           </div>
 
@@ -147,7 +148,13 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Source Manager & Ingestion Module (Phase 2) */}
+        <SourceManager />
       </main>
+
+      {/* Source Reader Drawer (Auto-scrolled with highlighted passage) */}
+      <SourceReaderDrawer />
 
       {/* Footer */}
       <footer className="border-t border-white/10 py-6 text-xs text-zinc-500 bg-[#070A0E]">
