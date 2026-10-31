@@ -22,7 +22,7 @@ export interface ExtractedFact {
   claim: string;
   sourceId: string;
   exactQuote: string;
-  confidence: number; // 0 to 1
+  confidence: number;
 }
 
 export interface InformationGap {
@@ -74,7 +74,7 @@ export interface VerificationTask {
 }
 
 export interface DarkSpotMetrics {
-  completenessScore: number; // 0 - 100
+  completenessScore: number;
   totalSources: number;
   criticalGapsCount: number;
   moderateGapsCount: number;
@@ -113,3 +113,17 @@ export interface SampleScenario {
   precomputedResult: AnalysisResult;
 }
 
+export interface SplineObject {
+  name?: string;
+  id?: string;
+  visible?: boolean;
+  scale?: { x: number; y: number; z: number };
+  position?: { x: number; y: number; z: number };
+}
+
+export interface SplineApplication {
+  getAllObjects?: () => SplineObject[];
+  findObjectByName?: (name: string) => SplineObject | null;
+  emitEvent?: (event: string, targetName: string) => void;
+  setZoom?: (zoom: number) => void;
+}
