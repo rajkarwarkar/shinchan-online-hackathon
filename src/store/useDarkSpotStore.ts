@@ -4,6 +4,12 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { AnalysisReport, Source, Aspect, Claim } from '@/types';
 import { SAMPLE_REPORT, SAMPLE_SOURCES, SAMPLE_ASPECTS, SAMPLE_CLAIMS } from '@/data/sample-scholarship';
+import { 
+  ALL_EVALUATION_SCENARIOS, 
+  SCENARIO_STEM_SCHOLARSHIP, 
+  SCENARIO_STEM_OPT, 
+  SCENARIO_CLEAN_ENERGY 
+} from '@/data/scenarios';
 
 interface DarkSpotState {
   question: string;
@@ -13,13 +19,18 @@ interface DarkSpotState {
   report: AnalysisReport | null;
   isAnalyzing: boolean;
   analysisStage: string;
-  activeTab: string;
+  activeTab: 'gaps' | 'conflicts' | 'freshness' | 'evidence' | 'checklist' | 'overview';
+  activeScenarioId: string;
   
   // Source Reader Drawer state
   isSourceDrawerOpen: boolean;
   selectedSourceForDrawer: Source | null;
   highlightedQuote: string | null;
   
+  // Modals
+  isWhyGapsModalOpen: boolean;
+  isExportModalOpen: boolean;
+
   // Sample mode indicator
   isSampleMode: boolean;
 
@@ -31,12 +42,16 @@ interface DarkSpotState {
   setAspects: (aspects: Aspect[]) => void;
   setReport: (report: AnalysisReport | null) => void;
   setIsAnalyzing: (isAnalyzing: boolean, stage?: string) => void;
-  setActiveTab: (tab: string) => void;
+  setActiveTab: (tab: 'gaps' | 'conflicts' | 'freshness' | 'evidence' | 'checklist' | 'overview') => void;
   
   openSourceDrawer: (source: Source, quote?: string) => void;
   closeSourceDrawer: () => void;
   toggleChecklistItem: (itemId: string) => void;
   
+  setIsWhyGapsModalOpen: (isOpen: boolean) => void;
+  setIsExportModalOpen: (isOpen: boolean) => void;
+
+  loadScenario: (scenarioId: string) => void;
   loadSampleMode: () => void;
   resetSession: () => void;
 }
@@ -51,28 +66,35 @@ export const useDarkSpotStore = create<DarkSpotState>()(
       report: SAMPLE_REPORT,
       isAnalyzing: false,
       analysisStage: '',
-      activeTab: 'overview',
+      activeTab: 'gaps',
+      activeScenarioId: 'stem-scholarship',
       
       isSourceDrawerOpen: false,
       selectedSourceForDrawer: null,
       highlightedQuote: null,
+      
+      isWhyGapsModalOpen: false,
+      isExportModalOpen: false,
       isSampleMode: true,
 
-      setQuestion: (question) => set({ question }),
+      setQuestion: (question) => set({ question, activeScenarioId: 'custom' }),
       
       addSource: (source) =>
         set((state) => ({
-          sources: [...state.sources.filter((s) => s.id !== source.id), source]
+          sources: [...state.sources.filter((s) => s.id !== source.id), source],
+          activeScenarioId: 'custom'
         })),
         
       removeSource: (id) =>
         set((state) => ({
-          sources: state.sources.filter((s) => s.id !== id)
+          sources: state.sources.filter((s) => s.id !== id),
+          activeScenarioId: 'custom'
         })),
         
       updateSource: (id, update) =>
         set((state) => ({
-          sources: state.sources.map((s) => (s.id === id ? { ...s, ...update } : s))
+          sources: state.sources.map((s) => (s.id === id ? { ...s, ...update } : s)),
+          activeScenarioId: 'custom'
         })),
         
       setAspects: (aspects) => set({ aspects }),
@@ -98,6 +120,9 @@ export const useDarkSpotStore = create<DarkSpotState>()(
           highlightedQuote: null
         }),
         
+      setIsWhyGapsModalOpen: (isWhyGapsModalOpen) => set({ isWhyGapsModalOpen }),
+      setIsExportModalOpen: (isExportModalOpen) => set({ isExportModalOpen }),
+
       toggleChecklistItem: (itemId) =>
         set((state) => {
           if (!state.report) return state;
@@ -112,19 +137,36 @@ export const useDarkSpotStore = create<DarkSpotState>()(
           };
         }),
         
-      loadSampleMode: () =>
+      loadScenario: (scenarioId: string) => {
+        let found = ALL_EVALUATION_SCENARIOS.find((s) => s.id === scenarioId);
+        if (!found) {
+          found = SCENARIO_STEM_SCHOLARSHIP;
+        }
+
+        const reportWithSources = {
+          ...found.report,
+          sources: found.sources,
+          claims: found.claims
+        };
+
         set({
-          question: SAMPLE_REPORT.question,
-          sources: SAMPLE_SOURCES,
-          aspects: SAMPLE_ASPECTS,
-          claims: SAMPLE_CLAIMS,
-          report: SAMPLE_REPORT,
+          question: found.question,
+          sources: found.sources,
+          aspects: found.aspects,
+          claims: found.claims,
+          report: reportWithSources,
+          activeScenarioId: found.id,
           isSampleMode: true,
-          activeTab: 'overview',
+          activeTab: 'gaps',
           isSourceDrawerOpen: false,
           selectedSourceForDrawer: null,
           highlightedQuote: null
-        }),
+        });
+      },
+
+      loadSampleMode: () => {
+        get().loadScenario('stem-scholarship');
+      },
         
       resetSession: () =>
         set({
@@ -133,21 +175,23 @@ export const useDarkSpotStore = create<DarkSpotState>()(
           aspects: [],
           claims: [],
           report: null,
+          activeScenarioId: 'custom',
           isSampleMode: false,
-          activeTab: 'overview',
+          activeTab: 'gaps',
           isSourceDrawerOpen: false,
           selectedSourceForDrawer: null,
           highlightedQuote: null
         })
     }),
     {
-      name: 'digital-dark-spot-session',
+      name: 'digital-dark-spot-session-v2',
       partialize: (state) => ({
         question: state.question,
         sources: state.sources,
         aspects: state.aspects,
         claims: state.claims,
         report: state.report,
+        activeScenarioId: state.activeScenarioId,
         isSampleMode: state.isSampleMode
       })
     }
