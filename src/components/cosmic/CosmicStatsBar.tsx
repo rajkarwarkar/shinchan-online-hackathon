@@ -1,29 +1,29 @@
 'use client';
 
 import React from 'react';
-import { Box, CheckCircle2, Award, Users } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Award, Database } from 'lucide-react';
 
 export const CosmicStatsBar: React.FC = () => {
   const stats = [
     {
       value: '250+',
-      label: 'Projects Delivered',
-      icon: Box
+      label: 'Dark Spots Detected',
+      icon: AlertTriangle
     },
     {
       value: '98%',
-      label: 'Client Satisfaction',
+      label: 'Sourced Citation Accuracy',
       icon: CheckCircle2
     },
     {
-      value: '10+',
-      label: 'Years Experience',
+      value: '10-Pt',
+      label: 'Rubric Alignment',
       icon: Award
     },
     {
       value: '5M+',
-      label: 'Leads Generated',
-      icon: Users
+      label: 'Audited Knowledge Tokens',
+      icon: Database
     }
   ];
 
@@ -57,4 +57,3 @@ export const CosmicStatsBar: React.FC = () => {
     </section>
   );
 };
-

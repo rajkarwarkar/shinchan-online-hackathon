@@ -10,10 +10,10 @@ interface CosmicAboutSectionProps {
 
 export const CosmicAboutSection: React.FC<CosmicAboutSectionProps> = ({ onLearnMore }) => {
   const points = [
-    'Data-Driven Strategies',
-    'Creative & Engaging Content',
-    'Performance Focused Marketing',
-    'Transparent Communication'
+    'Multi-Source Cross-Examination',
+    'Contradiction & Policy Clash Radar',
+    'Temporal Decay & Freshness Audit',
+    'Actionable Verification Checklists'
   ];
 
   return (
@@ -30,16 +30,16 @@ export const CosmicAboutSection: React.FC<CosmicAboutSectionProps> = ({ onLearnM
           
           <div className="space-y-2">
             <span className="text-xs font-bold uppercase tracking-widest text-purple-400">
-              ABOUT US
+              ABOUT THE ARCHITECTURE
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
-              We Build Brands <br />
-              That People <span className="text-gradient-purple">Love</span>
+              We Expose Truths <br />
+              That LLMs <span className="text-gradient-purple">Miss</span>
             </h2>
           </div>
 
           <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-xl">
-            AZ Digital Marketing Solutions is a full-service digital marketing agency helping businesses grow, scale, and dominate the digital world.
+            Standard AI models hallucinate plausible answers when crucial information is missing. DarkSpot AI evaluates what is <em>unsaid</em>: cross-referencing official guidelines, forum reports, and policy updates to detect omissions, conflicting rules, and stale deadlines.
           </p>
 
           <div className="space-y-3 pt-2">
@@ -60,7 +60,7 @@ export const CosmicAboutSection: React.FC<CosmicAboutSectionProps> = ({ onLearnM
               onClick={onLearnMore}
               className="px-6 py-2.5 rounded-full text-xs font-semibold text-white btn-cosmic-purple flex items-center space-x-2 group cursor-pointer shadow-lg shadow-purple-600/30"
             >
-              <span>Learn More</span>
+              <span>Explore Rubric & Design</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -71,4 +71,3 @@ export const CosmicAboutSection: React.FC<CosmicAboutSectionProps> = ({ onLearnM
     </section>
   );
 };
-

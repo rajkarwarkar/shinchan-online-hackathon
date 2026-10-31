@@ -10,14 +10,12 @@ import { CosmicAboutSection } from '@/components/cosmic/CosmicAboutSection';
 import { CosmicServicesSection } from '@/components/cosmic/CosmicServicesSection';
 import { CosmicResultsSection } from '@/components/cosmic/CosmicResultsSection';
 import { CosmicFeaturedWorksSection } from '@/components/cosmic/CosmicFeaturedWorksSection';
+import { CosmicHackathonDashboard } from '@/components/cosmic/CosmicHackathonDashboard';
 import { CosmicCTABanner } from '@/components/cosmic/CosmicCTABanner';
 import { CosmicFooter } from '@/components/cosmic/CosmicFooter';
-import { CosmicHackathonDashboard } from '@/components/cosmic/CosmicHackathonDashboard';
 import { HowItWorksModal } from '@/components/HowItWorksModal';
-import { Sparkles, ArrowRight } from 'lucide-react';
 
 export default function Home() {
-  const [viewMode, setViewMode] = useState<'showcase' | 'dashboard'>('showcase');
   const [activeScenarioId, setActiveScenarioId] = useState<string>('scholarship-2026');
   const [currentResult, setCurrentResult] = useState<AnalysisResult>(
     SAMPLE_SCENARIOS[0].precomputedResult
@@ -81,32 +79,19 @@ export default function Home() {
     }
   };
 
+  const scrollToRadar = () => {
+    const el = document.getElementById('radar');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-[#050508] text-zinc-100 flex flex-col selection:bg-purple-600 selection:text-white">
       
-      {/* Global Fixed Cosmic Navigation matching the uploaded image */}
+      {/* Navigation matching the uploaded reference design */}
       <CosmicNavbar
-        activeView={viewMode}
-        onViewChange={setViewMode}
         onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
+        onScrollToRadar={scrollToRadar}
       />
-
-      {/* Floating Toggle Pill (Always accessible for judges) */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <button
-          onClick={() => {
-            const next = viewMode === 'showcase' ? 'dashboard' : 'showcase';
-            setViewMode(next);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className="flex items-center space-x-2 px-4 py-2.5 rounded-full btn-cosmic-purple text-xs font-bold text-white shadow-2xl border border-purple-400/40 backdrop-blur-md cursor-pointer hover:scale-105 transition-all"
-        >
-          <Sparkles className="w-4 h-4 text-purple-200 animate-pulse" />
-          <span>
-            {viewMode === 'showcase' ? 'Switch to AI Cockpit ⚡' : 'Back to Agency Showcase 🌟'}
-          </span>
-        </button>
-      </div>
 
       {/* Error notification banner if any */}
       {errorMsg && (
@@ -118,129 +103,68 @@ export default function Home() {
         </div>
       )}
 
-      {/* Main Content Area */}
-      <main className="flex-1 w-full pt-16">
+      {/* Main Single-Page Unified Experience */}
+      <main className="flex-1 w-full pt-14 space-y-4">
         
-        {viewMode === 'showcase' ? (
-          /* SHOWCASE VIEW: 100% FAITHFUL REPLICA OF THE UPLOADED DESIGN */
-          <div className="space-y-4">
-            
-            {/* Hero Section */}
-            <CosmicHeroSection
-              onGetStarted={() => {
-                setViewMode('dashboard');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              onWatchShowreel={() => setIsHowItWorksOpen(true)}
-            />
+        {/* 1. Hero Section: Information Gap Detection Intelligence */}
+        <CosmicHeroSection
+          onLaunchRadar={scrollToRadar}
+          onWatchRubric={() => setIsHowItWorksOpen(true)}
+        />
 
-            {/* Stats Bar */}
-            <CosmicStatsBar />
+        {/* 2. Stats Bar: Dark Spots, Traceability, Rubric, Tokens */}
+        <CosmicStatsBar />
 
-            {/* About Us Section */}
-            <CosmicAboutSection
-              onLearnMore={() => {
-                setViewMode('dashboard');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            />
+        {/* 3. About Section: Why Evaluating the Unsaid Matters */}
+        <CosmicAboutSection
+          onLearnMore={() => setIsHowItWorksOpen(true)}
+        />
 
-            {/* Our Services Section */}
-            <CosmicServicesSection
-              onSelectService={() => {
-                // Smoothly route to dashboard for analysis
-                setViewMode('dashboard');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            />
+        {/* 4. Core Capabilities: Gap Detection, Contradiction Radar, Freshness, Evidence, Checklist */}
+        <CosmicServicesSection
+          onSelectCapability={scrollToRadar}
+        />
 
-            {/* Results That Speak Louder */}
-            <CosmicResultsSection
-              onSeeCaseStudies={() => {
-                setViewMode('dashboard');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            />
+        {/* 5. Results That Speak Louder: Benchmark Accuracy & Catch Rate Charts */}
+        <CosmicResultsSection
+          onSeeCaseStudies={() => {
+            const el = document.getElementById('benchmarks');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
 
-            {/* Featured Works */}
-            <CosmicFeaturedWorksSection
-              onSelectWork={() => {
-                setViewMode('dashboard');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            />
+        {/* 6. Featured Benchmark Scenarios: STEM Scholarship (PDF Official), STEM OPT, EV Rebate */}
+        <CosmicFeaturedWorksSection
+          onSelectScenario={handleSelectScenario}
+          activeScenarioId={activeScenarioId}
+        />
 
-            {/* Interactive Hackathon Evaluation Callout for Judges */}
-            <section className="relative py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="cosmic-glass rounded-3xl p-6 sm:p-8 border border-purple-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-                <div className="space-y-2 text-left">
-                  <div className="flex items-center space-x-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-xs font-mono font-bold uppercase text-purple-300">
-                      Shinchan Hackathon 2026 Live Engine
-                    </span>
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-black text-white">
-                    Experience DarkSpot AI Intelligence Cockpit
-                  </h3>
-                  <p className="text-xs text-zinc-400 max-w-xl">
-                    Cross-examine multi-source publications, detect digital dark spots, highlight conflicting criteria, and generate actionable verification checklists.
-                  </p>
-                </div>
+        {/* 7. LIVE INTERACTIVE RADAR & CROSS-EXAMINATION ENGINE EMBEDDED DIRECTLY IN PAGE */}
+        <section id="radar" className="relative scroll-mt-20">
+          <CosmicHackathonDashboard
+            currentResult={currentResult}
+            activeScenarioId={activeScenarioId}
+            onSelectScenario={handleSelectScenario}
+            onAnalyzeCustom={handleAnalyzeCustom}
+            isLoading={isLoading}
+            onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
+          />
+        </section>
 
-                <div className="flex items-center space-x-3 shrink-0">
-                  <button
-                    onClick={() => {
-                      setViewMode('dashboard');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="px-6 py-3 rounded-full text-xs font-semibold text-white btn-cosmic-purple flex items-center space-x-2 shadow-lg shadow-purple-600/40 cursor-pointer"
-                  >
-                    <span>Launch AI Cockpit</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </section>
-
-            {/* Call To Action Banner */}
-            <CosmicCTABanner
-              onConsultation={() => {
-                setViewMode('dashboard');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            />
-
-          </div>
-        ) : (
-          /* HACKATHON DASHBOARD VIEW: FULL SUITE OF DETECTION TOOLS IN PURPLE THEME */
-          <div className="pt-4">
-            <CosmicHackathonDashboard
-              currentResult={currentResult}
-              activeScenarioId={activeScenarioId}
-              onSelectScenario={handleSelectScenario}
-              onAnalyzeCustom={handleAnalyzeCustom}
-              isLoading={isLoading}
-              onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
-            />
-          </div>
-        )}
+        {/* 8. Call To Action Banner: Audit Your Sources */}
+        <CosmicCTABanner
+          onAnalyzeCustom={scrollToRadar}
+        />
 
       </main>
 
-      {/* Global Footer matching the image */}
+      {/* Global Footer */}
       <CosmicFooter
-        onNavClick={(target) => {
-          if (target === 'Case Studies' || target === 'Services') {
-            setViewMode('dashboard');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          } else {
-            setViewMode('showcase');
-          }
-        }}
+        onNavClick={scrollToRadar}
+        onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
       />
 
-      {/* Methodology / Problem Statement Rubric Modal */}
+      {/* Problem Statement 10-Mark Rubric Modal */}
       <HowItWorksModal
         isOpen={isHowItWorksOpen}
         onClose={() => setIsHowItWorksOpen(false)}

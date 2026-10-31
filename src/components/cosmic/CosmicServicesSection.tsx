@@ -2,68 +2,73 @@
 
 import React from 'react';
 import { 
-  Target, 
-  Users, 
-  Megaphone, 
-  FileText, 
-  Mail, 
+  AlertTriangle, 
+  Layers, 
+  CalendarClock, 
+  FileCheck, 
+  CheckSquare, 
   ArrowUpRight 
 } from 'lucide-react';
 
 interface CosmicServicesSectionProps {
-  onSelectService?: (serviceName: string) => void;
+  onSelectCapability?: (capabilityName: string) => void;
 }
 
-export const CosmicServicesSection: React.FC<CosmicServicesSectionProps> = ({ onSelectService }) => {
-  const services = [
+export const CosmicServicesSection: React.FC<CosmicServicesSectionProps> = ({ onSelectCapability }) => {
+  const capabilities = [
     {
-      title: 'SEO Optimization',
-      desc: 'Rank higher & get found by the right audience.',
-      icon: Target
+      title: 'Gap Detection',
+      badge: 'DARK SPOT LOCATOR',
+      desc: 'Unearths missing prerequisites, omitted conditions, and silent eligibility exceptions.',
+      icon: AlertTriangle
     },
     {
-      title: 'Social Media Marketing',
-      desc: 'Build your brand & engage across all platforms.',
-      icon: Users
+      title: 'Contradiction Radar',
+      badge: 'CLASH RECONCILIATION',
+      desc: 'Cross-references competing sources, conflicting monetary caps, and mismatched rules.',
+      icon: Layers
     },
     {
-      title: 'Paid Advertising',
-      desc: 'Target the right audience & maximize ROI.',
-      icon: Megaphone
+      title: 'Temporal Audit',
+      badge: 'STALE RULE SENTINEL',
+      desc: 'Flags outdated policy cycles, expired deadlines, and superseded regulations.',
+      icon: CalendarClock
     },
     {
-      title: 'Content Marketing',
-      desc: 'Powerful content that tells your brand story.',
-      icon: FileText
+      title: 'Traceable Evidence',
+      badge: 'VERBATIM CITATIONS',
+      desc: 'Extracts verifiable quotes with confidence scores linked directly to source URLs.',
+      icon: FileCheck
     },
     {
-      title: 'Email Marketing',
-      desc: 'Nurture leads & convert them into customers.',
-      icon: Mail
+      title: 'Verification Tasks',
+      badge: 'ACTIONABLE AUDITS',
+      desc: 'Transforms detected omissions and conflicts into prioritized interactive checklists.',
+      icon: CheckSquare
     }
   ];
 
   return (
-    <section id="services" className="relative py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="capabilities" className="relative py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Section Header */}
       <div className="text-center space-y-2 mb-12">
         <span className="text-xs font-bold uppercase tracking-widest text-purple-400">
-          OUR SERVICES
+          INTELLIGENCE CAPABILITIES
         </span>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
-          Solutions That Drive <span className="text-gradient-purple">Real Growth</span>
+          Engines That Expose <span className="text-gradient-purple">The Truth</span>
         </h2>
       </div>
 
       {/* 5-Card Responsive Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        {services.map((srv, i) => {
+        {capabilities.map((srv, i) => {
           const Icon = srv.icon;
           return (
             <div
               key={i}
-              onClick={() => onSelectService && onSelectService(srv.title)}
+              onClick={() => onSelectCapability && onSelectCapability(srv.title)}
               className="cosmic-glass cosmic-glass-hover rounded-2xl p-5 border border-purple-500/20 flex flex-col justify-between space-y-4 cursor-pointer group"
             >
               <div className="flex items-center justify-between">
@@ -74,6 +79,9 @@ export const CosmicServicesSection: React.FC<CosmicServicesSectionProps> = ({ on
               </div>
 
               <div className="space-y-1.5 text-left">
+                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-purple-400 block">
+                  {srv.badge}
+                </span>
                 <h3 className="text-sm font-bold text-white group-hover:text-purple-200 transition-colors">
                   {srv.title}
                 </h3>
@@ -89,4 +97,3 @@ export const CosmicServicesSection: React.FC<CosmicServicesSectionProps> = ({ on
     </section>
   );
 };
-

@@ -10,7 +10,7 @@ interface CosmicResultsSectionProps {
 
 export const CosmicResultsSection: React.FC<CosmicResultsSectionProps> = ({ onSeeCaseStudies }) => {
   return (
-    <section id="case-studies" className="relative py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
         
         {/* Left Column: Heading, Subtitle & Button */}
@@ -23,7 +23,7 @@ export const CosmicResultsSection: React.FC<CosmicResultsSectionProps> = ({ onSe
           </div>
 
           <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-            We focus on metrics that matter. Here&apos;s what we&apos;ve achieved for our clients.
+            We focus on metrics that matter. Here is our automated audit benchmark across complex, multi-source official publications.
           </p>
 
           <div className="pt-2">
@@ -31,7 +31,7 @@ export const CosmicResultsSection: React.FC<CosmicResultsSectionProps> = ({ onSe
               onClick={onSeeCaseStudies}
               className="px-6 py-2.5 rounded-full text-xs font-semibold text-white btn-cosmic-purple flex items-center space-x-2 group cursor-pointer shadow-lg shadow-purple-600/30"
             >
-              <span>See Case Studies</span>
+              <span>Inspect Benchmarks</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -40,14 +40,14 @@ export const CosmicResultsSection: React.FC<CosmicResultsSectionProps> = ({ onSe
         {/* Right Column: 4 Metrics Cards */}
         <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
-          {/* Card 1: 320% Traffic */}
+          {/* Card 1: 320% Gap Catch Rate */}
           <div className="cosmic-glass cosmic-glass-hover rounded-2xl p-4 sm:p-5 border border-purple-500/20 flex flex-col justify-between space-y-3">
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-black text-white">
                 320%
               </div>
               <div className="text-xs text-zinc-400 font-medium">
-                Increase in Website Traffic
+                More Gaps Detected vs Baseline
               </div>
             </div>
             <div className="pt-2">
@@ -55,14 +55,14 @@ export const CosmicResultsSection: React.FC<CosmicResultsSectionProps> = ({ onSe
             </div>
           </div>
 
-          {/* Card 2: 200% Conversions */}
+          {/* Card 2: 100% Verbatim Traceability */}
           <div className="cosmic-glass cosmic-glass-hover rounded-2xl p-4 sm:p-5 border border-purple-500/20 flex flex-col justify-between space-y-3">
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-black text-white">
-                200%
+                100%
               </div>
               <div className="text-xs text-zinc-400 font-medium">
-                Growth in Conversions
+                Verbatim Quote Traceability
               </div>
             </div>
             <div className="pt-2">
@@ -70,29 +70,29 @@ export const CosmicResultsSection: React.FC<CosmicResultsSectionProps> = ({ onSe
             </div>
           </div>
 
-          {/* Card 3: 150% ROAS */}
+          {/* Card 3: 0% Hallucinations */}
           <div className="cosmic-glass cosmic-glass-hover rounded-2xl p-4 sm:p-5 border border-purple-500/20 flex flex-col justify-between space-y-3">
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-black text-white">
-                150%
+                0%
               </div>
               <div className="text-xs text-zinc-400 font-medium">
-                Increase in ROAS
+                Unverified Hallucinations
               </div>
             </div>
             <div className="pt-2 flex justify-center">
-              <CircularMetricGauge percentage={85} />
+              <CircularMetricGauge percentage={100} />
             </div>
           </div>
 
-          {/* Card 4: 98% Retention */}
+          {/* Card 4: 98% Decision Readiness */}
           <div className="cosmic-glass cosmic-glass-hover rounded-2xl p-4 sm:p-5 border border-purple-500/20 flex flex-col justify-between space-y-3">
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-black text-white">
                 98%
               </div>
               <div className="text-xs text-zinc-400 font-medium">
-                Client Retention Rate
+                Decision Readiness Score
               </div>
             </div>
             <div className="pt-2 flex justify-center">
@@ -106,4 +106,3 @@ export const CosmicResultsSection: React.FC<CosmicResultsSectionProps> = ({ onSe
     </section>
   );
 };
-
