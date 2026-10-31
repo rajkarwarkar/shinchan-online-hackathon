@@ -57,3 +57,4 @@ export const CosmicStatsBar: React.FC = () => {
     </section>
   );
 };
+

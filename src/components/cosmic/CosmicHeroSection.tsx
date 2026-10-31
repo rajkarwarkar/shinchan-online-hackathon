@@ -82,3 +82,4 @@ export const CosmicHeroSection: React.FC<CosmicHeroSectionProps> = ({
     </section>
   );
 };
+

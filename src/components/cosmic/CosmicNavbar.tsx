@@ -131,3 +131,4 @@ export const CosmicNavbar: React.FC<CosmicNavbarProps> = ({
     </header>
   );
 };
+

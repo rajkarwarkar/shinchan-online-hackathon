@@ -202,3 +202,4 @@ export const CosmicHeroGraphic: React.FC = () => {
     </div>
   );
 };
+

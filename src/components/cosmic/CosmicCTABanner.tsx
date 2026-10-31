@@ -49,3 +49,4 @@ export const CosmicCTABanner: React.FC<CosmicCTABannerProps> = ({ onConsultation
     </section>
   );
 };
+

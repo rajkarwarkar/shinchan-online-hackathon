@@ -95,3 +95,4 @@ export const CosmicFeaturedWorksSection: React.FC<CosmicFeaturedWorksSectionProp
     </section>
   );
 };
+

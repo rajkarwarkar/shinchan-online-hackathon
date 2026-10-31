@@ -171,3 +171,4 @@ export const CosmicAstronautGraphic: React.FC = () => {
     </div>
   );
 };
+

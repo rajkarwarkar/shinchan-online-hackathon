@@ -71,3 +71,4 @@ export const CosmicAboutSection: React.FC<CosmicAboutSectionProps> = ({ onLearnM
     </section>
   );
 };
+
