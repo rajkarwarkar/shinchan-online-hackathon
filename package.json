@@ -1,36 +1,38 @@
 {
-  "name": "darkspot-ai",
-  "version": "0.1.0",
+  "name": "digital-dark-spot",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint",
+    "test": "vitest run"
   },
   "dependencies": {
-    "@google/genai": "^2.32.0",
-    "@splinetool/react-spline": "^4.1.0",
-    "@splinetool/runtime": "^2.0.126",
-    "canvas-confetti": "^1.9.4",
-    "cheerio": "^1.2.0",
-    "clsx": "^2.1.1",
-    "framer-motion": "^14.9.0",
-    "lucide-react": "^1.65.0",
+    "@google/generative-ai": "^0.24.1",
+    "@mozilla/readability": "^0.5.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "cheerio": "^1.0.0",
+    "framer-motion": "^12.4.7",
+    "jsdom": "^26.0.0",
+    "lucide-react": "^1.16.0",
     "next": "16.4.3",
+    "postcss": "^8.4.38",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "tailwind-merge": "^3.7.0"
+    "tailwindcss": "^4.0.0",
+    "zod": "^3.24.2",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@tailwindcss/turbopack": "^4",
-    "@types/canvas-confetti": "^1.9.0",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.17.19",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "^9.20.1",
     "eslint-config-next": "16.4.3",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
   }
 }
