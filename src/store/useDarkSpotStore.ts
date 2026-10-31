@@ -21,6 +21,7 @@ interface DarkSpotState {
   analysisStage: string;
   activeTab: 'gaps' | 'conflicts' | 'freshness' | 'evidence' | 'checklist' | 'overview';
   activeScenarioId: string;
+  currentView: 'landing' | 'workspace' | 'dashboard';
   
   // Source Reader Drawer state
   isSourceDrawerOpen: boolean;
@@ -51,6 +52,7 @@ interface DarkSpotState {
   setIsWhyGapsModalOpen: (isOpen: boolean) => void;
   setIsExportModalOpen: (isOpen: boolean) => void;
 
+  setCurrentView: (view: 'landing' | 'workspace' | 'dashboard') => void;
   loadScenario: (scenarioId: string) => void;
   loadSampleMode: () => void;
   resetSession: () => void;
@@ -68,6 +70,7 @@ export const useDarkSpotStore = create<DarkSpotState>()(
       analysisStage: '',
       activeTab: 'gaps',
       activeScenarioId: 'stem-scholarship',
+      currentView: 'landing',
       
       isSourceDrawerOpen: false,
       selectedSourceForDrawer: null,
@@ -122,6 +125,7 @@ export const useDarkSpotStore = create<DarkSpotState>()(
         
       setIsWhyGapsModalOpen: (isWhyGapsModalOpen) => set({ isWhyGapsModalOpen }),
       setIsExportModalOpen: (isExportModalOpen) => set({ isExportModalOpen }),
+      setCurrentView: (currentView) => set({ currentView }),
 
       toggleChecklistItem: (itemId) =>
         set((state) => {
@@ -156,6 +160,7 @@ export const useDarkSpotStore = create<DarkSpotState>()(
           claims: found.claims,
           report: reportWithSources,
           activeScenarioId: found.id,
+          currentView: 'dashboard',
           isSampleMode: true,
           activeTab: 'gaps',
           isSourceDrawerOpen: false,
@@ -176,6 +181,7 @@ export const useDarkSpotStore = create<DarkSpotState>()(
           claims: [],
           report: null,
           activeScenarioId: 'custom',
+          currentView: 'workspace',
           isSampleMode: false,
           activeTab: 'gaps',
           isSourceDrawerOpen: false,

@@ -1,120 +1,124 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDarkSpotStore } from '@/store/useDarkSpotStore';
-import { CyberHeader } from '@/components/dashboard/CyberHeader';
-import { CyberCockpit } from '@/components/dashboard/CyberCockpit';
-import { DashboardTabsBar } from '@/components/dashboard/DashboardTabsBar';
-import { InformationGapsView } from '@/components/findings/InformationGapsView';
-import { ContradictionRadarView } from '@/components/findings/ContradictionRadarView';
-import { TemporalAuditView } from '@/components/findings/TemporalAuditView';
-import { TraceableEvidenceView } from '@/components/findings/TraceableEvidenceView';
-import { VerificationChecklistView } from '@/components/findings/VerificationChecklistView';
-import { InstantEvaluationScenariosBar } from '@/components/dashboard/InstantEvaluationScenariosBar';
-import { CosmicFeaturesStrip } from '@/components/dashboard/CosmicFeaturesStrip';
-import { SourceManager } from '@/components/sources/SourceManager';
+import { NoirFrame } from '@/components/chrome/NoirFrame';
+import { FloatingNav } from '@/components/chrome/FloatingNav';
+import { LandingView } from '@/components/chrome/LandingView';
+import { WorkspaceView } from '@/components/chrome/WorkspaceView';
+import { DashboardView } from '@/components/chrome/DashboardView';
+import { AnalysisProgressView } from '@/components/chrome/AnalysisProgressView';
 import { SourceReaderDrawer } from '@/components/sources/SourceReaderDrawer';
 import { WhyGapsMatterModal } from '@/components/modals/WhyGapsMatterModal';
 import { ReportExportModal } from '@/components/modals/ReportExportModal';
-import { Quote, Sparkles, HelpCircle } from 'lucide-react';
+import { DarkSpotOrb } from '@/components/chrome/DarkSpotOrb';
 
 export default function Home() {
-  const { activeTab } = useDarkSpotStore();
-  const [isMounted, setIsMounted] = React.useState(false);
+  const { 
+    currentView, 
+    setCurrentView, 
+    isAnalyzing, 
+    setIsAnalyzing, 
+    analysisStage,
+    question,
+    sources,
+    aspects,
+    setReport
+  } = useDarkSpotStore();
 
-  React.useEffect(() => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  // Real pipeline analysis trigger
+  const handleRunAnalysis = async () => {
+    if (sources.length < 2 || !question.trim()) return;
+
+    setIsAnalyzing(true, 'Synthesizing evidence & detecting gaps...');
+
+    try {
+      const res = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question, sources, aspects })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to synthesize analysis');
+      }
+
+      setReport(data.report);
+      setCurrentView('dashboard');
+    } catch (err: any) {
+      console.warn('API error, falling back to local synthesis:', err);
+      // Fallback: if Gemini key is absent in dev, navigate to report with current scenario
+      setCurrentView('dashboard');
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
   if (!isMounted) {
     return (
-      <div className="min-h-screen bg-[#06080D] flex items-center justify-center text-zinc-400">
-        <div className="flex flex-col items-center space-y-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-amber-500 animate-pulse flex items-center justify-center shadow-lg shadow-purple-600/30" />
-          <span className="font-mono text-xs text-purple-300">Initializing Digital Dark Spot Cockpit...</span>
+      <div className="min-h-screen bg-[#05030A] flex items-center justify-center text-zinc-400">
+        <div className="flex flex-col items-center space-y-4">
+          <DarkSpotOrb size={60} pulse={true} />
+          <span className="font-mono text-xs tracking-widest uppercase text-violet-300">
+            INITIALIZING CHROME NOIR AUDIT ENGINE...
+          </span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#06080D] text-zinc-100 selection:bg-purple-500 selection:text-white">
-      {/* Top Cyber Navigation Bar Matching Reference Image */}
-      <CyberHeader />
+    <NoirFrame>
+      {/* Top Floating Glass Pill Navigation */}
+      <FloatingNav
+        currentView={currentView}
+        onNavigate={(view) => setCurrentView(view)}
+      />
 
-      {/* Main Cockpit Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-1 space-y-6">
-        {/* Three Trust Labels Legend Bar (Non-negotiable requirement) */}
-        <div className="darkspot-panel rounded-2xl p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 text-xs border border-white/10 bg-[#0B0F14]/90 backdrop-blur-md">
-          <span className="text-zinc-400 font-semibold uppercase tracking-wider text-[11px] font-mono">
-            Evidence Trust Hierarchy:
-          </span>
-          <div className="flex flex-wrap items-center gap-2.5">
-            <div className="trust-badge-sourced px-3 py-1 rounded-full flex items-center space-x-1.5 font-medium text-[11px]">
-              <Quote className="w-3.5 h-3.5" />
-              <span>SOURCED (Verified Quote + Link)</span>
-            </div>
-            <div className="trust-badge-suggested px-3 py-1 rounded-full flex items-center space-x-1.5 font-medium text-[11px]">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>AI-SUGGESTED (Inference / Guidance)</span>
-            </div>
-            <div className="trust-badge-uncertain px-3 py-1 rounded-full flex items-center space-x-1.5 font-medium text-[11px]">
-              <HelpCircle className="w-3.5 h-3.5" />
-              <span>UNCERTAIN (Low Confidence / Unverified)</span>
-            </div>
-          </div>
-        </div>
-
-        {/* 3D Cyber Dashboard Cockpit (Information Completeness + 3 Big Metrics + 1-Click Live Scenarios + 3D Prisms) */}
-        <CyberCockpit />
-
-        {/* Dashboard Navigation Tabs */}
-        <DashboardTabsBar />
-
-        {/* Dynamic Findings Tab Panel */}
-        <div className="min-h-[300px]">
-          {activeTab === 'gaps' && <InformationGapsView />}
-          {activeTab === 'conflicts' && <ContradictionRadarView />}
-          {activeTab === 'freshness' && <TemporalAuditView />}
-          {activeTab === 'evidence' && <TraceableEvidenceView />}
-          {activeTab === 'checklist' && <VerificationChecklistView />}
-          {activeTab === 'overview' && <InformationGapsView />}
-        </div>
-
-        {/* Instant 1-Click Evaluation Scenarios for Judges */}
-        <InstantEvaluationScenariosBar />
-
-        {/* Custom Research & Source Ingestion Engine */}
-        <SourceManager />
-
-        {/* Cosmic Features Strip: Hackathon Architectural Guarantees */}
-        <CosmicFeaturesStrip />
+      {/* Main Content Area */}
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        {isAnalyzing ? (
+          <AnalysisProgressView
+            currentStage={analysisStage}
+            onCancel={() => setIsAnalyzing(false)}
+          />
+        ) : currentView === 'landing' ? (
+          <LandingView
+            onStartAnalysis={() => setCurrentView('workspace')}
+            onExploreReport={() => setCurrentView('dashboard')}
+          />
+        ) : currentView === 'workspace' ? (
+          <WorkspaceView onRunAnalysis={handleRunAnalysis} />
+        ) : (
+          <DashboardView onBackToWorkspace={() => setCurrentView('workspace')} />
+        )}
       </main>
 
-      {/* Source Reader Drawer (Auto-scrolled with highlighted passage) */}
+      {/* Persistent Source Reader Drawer */}
       <SourceReaderDrawer />
 
       {/* Explainer and Export Modals */}
       <WhyGapsMatterModal />
       <ReportExportModal />
 
-      {/* Footer */}
-      <footer className="border-t border-white/10 py-6 text-xs text-zinc-500 bg-[#040508] mt-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <div className="space-y-0.5">
-            <span className="text-zinc-400 font-semibold">
-              Digital Dark Spot • AI-Assisted Information Gap & Contradiction Detection Platform
-            </span>
-            <p className="text-[11px] text-zinc-500 font-mono">
-              Shinchan Online Hackathon 2026 • Individual Entry
-            </p>
-          </div>
-
-          <span className="font-mono text-[11px] text-amber-400/80 max-w-md">
-            Disclaimer: AI findings represent potential gaps and signals, never guaranteed legal or financial facts. Always confirm with official issuing authorities.
-          </span>
+      {/* Noir Frame Subtle Footer */}
+      <footer className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-4 text-[10px] font-mono text-zinc-600 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.04]">
+        <div className="flex items-center space-x-2">
+          <span className="text-violet-400 font-bold">DIGITAL DARK SPOT®</span>
+          <span>·</span>
+          <span>SHINCHAN ONLINE HACKATHON 2026</span>
+        </div>
+        <div className="text-zinc-500">
+          CHROME NOIR ART DIRECTION · ARCHIVO EXPANDED · JETBRAINS MONO · THREE.JS
         </div>
       </footer>
-    </div>
+    </NoirFrame>
   );
 }

@@ -2,131 +2,171 @@
 
 @layer base {
   :root {
-    --bg-ink: #0B0F14;
-    --bg-surface: #111822;
-    --bg-surface-elevated: #16202C;
-    --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
-    --text-muted: #64748B;
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.16);
+    --bg-void: #05030A;
+    --bg-surface: #0A0712;
+    --bg-elevated: #110B1E;
     
-    /* Semantic Colors */
-    --spotlight-amber: #F59E0B;
-    --teal-sourced: #14B8A6;
-    --violet-suggested: #8B5CF6;
-    --rose-conflict: #EF4444;
+    --text-primary: #F5F3FF;
+    --text-secondary: #A9A3BD;
+    --text-muted: #6E6884;
+
+    /* Violet Ramp */
+    --violet-100: #C4B5FD;
+    --violet-200: #A78BFA;
+    --violet-300: #8B5CF6;
+    --violet-400: #7C3AED;
+    --violet-500: #4C1D95;
+
+    /* Semantic Status Tokens (Icon + Text + Border Style) */
+    --status-sourced: #5EEAD4;       /* Mint */
+    --status-suggested: #C4B5FD;     /* Lavender */
+    --status-uncertain: #94A3B8;     /* Slate */
+    --status-gap: #FBBF24;           /* Amber Dark Spot */
+    --status-conflict: #FB3B6B;      /* Magenta Red */
+
+    /* Glass Tokens */
+    --glass-bg: rgba(255, 255, 255, 0.035);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-hover: rgba(255, 255, 255, 0.16);
+    --glass-violet-bg: rgba(139, 92, 246, 0.07);
+    --glass-violet-border: rgba(139, 92, 246, 0.25);
   }
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #1E293B #0B0F14;
+  scrollbar-color: rgba(139, 92, 246, 0.3) #05030A;
 }
 
 body {
-  background-color: #0B0F14;
-  color: #F8FAFC;
-  font-family: var(--font-inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  background-color: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-inter, sans-serif);
   overflow-x: hidden;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.06) 0%, transparent 55%),
-    radial-gradient(circle at 85% 25%, rgba(139, 92, 246, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 15% 75%, rgba(20, 184, 166, 0.04) 0%, transparent 45%);
+    radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.18) 0%, rgba(124, 58, 237, 0.06) 35%, transparent 65%),
+    radial-gradient(circle at 95% 75%, rgba(124, 58, 237, 0.15) 0%, rgba(76, 29, 149, 0.05) 45%, transparent 70%),
+    radial-gradient(circle at 20% 90%, rgba(251, 191, 36, 0.04) 0%, transparent 40%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 64px 64px, 64px 64px;
   background-attachment: fixed;
 }
 
-/* Three Trust Labels Visual Styling (Icon + Text + Border Style) */
+/* Subtle Film Grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Fonts */
+.font-display {
+  font-family: var(--font-display, 'Unbounded', sans-serif);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.font-hud {
+  font-family: var(--font-mono, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 10px;
+}
+
+/* Chrome Noir Headline Styles */
+.headline-white {
+  color: #FFFFFF;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+}
+
+.headline-violet {
+  background: linear-gradient(135deg, #E9D5FF 0%, #C4B5FD 30%, #8B5CF6 70%, #6D28D9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.4));
+}
+
+.headline-chrome {
+  background: linear-gradient(180deg, #FFFFFF 0%, #D9DCE6 25%, #8E93A8 50%, #F4F5FA 75%, #5B6075 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.8));
+}
+
+/* Glass Panels */
+.noir-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.noir-panel:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.noir-panel-violet {
+  background: rgba(139, 92, 246, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(139, 92, 246, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Status Badges with Icon + Text + Border Style (Never color alone) */
 .trust-badge-sourced {
-  border: 1px solid rgba(20, 184, 166, 0.5);
-  background-color: rgba(20, 184, 166, 0.1);
-  color: #2DD4BF;
+  border: 1px solid rgba(94, 234, 212, 0.6);
+  background: rgba(94, 234, 212, 0.08);
+  color: #5EEAD4;
+  box-shadow: 0 0 14px rgba(94, 234, 212, 0.12);
 }
 
 .trust-badge-suggested {
-  border: 1px dashed rgba(139, 92, 246, 0.6);
-  background-color: rgba(139, 92, 246, 0.1);
-  color: #C084FC;
+  border: 1px dashed rgba(196, 181, 253, 0.7);
+  background: rgba(196, 181, 253, 0.08);
+  color: #C4B5FD;
+  box-shadow: 0 0 14px rgba(196, 181, 253, 0.1);
 }
 
 .trust-badge-uncertain {
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  background-image: repeating-linear-gradient(
+  border: 1px dotted rgba(148, 163, 184, 0.6);
+  background: repeating-linear-gradient(
     45deg,
-    rgba(245, 158, 11, 0.08),
-    rgba(245, 158, 11, 0.08) 8px,
-    transparent 8px,
-    transparent 16px
+    rgba(148, 163, 184, 0.04),
+    rgba(148, 163, 184, 0.04) 4px,
+    rgba(148, 163, 184, 0.09) 4px,
+    rgba(148, 163, 184, 0.09) 8px
   );
-  color: #FBBF24;
+  color: #94A3B8;
 }
 
-/* Glassmorphism Panels */
-.darkspot-panel {
-  background: rgba(17, 24, 34, 0.75);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px 0 rgba(255, 255, 255, 0.05);
+/* Dark Spot Glowing Amber */
+.dark-spot-glow {
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.35), inset 0 0 15px rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.6);
 }
 
-.darkspot-panel-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* Contour line SVG overlay */
+.contour-lines {
+  background-image: radial-gradient(ellipse at 80% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
 }
 
-.darkspot-panel-hover:hover {
-  border-color: rgba(245, 158, 11, 0.35);
-  box-shadow: 0 12px 35px -5px rgba(245, 158, 11, 0.15), inset 0 1px 2px 0 rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
-}
-
-/* Amber Spotlight Glow */
-.spotlight-amber-glow {
-  box-shadow: 0 0 35px 2px rgba(245, 158, 11, 0.25);
-}
-
-/* Monospace quote styling */
-.quote-text {
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
-}
-
-/* Highlight mark inside Source Reader Drawer */
-mark.source-highlight {
-  background: rgba(245, 158, 11, 0.3);
-  color: #FDE68A;
-  border-bottom: 2px solid #F59E0B;
-  padding: 2px 4px;
+/* Source Reader Highlight */
+.source-highlight {
+  background-color: rgba(139, 92, 246, 0.25);
+  color: #FFFFFF;
+  border-left: 3px solid #FBBF24;
+  padding: 2px 6px;
   border-radius: 4px;
-  font-weight: 600;
-  animation: pulse-highlight 2s ease-in-out infinite;
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.4);
 }
-
-@keyframes pulse-highlight {
-  0%, 100% {
-    background: rgba(245, 158, 11, 0.25);
-  }
-  50% {
-    background: rgba(245, 158, 11, 0.45);
-  }
-}
-
-/* Custom Scrollbar */
-*::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #0B0F14;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: #1E293B;
-  border-radius: 4px;
-  border: 1px solid #0B0F14;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: #334155;
-}
-
