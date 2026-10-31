@@ -4,22 +4,13 @@ import React, { useState } from 'react';
 import { SAMPLE_SCENARIOS } from '@/data/sampleScenarios';
 import { AnalysisResult } from '@/types';
 import { Header } from '@/components/Header';
-import { MetricsOverview } from '@/components/MetricsOverview';
-import { SourceInputSection } from '@/components/SourceInputSection';
+import { Spline3DDashboard } from '@/components/Spline3DDashboard';
 import { GapsView } from '@/components/GapsView';
 import { ConflictsView } from '@/components/ConflictsView';
 import { FreshnessView } from '@/components/FreshnessView';
 import { EvidenceView } from '@/components/EvidenceView';
 import { ChecklistView } from '@/components/ChecklistView';
 import { HowItWorksModal } from '@/components/HowItWorksModal';
-import { Spline3DDashboard } from '@/components/Spline3DDashboard';
-import { 
-  AlertTriangle, 
-  ShieldAlert, 
-  CalendarClock, 
-  FileCheck, 
-  CheckSquare
-} from 'lucide-react';
 
 export default function Home() {
   const [activeScenarioId, setActiveScenarioId] = useState<string>('scholarship-2026');
@@ -87,12 +78,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#07080c] text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
       {/* Navigation Header */}
       <Header onOpenHowItWorks={() => setIsHowItWorksOpen(true)} />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      {/* Main Unified Dashboard Container */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
         
         {/* Error notification banner if any */}
         {errorMsg && (
@@ -102,111 +93,19 @@ export default function Home() {
           </div>
         )}
 
-        {/* Interactive 3D Cyber Dashboard (Spline scene hKClaNwSIFExj9Xp) */}
+        {/* Master 3D Intelligence Dashboard Cockpit */}
         <Spline3DDashboard
           metrics={currentResult.metrics}
           topic={currentResult.topic}
           activeTab={activeTab}
           onTabChange={setActiveTab}
           onSelectScenario={handleSelectScenario}
-          activeScenarioId={activeScenarioId}
-        />
-
-        {/* Input & Scenario Selector */}
-        <SourceInputSection
-          onSelectScenario={handleSelectScenario}
           onAnalyzeCustom={handleAnalyzeCustom}
-          isLoading={isLoading}
           activeScenarioId={activeScenarioId}
+          isLoading={isLoading}
         />
 
-        {/* Dashboard Top Metrics */}
-        <MetricsOverview
-          metrics={currentResult.metrics}
-          topic={currentResult.topic}
-        />
-
-        {/* Tab Navigation */}
-        <div className="border-b border-white/10 flex items-center space-x-1 sm:space-x-2 overflow-x-auto no-scrollbar pt-2">
-          
-          <button
-            onClick={() => setActiveTab('gaps')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'gaps'
-                ? 'border-rose-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <AlertTriangle className={`w-4 h-4 ${activeTab === 'gaps' ? 'text-rose-400' : 'text-zinc-500'}`} />
-            <span>Information Gaps (Dark Spots)</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 font-mono">
-              {currentResult.gaps.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('conflicts')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'conflicts'
-                ? 'border-amber-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <ShieldAlert className={`w-4 h-4 ${activeTab === 'conflicts' ? 'text-amber-400' : 'text-zinc-500'}`} />
-            <span>Contradiction Radar</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">
-              {currentResult.conflicts.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('freshness')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'freshness'
-                ? 'border-orange-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <CalendarClock className={`w-4 h-4 ${activeTab === 'freshness' ? 'text-orange-400' : 'text-zinc-500'}`} />
-            <span>Temporal & Freshness Audit</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 font-mono">
-              {currentResult.temporalWarnings.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('evidence')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'evidence'
-                ? 'border-emerald-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <FileCheck className={`w-4 h-4 ${activeTab === 'evidence' ? 'text-emerald-400' : 'text-zinc-500'}`} />
-            <span>Evidence & Sourced Facts</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
-              {currentResult.facts.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('checklist')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'checklist'
-                ? 'border-indigo-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <CheckSquare className={`w-4 h-4 ${activeTab === 'checklist' ? 'text-indigo-400' : 'text-zinc-500'}`} />
-            <span>Verification Checklist</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-mono">
-              {currentResult.checklist.length}
-            </span>
-          </button>
-
-        </div>
-
-        {/* Tab Content Panels */}
+        {/* Active Analysis Detail Panel */}
         <div className="pt-2">
           {activeTab === 'gaps' && <GapsView gaps={currentResult.gaps} />}
           {activeTab === 'conflicts' && (

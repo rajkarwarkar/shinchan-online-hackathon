@@ -10,16 +10,20 @@ import {
   Minimize2, 
   RotateCcw, 
   Sparkles, 
-  Compass, 
   AlertTriangle,
   FileCheck,
   CheckSquare,
   Activity,
-  CalendarClock
+  CalendarClock,
+  Search,
+  Globe,
+  Plus,
+  Trash2,
+  Loader2
 } from 'lucide-react';
 import { DarkSpotMetrics } from '@/types';
 
-// Lazy load Spline strictly client-side per skill instructions
+// Lazy load Spline strictly client-side
 const Spline = dynamic(() => import('@splinetool/react-spline'), {
   ssr: false,
   loading: () => <SplineRadarFallback isConnecting={true} />
@@ -34,7 +38,9 @@ interface Spline3DDashboardProps {
   activeTab: 'gaps' | 'conflicts' | 'freshness' | 'evidence' | 'checklist';
   onTabChange: (tab: 'gaps' | 'conflicts' | 'freshness' | 'evidence' | 'checklist') => void;
   onSelectScenario: (scenarioId: string) => void;
+  onAnalyzeCustom: (topic: string, sources: Array<{ title: string; url?: string; content?: string }>) => void;
   activeScenarioId?: string;
+  isLoading?: boolean;
 }
 
 export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
@@ -43,7 +49,9 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
   activeTab,
   onTabChange,
   onSelectScenario,
-  activeScenarioId
+  onAnalyzeCustom,
+  activeScenarioId,
+  isLoading = false
 }) => {
   const [hasWebGL] = useState<boolean>(() => {
     if (typeof window === 'undefined') return true;
@@ -59,23 +67,54 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
   const [is3DActive, setIs3DActive] = useState<boolean>(true);
   const [loadError, setLoadError] = useState<boolean>(false);
   const [sceneStatus, setSceneStatus] = useState<string>('Syncing 3D Scene...');
-  const [discoveredObjectsCount, setDiscoveredObjectsCount] = useState<number>(0);
+  const [customInputOpen, setCustomInputOpen] = useState<boolean>(false);
 
-  // Runtime reference per Spline skill guidelines
+  // Custom input state
+  const [customTopic, setCustomTopic] = useState('');
+  const [customSources, setCustomSources] = useState<Array<{ id: string; url: string; title: string }>>([
+    { id: '1', url: 'https://example-university.edu/guidelines', title: 'Official Source' },
+    { id: '2', url: 'https://community-forum.org/advice', title: 'Community Forum' }
+  ]);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const splineRef = useRef<any>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSplineLoad = (app: any) => {
     splineRef.current = app;
-    setSceneStatus('3D Dashboard Online');
+    setSceneStatus('3D Radar Online');
+
+    // EDIT THE 3D DASHBOARD: Clean up all irrelevant conference template text
     try {
       if (typeof app.getAllObjects === 'function') {
-        const objects = app.getAllObjects();
-        setDiscoveredObjectsCount(objects.length);
+        const all = app.getAllObjects();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        all.forEach((obj: any) => {
+          if (!obj || !obj.name) return;
+          const n = obj.name.toLowerCase();
+          // Hide template text: "Register", "canvas 24", "October 8, 2024", "Agenda Speakers FAQ"
+          if (
+            n.includes('register') || 
+            n.includes('agenda') || 
+            n.includes('speaker') || 
+            n.includes('faq') || 
+            n.includes('canvas') || 
+            n.includes('text') || 
+            n.includes('october')
+          ) {
+            obj.visible = false;
+          }
+        });
       }
-    } catch {
-      // safe fallback
+
+      // Hide specific named objects directly
+      const specificToHide = ['Register', 'Text', 'Text 2', 'Text 3', 'canvas'];
+      specificToHide.forEach(name => {
+        const o = app.findObjectByName(name);
+        if (o) o.visible = false;
+      });
+    } catch (err) {
+      console.warn('Spline customization notice:', err);
     }
   };
 
@@ -85,12 +124,33 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
         if (typeof splineRef.current.setZoom === 'function') {
           splineRef.current.setZoom(1);
         }
-        // Emit trigger event if root camera is present
         splineRef.current.emitEvent('start', 'Camera');
       } catch {
-        // graceful ignore
+        // safe ignore
       }
     }
+  };
+
+  const handleAddSource = () => {
+    setCustomSources(prev => [
+      ...prev,
+      { id: String(Date.now()), url: '', title: `Source ${prev.length + 1}` }
+    ]);
+  };
+
+  const handleRemoveSource = (id: string) => {
+    if (customSources.length <= 1) return;
+    setCustomSources(prev => prev.filter(s => s.id !== id));
+  };
+
+  const handleCustomSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customTopic.trim()) return;
+    onAnalyzeCustom(
+      customTopic,
+      customSources.map(s => ({ title: s.title, url: s.url }))
+    );
+    setCustomInputOpen(false);
   };
 
   const isHealthy = metrics.completenessScore >= 80;
@@ -103,25 +163,25 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
 
   return (
     <div className={`relative w-full rounded-3xl overflow-hidden glass-panel border border-indigo-500/30 transition-all duration-500 shadow-2xl ${
-      isExpanded ? 'min-h-[720px] p-4 sm:p-6 ring-2 ring-indigo-500/40' : 'p-5 sm:p-7'
+      isExpanded ? 'min-h-[750px] p-4 sm:p-6 ring-2 ring-indigo-500/40' : 'p-5 sm:p-7'
     } bg-gradient-to-b from-[#0e101a] via-[#090a0f] to-[#07080c]`}>
       
       {/* Ambient background glow */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-violet-600/10 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Top Cockpit Command Header */}
+      {/* Top Command Bar */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-white/10 relative z-20">
         
         <div className="space-y-1">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>3D CYBER DASHBOARD</span>
+              <span>DIGITAL DARK SPOT COCKPIT</span>
             </span>
 
             <span className="text-[11px] text-zinc-400 font-mono bg-white/5 px-2 py-0.5 rounded border border-white/5">
-              {sceneStatus} {discoveredObjectsCount > 0 ? `(${discoveredObjectsCount} 3D Nodes)` : ''}
+              {sceneStatus}
             </span>
 
             <span className="text-xs text-zinc-400 hidden sm:inline">•</span>
@@ -131,9 +191,21 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
           </div>
         </div>
 
-        {/* Dashboard 3D Canvas Controls ("Edit This Dashboard") */}
+        {/* 3D Dashboard Controls */}
         <div className="flex items-center space-x-2">
           
+          <button
+            onClick={() => setCustomInputOpen(!customInputOpen)}
+            className={`flex items-center space-x-1 px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+              customInputOpen
+                ? 'bg-indigo-600 text-white border-indigo-500'
+                : 'text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 border-white/10'
+            }`}
+          >
+            <Search className="w-3.5 h-3.5 text-indigo-400" />
+            <span>{customInputOpen ? 'Close Ingestion' : 'Analyze Custom URLs'}</span>
+          </button>
+
           <button
             onClick={handleResetCamera}
             title="Reset 3D Viewport Camera"
@@ -156,7 +228,7 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
             ) : (
               <>
                 <Maximize2 className="w-3.5 h-3.5 text-indigo-400" />
-                <span className="hidden sm:inline">Expand View</span>
+                <span className="hidden sm:inline">Expand</span>
               </>
             )}
           </button>
@@ -171,7 +243,80 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
 
       </div>
 
-      {/* Main 3D Dashboard Body */}
+      {/* Expandable Custom URL & Topic Ingestion Form */}
+      {customInputOpen && (
+        <form onSubmit={handleCustomSubmit} className="mt-4 p-4 rounded-2xl bg-zinc-900/90 border border-indigo-500/30 space-y-3 relative z-30">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">
+              Custom Topic & URL Ingestion
+            </span>
+            <span className="text-[11px] text-zinc-400">
+              Scrapes web pages & detects missing parameters
+            </span>
+          </div>
+
+          <div>
+            <input
+              type="text"
+              value={customTopic}
+              onChange={e => setCustomTopic(e.target.value)}
+              placeholder="e.g. What should I verify before applying for the 2026 State AI Research Grant?"
+              className="w-full text-xs p-2.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            {customSources.map((s, idx) => (
+              <div key={s.id} className="flex items-center space-x-2">
+                <Globe className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                <input
+                  type="url"
+                  value={s.url}
+                  onChange={e => {
+                    const val = e.target.value;
+                    setCustomSources(prev => prev.map(item => item.id === s.id ? { ...item, url: val } : item));
+                  }}
+                  placeholder={`https://source-${idx + 1}.gov/rules`}
+                  className="flex-1 text-xs p-2 rounded-lg bg-black/60 border border-white/10 text-white font-mono focus:outline-none focus:border-indigo-500"
+                  required
+                />
+                {customSources.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveSource(s.id)}
+                    className="p-1.5 text-zinc-400 hover:text-rose-400 transition-colors"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between pt-1">
+            <button
+              type="button"
+              onClick={handleAddSource}
+              className="flex items-center space-x-1 text-xs text-indigo-400 hover:text-indigo-300"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add Another URL</span>
+            </button>
+
+            <button
+              type="submit"
+              disabled={isLoading || !customTopic.trim()}
+              className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:opacity-50 flex items-center space-x-1.5"
+            >
+              {isLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
+              <span>Scan & Cross-Examine</span>
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Main 3D Dashboard Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-5 relative z-10">
         
         {/* Left Side: Real-Time HUD Overlay Panels */}
@@ -265,38 +410,47 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
             <div className="flex flex-col gap-1.5">
               <button
                 onClick={() => onSelectScenario('scholarship-2026')}
-                className={`text-left px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors flex items-center justify-between ${
+                className={`text-left px-3 py-2 rounded-xl text-xs font-medium border transition-colors flex items-center justify-between ${
                   activeScenarioId === 'scholarship-2026'
                     ? 'border-indigo-500 bg-indigo-600/20 text-white'
                     : 'border-white/5 bg-white/[0.02] text-zinc-400 hover:text-white'
                 }`}
               >
-                <span>🎓 STEM Scholarship (PDF Official Use Case)</span>
-                {activeScenarioId === 'scholarship-2026' && <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />}
+                <div>
+                  <div className="font-semibold text-white">🎓 STEM Scholarship (PDF Official Use Case)</div>
+                  <div className="text-[11px] text-zinc-400">Renewal gaps, $50k vs $65k conflict, 2024 stale notice</div>
+                </div>
+                {activeScenarioId === 'scholarship-2026' && <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse shrink-0 ml-2" />}
               </button>
 
               <button
                 onClick={() => onSelectScenario('stem-opt-visa')}
-                className={`text-left px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors flex items-center justify-between ${
+                className={`text-left px-3 py-2 rounded-xl text-xs font-medium border transition-colors flex items-center justify-between ${
                   activeScenarioId === 'stem-opt-visa'
                     ? 'border-indigo-500 bg-indigo-600/20 text-white'
                     : 'border-white/5 bg-white/[0.02] text-zinc-400 hover:text-white'
                 }`}
               >
-                <span>🛂 STEM OPT 24-Month Visa Rules</span>
-                {activeScenarioId === 'stem-opt-visa' && <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />}
+                <div>
+                  <div className="font-semibold text-white">🛂 STEM OPT 24-Month Visa Rules</div>
+                  <div className="text-[11px] text-zinc-400">180-day grace gap, 10 vs 30-day reporting discrepancy</div>
+                </div>
+                {activeScenarioId === 'stem-opt-visa' && <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse shrink-0 ml-2" />}
               </button>
 
               <button
                 onClick={() => onSelectScenario('clean-energy-rebate')}
-                className={`text-left px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors flex items-center justify-between ${
+                className={`text-left px-3 py-2 rounded-xl text-xs font-medium border transition-colors flex items-center justify-between ${
                   activeScenarioId === 'clean-energy-rebate'
                     ? 'border-indigo-500 bg-indigo-600/20 text-white'
                     : 'border-white/5 bg-white/[0.02] text-zinc-400 hover:text-white'
                 }`}
               >
-                <span>⚡ 2026 Clean Energy EV Tax Credit</span>
-                {activeScenarioId === 'clean-energy-rebate' && <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />}
+                <div>
+                  <div className="font-semibold text-white">⚡ 2026 Clean Energy EV Tax Credit</div>
+                  <div className="text-[11px] text-zinc-400">Point-of-sale transfer gaps, sedan vs SUV MSRP limits</div>
+                </div>
+                {activeScenarioId === 'clean-energy-rebate' && <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse shrink-0 ml-2" />}
               </button>
             </div>
           </div>
@@ -306,7 +460,7 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
         {/* Right Side: The 3D Spline Dashboard Canvas Viewport */}
         <div className={`${isExpanded ? 'lg:col-span-8' : 'lg:col-span-7'}`}>
           <div className={`relative w-full rounded-2xl overflow-hidden border border-indigo-500/20 bg-black/60 shadow-2xl transition-all duration-300 ${
-            isExpanded ? 'h-[540px]' : 'h-[360px] sm:h-[420px]'
+            isExpanded ? 'h-[560px]' : 'h-[380px] sm:h-[440px]'
           }`}>
             
             {/* 3D Spline Scene Viewport */}
@@ -323,20 +477,20 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
               <SplineRadarFallback isConnecting={false} />
             )}
 
-            {/* Floating Cockpit HUD Overlays inside the 3D Canvas */}
-            <div className="absolute top-3 left-3 z-20 pointer-events-none flex items-center space-x-2">
-              <span className="px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-indigo-300 flex items-center space-x-1.5">
-                <Activity className="w-3 h-3 text-emerald-400 animate-spin" />
-                <span>INTERACTIVE 3D DASHBOARD</span>
+            {/* Custom Overlay: Branding the 3D Canvas specifically for DarkSpot AI */}
+            <div className="absolute top-4 left-4 z-20 pointer-events-none flex items-center space-x-2">
+              <span className="px-3 py-1 rounded-xl bg-black/75 backdrop-blur-md border border-indigo-500/30 text-xs font-mono font-bold text-indigo-300 flex items-center space-x-2 shadow-lg">
+                <Activity className="w-3.5 h-3.5 text-emerald-400 animate-spin" />
+                <span>DARKSPOT 3D RADAR MATRIX</span>
               </span>
             </div>
 
-            <div className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between pointer-events-none">
-              <div className="px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-zinc-400">
-                Click & drag inside 3D space to orbit
+            <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
+              <div className="px-3 py-1 rounded-xl bg-black/75 backdrop-blur-md border border-white/10 text-[11px] font-mono text-zinc-300 shadow-lg">
+                Interactive: Click & drag to rotate 3D prisms
               </div>
-              <div className="px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-indigo-300">
-                Scene: hKClaNwSIFExj9Xp
+              <div className="px-3 py-1 rounded-xl bg-black/75 backdrop-blur-md border border-indigo-500/30 text-[11px] font-mono text-indigo-300 shadow-lg">
+                Shinchan Hackathon 2026
               </div>
             </div>
 
@@ -345,70 +499,69 @@ export const Spline3DDashboard: React.FC<Spline3DDashboardProps> = ({
 
       </div>
 
-      {/* Bottom Quick Feature Navigator Dock */}
+      {/* Bottom Integrated Dock: 5 Core Views */}
       <div className="mt-5 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 relative z-20">
         
-        <div className="flex items-center space-x-1 text-xs text-zinc-400">
-          <Compass className="w-3.5 h-3.5 text-indigo-400" />
-          <span>Dashboard Views:</span>
+        <div className="text-xs text-zinc-400 font-medium">
+          Select Analysis View:
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           
           <button
             onClick={() => onTabChange('gaps')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-2 ${
               activeTab === 'gaps'
-                ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30'
-                : 'bg-white/5 hover:bg-white/10 text-zinc-300'
+                ? 'bg-rose-600 text-white shadow-lg shadow-rose-600/40 ring-1 ring-rose-400'
+                : 'bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/5'
             }`}
           >
             <AlertTriangle className="w-3.5 h-3.5" />
-            <span>Information Gaps</span>
+            <span>Information Gaps ({metrics.criticalGapsCount + metrics.moderateGapsCount})</span>
           </button>
 
           <button
             onClick={() => onTabChange('conflicts')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-2 ${
               activeTab === 'conflicts'
-                ? 'bg-amber-600 text-white shadow-md shadow-amber-600/30'
-                : 'bg-white/5 hover:bg-white/10 text-zinc-300'
+                ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/40 ring-1 ring-amber-400'
+                : 'bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/5'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
-            <span>Contradiction Radar</span>
+            <span>Contradiction Radar ({metrics.conflictsCount})</span>
           </button>
 
           <button
             onClick={() => onTabChange('freshness')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-2 ${
               activeTab === 'freshness'
-                ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30'
-                : 'bg-white/5 hover:bg-white/10 text-zinc-300'
+                ? 'bg-orange-600 text-white shadow-lg shadow-orange-600/40 ring-1 ring-orange-400'
+                : 'bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/5'
             }`}
           >
             <CalendarClock className="w-3.5 h-3.5" />
-            <span>Temporal Audit</span>
+            <span>Temporal Audit ({metrics.temporalWarningsCount})</span>
           </button>
 
           <button
             onClick={() => onTabChange('evidence')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-2 ${
               activeTab === 'evidence'
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
-                : 'bg-white/5 hover:bg-white/10 text-zinc-300'
+                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/40 ring-1 ring-emerald-400'
+                : 'bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/5'
             }`}
           >
             <FileCheck className="w-3.5 h-3.5" />
-            <span>Traceable Evidence</span>
+            <span>Evidence & Facts</span>
           </button>
 
           <button
             onClick={() => onTabChange('checklist')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-2 ${
               activeTab === 'checklist'
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                : 'bg-white/5 hover:bg-white/10 text-zinc-300'
+                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/40 ring-1 ring-indigo-400'
+                : 'bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/5'
             }`}
           >
             <CheckSquare className="w-3.5 h-3.5" />
@@ -534,11 +687,10 @@ function SplineRadarFallback({ isConnecting }: { isConnecting: boolean }) {
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 backdrop-blur-[2px] space-y-2 pointer-events-none">
           <div className="w-7 h-7 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
           <span className="text-xs font-mono text-indigo-300">
-            Loading 3D Dashboard Scene (hKClaNwSIFExj9Xp)...
+            Connecting 3D Radar Matrix...
           </span>
         </div>
       )}
     </div>
   );
 }
-
