@@ -12,7 +12,7 @@ import { FreshnessView } from '@/components/FreshnessView';
 import { EvidenceView } from '@/components/EvidenceView';
 import { ChecklistView } from '@/components/ChecklistView';
 import { HowItWorksModal } from '@/components/HowItWorksModal';
-import { Spline3DHero } from '@/components/Spline3DHero';
+import { Spline3DDashboard } from '@/components/Spline3DDashboard';
 import { 
   AlertTriangle, 
   ShieldAlert, 
@@ -102,11 +102,14 @@ export default function Home() {
           </div>
         )}
 
-        {/* Interactive 3D Spline Information Radar */}
-        <Spline3DHero
-          completenessScore={currentResult.metrics.completenessScore}
-          gapsCount={currentResult.gaps.length}
-          conflictsCount={currentResult.conflicts.length}
+        {/* Interactive 3D Cyber Dashboard (Spline scene hKClaNwSIFExj9Xp) */}
+        <Spline3DDashboard
+          metrics={currentResult.metrics}
+          topic={currentResult.topic}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          onSelectScenario={handleSelectScenario}
+          activeScenarioId={activeScenarioId}
         />
 
         {/* Input & Scenario Selector */}
