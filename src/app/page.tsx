@@ -3,29 +3,25 @@
 import React, { useState } from 'react';
 import { SAMPLE_SCENARIOS } from '@/data/sampleScenarios';
 import { AnalysisResult } from '@/types';
-import { Header } from '@/components/Header';
-import { MetricsOverview } from '@/components/MetricsOverview';
-import { SourceInputSection } from '@/components/SourceInputSection';
-import { GapsView } from '@/components/GapsView';
-import { ConflictsView } from '@/components/ConflictsView';
-import { FreshnessView } from '@/components/FreshnessView';
-import { EvidenceView } from '@/components/EvidenceView';
-import { ChecklistView } from '@/components/ChecklistView';
+import { CosmicNavbar } from '@/components/cosmic/CosmicNavbar';
+import { CosmicHeroSection } from '@/components/cosmic/CosmicHeroSection';
+import { CosmicStatsBar } from '@/components/cosmic/CosmicStatsBar';
+import { CosmicAboutSection } from '@/components/cosmic/CosmicAboutSection';
+import { CosmicServicesSection } from '@/components/cosmic/CosmicServicesSection';
+import { CosmicResultsSection } from '@/components/cosmic/CosmicResultsSection';
+import { CosmicFeaturedWorksSection } from '@/components/cosmic/CosmicFeaturedWorksSection';
+import { CosmicCTABanner } from '@/components/cosmic/CosmicCTABanner';
+import { CosmicFooter } from '@/components/cosmic/CosmicFooter';
+import { CosmicHackathonDashboard } from '@/components/cosmic/CosmicHackathonDashboard';
 import { HowItWorksModal } from '@/components/HowItWorksModal';
-import { 
-  AlertTriangle, 
-  ShieldAlert, 
-  CalendarClock, 
-  FileCheck, 
-  CheckSquare
-} from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 
 export default function Home() {
+  const [viewMode, setViewMode] = useState<'showcase' | 'dashboard'>('showcase');
   const [activeScenarioId, setActiveScenarioId] = useState<string>('scholarship-2026');
   const [currentResult, setCurrentResult] = useState<AnalysisResult>(
     SAMPLE_SCENARIOS[0].precomputedResult
   );
-  const [activeTab, setActiveTab] = useState<'gaps' | 'conflicts' | 'freshness' | 'evidence' | 'checklist'>('gaps');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isHowItWorksOpen, setIsHowItWorksOpen] = useState<boolean>(false);
@@ -86,157 +82,165 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
-      {/* Navigation Header */}
-      <Header onOpenHowItWorks={() => setIsHowItWorksOpen(true)} />
+    <div className="min-h-screen bg-[#050508] text-zinc-100 flex flex-col selection:bg-purple-600 selection:text-white">
+      
+      {/* Global Fixed Cosmic Navigation matching the uploaded image */}
+      <CosmicNavbar
+        activeView={viewMode}
+        onViewChange={setViewMode}
+        onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
+      />
+
+      {/* Floating Toggle Pill (Always accessible for judges) */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <button
+          onClick={() => {
+            const next = viewMode === 'showcase' ? 'dashboard' : 'showcase';
+            setViewMode(next);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="flex items-center space-x-2 px-4 py-2.5 rounded-full btn-cosmic-purple text-xs font-bold text-white shadow-2xl border border-purple-400/40 backdrop-blur-md cursor-pointer hover:scale-105 transition-all"
+        >
+          <Sparkles className="w-4 h-4 text-purple-200 animate-pulse" />
+          <span>
+            {viewMode === 'showcase' ? 'Switch to AI Cockpit ⚡' : 'Back to Agency Showcase 🌟'}
+          </span>
+        </button>
+      </div>
+
+      {/* Error notification banner if any */}
+      {errorMsg && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 max-w-xl w-full px-4">
+          <div className="p-3.5 rounded-2xl bg-rose-950/80 border border-rose-500/40 text-rose-300 text-xs flex items-center justify-between shadow-2xl backdrop-blur-xl">
+            <span>{errorMsg}</span>
+            <button onClick={() => setErrorMsg(null)} className="underline font-bold ml-2">Dismiss</button>
+          </div>
+        </div>
+      )}
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="flex-1 w-full pt-16">
         
-        {/* Error notification banner if any */}
-        {errorMsg && (
-          <div className="p-4 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-300 text-xs flex items-center justify-between">
-            <span>{errorMsg}</span>
-            <button onClick={() => setErrorMsg(null)} className="underline font-medium">Dismiss</button>
+        {viewMode === 'showcase' ? (
+          /* SHOWCASE VIEW: 100% FAITHFUL REPLICA OF THE UPLOADED DESIGN */
+          <div className="space-y-4">
+            
+            {/* Hero Section */}
+            <CosmicHeroSection
+              onGetStarted={() => {
+                setViewMode('dashboard');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onWatchShowreel={() => setIsHowItWorksOpen(true)}
+            />
+
+            {/* Stats Bar */}
+            <CosmicStatsBar />
+
+            {/* About Us Section */}
+            <CosmicAboutSection
+              onLearnMore={() => {
+                setViewMode('dashboard');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+
+            {/* Our Services Section */}
+            <CosmicServicesSection
+              onSelectService={() => {
+                // Smoothly route to dashboard for analysis
+                setViewMode('dashboard');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+
+            {/* Results That Speak Louder */}
+            <CosmicResultsSection
+              onSeeCaseStudies={() => {
+                setViewMode('dashboard');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+
+            {/* Featured Works */}
+            <CosmicFeaturedWorksSection
+              onSelectWork={() => {
+                setViewMode('dashboard');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+
+            {/* Interactive Hackathon Evaluation Callout for Judges */}
+            <section className="relative py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="cosmic-glass rounded-3xl p-6 sm:p-8 border border-purple-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+                <div className="space-y-2 text-left">
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-mono font-bold uppercase text-purple-300">
+                      Shinchan Hackathon 2026 Live Engine
+                    </span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-black text-white">
+                    Experience DarkSpot AI Intelligence Cockpit
+                  </h3>
+                  <p className="text-xs text-zinc-400 max-w-xl">
+                    Cross-examine multi-source publications, detect digital dark spots, highlight conflicting criteria, and generate actionable verification checklists.
+                  </p>
+                </div>
+
+                <div className="flex items-center space-x-3 shrink-0">
+                  <button
+                    onClick={() => {
+                      setViewMode('dashboard');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="px-6 py-3 rounded-full text-xs font-semibold text-white btn-cosmic-purple flex items-center space-x-2 shadow-lg shadow-purple-600/40 cursor-pointer"
+                  >
+                    <span>Launch AI Cockpit</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            {/* Call To Action Banner */}
+            <CosmicCTABanner
+              onConsultation={() => {
+                setViewMode('dashboard');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+
+          </div>
+        ) : (
+          /* HACKATHON DASHBOARD VIEW: FULL SUITE OF DETECTION TOOLS IN PURPLE THEME */
+          <div className="pt-4">
+            <CosmicHackathonDashboard
+              currentResult={currentResult}
+              activeScenarioId={activeScenarioId}
+              onSelectScenario={handleSelectScenario}
+              onAnalyzeCustom={handleAnalyzeCustom}
+              isLoading={isLoading}
+              onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
+            />
           </div>
         )}
 
-        {/* Input & Scenario Selector */}
-        <SourceInputSection
-          onSelectScenario={handleSelectScenario}
-          onAnalyzeCustom={handleAnalyzeCustom}
-          isLoading={isLoading}
-          activeScenarioId={activeScenarioId}
-        />
-
-        {/* Dashboard Top Metrics */}
-        <MetricsOverview
-          metrics={currentResult.metrics}
-          topic={currentResult.topic}
-        />
-
-        {/* Tab Navigation */}
-        <div className="border-b border-white/10 flex items-center space-x-1 sm:space-x-2 overflow-x-auto no-scrollbar pt-2">
-          
-          <button
-            onClick={() => setActiveTab('gaps')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'gaps'
-                ? 'border-rose-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <AlertTriangle className={`w-4 h-4 ${activeTab === 'gaps' ? 'text-rose-400' : 'text-zinc-500'}`} />
-            <span>Information Gaps (Dark Spots)</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 font-mono">
-              {currentResult.gaps.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('conflicts')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'conflicts'
-                ? 'border-amber-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <ShieldAlert className={`w-4 h-4 ${activeTab === 'conflicts' ? 'text-amber-400' : 'text-zinc-500'}`} />
-            <span>Contradiction Radar</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">
-              {currentResult.conflicts.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('freshness')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'freshness'
-                ? 'border-orange-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <CalendarClock className={`w-4 h-4 ${activeTab === 'freshness' ? 'text-orange-400' : 'text-zinc-500'}`} />
-            <span>Temporal & Freshness Audit</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 font-mono">
-              {currentResult.temporalWarnings.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('evidence')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'evidence'
-                ? 'border-emerald-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <FileCheck className={`w-4 h-4 ${activeTab === 'evidence' ? 'text-emerald-400' : 'text-zinc-500'}`} />
-            <span>Evidence & Sourced Facts</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
-              {currentResult.facts.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('checklist')}
-            className={`flex items-center space-x-2 py-3 px-3.5 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-all ${
-              activeTab === 'checklist'
-                ? 'border-indigo-500 text-white font-semibold'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            <CheckSquare className={`w-4 h-4 ${activeTab === 'checklist' ? 'text-indigo-400' : 'text-zinc-500'}`} />
-            <span>Verification Checklist</span>
-            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-mono">
-              {currentResult.checklist.length}
-            </span>
-          </button>
-
-        </div>
-
-        {/* Tab Content Panels */}
-        <div className="pt-2">
-          {activeTab === 'gaps' && <GapsView gaps={currentResult.gaps} />}
-          {activeTab === 'conflicts' && (
-            <ConflictsView conflicts={currentResult.conflicts} sources={currentResult.sources} />
-          )}
-          {activeTab === 'freshness' && (
-            <FreshnessView warnings={currentResult.temporalWarnings} sources={currentResult.sources} />
-          )}
-          {activeTab === 'evidence' && (
-            <EvidenceView sources={currentResult.sources} facts={currentResult.facts} />
-          )}
-          {activeTab === 'checklist' && (
-            <ChecklistView tasks={currentResult.checklist} fullResult={currentResult} />
-          )}
-        </div>
-
       </main>
 
-      {/* Footer */}
-      <footer className="w-full border-t border-white/10 py-6 mt-16 bg-black/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-zinc-300">DarkSpot AI</span>
-            <span>•</span>
-            <span>Shinchan Online Hackathon 2026 Official Project</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <span className="text-zinc-400">
-              Scoring Aligned with Official 10-Mark Rubric
-            </span>
-            <button
-              onClick={() => setIsHowItWorksOpen(true)}
-              className="text-indigo-400 hover:text-indigo-300 transition-colors"
-            >
-              Methodology
-            </button>
-          </div>
-        </div>
-      </footer>
+      {/* Global Footer matching the image */}
+      <CosmicFooter
+        onNavClick={(target) => {
+          if (target === 'Case Studies' || target === 'Services') {
+            setViewMode('dashboard');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            setViewMode('showcase');
+          }
+        }}
+      />
 
-      {/* How it Works / Problem Background Modal */}
+      {/* Methodology / Problem Statement Rubric Modal */}
       <HowItWorksModal
         isOpen={isHowItWorksOpen}
         onClose={() => setIsHowItWorksOpen(false)}
