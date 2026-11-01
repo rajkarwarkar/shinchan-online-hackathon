@@ -26,11 +26,7 @@ export default function Home() {
     setReport
   } = useDarkSpotStore();
 
-  const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   // Real pipeline analysis trigger
   const handleRunAnalysis = async () => {
@@ -61,18 +57,7 @@ export default function Home() {
     }
   };
 
-  if (!isMounted) {
-    return (
-      <div className="min-h-screen bg-[#05030A] flex items-center justify-center text-zinc-400">
-        <div className="flex flex-col items-center space-y-4">
-          <DarkSpotOrb size={60} pulse={true} />
-          <span className="font-mono text-xs tracking-widest uppercase text-violet-300">
-            INITIALIZING CHROME NOIR AUDIT ENGINE...
-          </span>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
     <NoirFrame>

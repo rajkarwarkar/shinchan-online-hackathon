@@ -100,7 +100,14 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentView, onNavigat
           <span className="text-white/15 select-none font-thin hidden sm:inline">|</span>
 
           <button
-            onClick={() => setIsWhyGapsModalOpen(true)}
+            onClick={() => {
+              if (currentView === 'landing') {
+                const el = document.getElementById('chapter-problem');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                setIsWhyGapsModalOpen(true);
+              }
+            }}
             className="px-3 py-1.5 rounded-full text-xs font-mono tracking-wider text-zinc-400 hover:text-white hover:bg-white/5 transition-all cursor-pointer hidden sm:flex items-center space-x-1"
           >
             <HelpCircle className="w-3.5 h-3.5 text-violet-400" />
