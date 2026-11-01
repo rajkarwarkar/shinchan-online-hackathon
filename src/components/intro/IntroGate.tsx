@@ -2,14 +2,13 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useDarkSpotStore } from '@/store/useDarkSpotStore';
 
 export const IntroGate: React.FC = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { setCurrentView, loadSampleMode } = useDarkSpotStore();
 
   // State
@@ -31,8 +30,10 @@ export const IntroGate: React.FC = () => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setIsReducedMotion(prefersReduced);
 
+    const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+
     // Auto-skip when query has ?skip=1
-    if (searchParams.get('skip') === '1') {
+    if (params?.get('skip') === '1') {
       setCurrentView('dashboard');
       loadSampleMode();
       router.replace('/home?view=dashboard');
@@ -42,7 +43,7 @@ export const IntroGate: React.FC = () => {
     // Check sessionStorage intro_seen (unless ?replay=1)
     if (typeof window !== 'undefined') {
       const seen = sessionStorage.getItem('intro_seen');
-      if (seen && searchParams.get('replay') !== '1') {
+      if (seen && params?.get('replay') !== '1') {
         setCurrentView('dashboard');
         loadSampleMode();
         router.replace('/home?view=dashboard');
@@ -61,7 +62,7 @@ export const IntroGate: React.FC = () => {
       normX: 0,
       normY: 0,
     });
-  }, [router, searchParams, setCurrentView, loadSampleMode]);
+  }, [router, setCurrentView, loadSampleMode]);
 
   // Loading Counter Animation (min 1.8s, max 2.6s)
   useEffect(() => {
@@ -465,13 +466,14 @@ export const IntroGate: React.FC = () => {
               {!imageError ? (
                 <div className="relative w-full h-full flex items-center justify-center">
                   <Image
-                    src="/art/hero-orb.webp"
+                    src="/art/hero-orb.png"
                     alt="Chrome sphere with an amber core surrounded by floating document panels"
                     width={1024}
                     height={852}
                     priority
+                    unoptimized
                     onError={() => setImageError(true)}
-                    className="w-full h-auto object-contain select-none pointer-events-none mix-blend-screen"
+                    className="w-full h-auto object-contain select-none pointer-events-none"
                   />
                 </div>
               ) : (
