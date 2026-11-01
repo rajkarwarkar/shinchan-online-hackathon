@@ -26,7 +26,8 @@ function HomeContent() {
     sources,
     aspects,
     setReport,
-    loadSampleMode
+    loadSampleMode,
+    setAiError
   } = useDarkSpotStore();
 
   useEffect(() => {
@@ -44,6 +45,7 @@ function HomeContent() {
     if (sources.length < 2 || !question.trim()) return;
 
     setIsAnalyzing(true, 'Synthesizing evidence & detecting gaps...');
+    setAiError(null);
 
     try {
       const res = await fetch('/api/analyze', {
@@ -54,14 +56,20 @@ function HomeContent() {
 
       const data = await res.json();
       if (!res.ok || !data.success) {
+        if (data.code === 'AI_KEY_NOT_CONFIGURED' || !res.ok) {
+          setAiError(data.error || 'AI key not configured');
+          setIsAnalyzing(false);
+          return;
+        }
         throw new Error(data.error || 'Failed to synthesize analysis');
       }
 
-      setReport(data.report);
+      setReport(data.data || data.report);
       setCurrentView('dashboard');
-    } catch (err: any) {
-      console.warn('API error, falling back to local synthesis:', err);
-      setCurrentView('dashboard');
+    } catch (err: unknown) {
+      console.warn('Analysis request error:', err);
+      const msg = err instanceof Error ? err.message : 'AI key not configured';
+      setAiError(msg);
     } finally {
       setIsAnalyzing(false);
     }

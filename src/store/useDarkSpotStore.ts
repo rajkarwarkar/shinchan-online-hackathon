@@ -35,8 +35,14 @@ interface DarkSpotState {
   // Sample mode indicator
   isSampleMode: boolean;
 
+  // AI configuration & health
+  aiConfigured: boolean | null;
+  aiError: string | null;
+
   // Actions
   setQuestion: (question: string) => void;
+  setAiError: (error: string | null) => void;
+  checkAiHealth: () => Promise<boolean>;
   addSource: (source: Source) => void;
   removeSource: (id: string) => void;
   updateSource: (id: string, update: Partial<Source>) => void;
@@ -79,8 +85,24 @@ export const useDarkSpotStore = create<DarkSpotState>()(
       isWhyGapsModalOpen: false,
       isExportModalOpen: false,
       isSampleMode: true,
+      aiConfigured: null,
+      aiError: null,
 
       setQuestion: (question) => set({ question, activeScenarioId: 'custom' }),
+      setAiError: (aiError) => set({ aiError }),
+      checkAiHealth: async () => {
+        try {
+          const res = await fetch('/api/health');
+          if (!res.ok) throw new Error('Health check endpoint failed');
+          const data = await res.json();
+          const configured = Boolean(data.aiConfigured);
+          set({ aiConfigured: configured });
+          return configured;
+        } catch {
+          set({ aiConfigured: false });
+          return false;
+        }
+      },
       
       addSource: (source) =>
         set((state) => ({
@@ -170,6 +192,7 @@ export const useDarkSpotStore = create<DarkSpotState>()(
       },
 
       loadSampleMode: () => {
+        set({ aiError: null });
         get().loadScenario('stem-scholarship');
       },
         

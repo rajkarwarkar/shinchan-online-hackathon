@@ -31,6 +31,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey || !apiKey.trim()) {
+      return NextResponse.json(
+        {
+          success: false,
+          code: 'AI_KEY_NOT_CONFIGURED',
+          error: 'AI key not configured. Add your GEMINI_API_KEY in .env.local to run custom AI analysis, or explore Sample Mode without a key.',
+          aiConfigured: false
+        },
+        { status: 400 }
+      );
+    }
+
     // 1. Generate or Adopt Aspects Framework
     const aspects: Aspect[] =
       clientAspects && clientAspects.length > 0

@@ -21,6 +21,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey || !apiKey.trim()) {
+      return NextResponse.json(
+        {
+          success: false,
+          code: 'AI_KEY_NOT_CONFIGURED',
+          error: 'AI key not configured. Add your GEMINI_API_KEY in .env.local to extract claims with AI, or explore Sample Mode without a key.',
+          aiConfigured: false
+        },
+        { status: 400 }
+      );
+    }
+
     const claims = await extractClaimsFromSource(source, aspects);
 
     return NextResponse.json({

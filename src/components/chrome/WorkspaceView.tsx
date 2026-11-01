@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDarkSpotStore } from '@/store/useDarkSpotStore';
 import { Source } from '@/types';
 import { formatDateDeterministic } from '@/lib/dates/format';
@@ -34,9 +34,17 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
     removeSource, 
     openSourceDrawer, 
     loadScenario,
+    loadSampleMode,
     activeScenarioId,
-    setIsAnalyzing
+    setIsAnalyzing,
+    aiConfigured,
+    aiError,
+    checkAiHealth
   } = useDarkSpotStore();
+
+  useEffect(() => {
+    checkAiHealth();
+  }, [checkAiHealth]);
 
   const [activeTab, setActiveTab] = useState<'url' | 'paste'>('url');
   const [inputUrl, setInputUrl] = useState('');
@@ -117,6 +125,37 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
           Enter your high-stakes question and link source documents. Digital Dark Spot cross-references claims to uncover what is missing.
         </p>
       </div>
+
+      {/* AI Key Not Configured Notice Banner */}
+      {(aiConfigured === false || aiError) && (
+        <div className="noir-panel rounded-3xl p-5 sm:p-6 border border-amber-500/40 bg-gradient-to-r from-amber-950/20 via-[#0A0712] to-amber-950/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_0_30px_rgba(251,191,36,0.1)]">
+          <div className="flex items-start space-x-3.5">
+            <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 flex-shrink-0 mt-0.5 sm:mt-0">
+              <AlertTriangle className="w-5 h-5" />
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center space-x-2">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
+                  AI key not configured
+                </span>
+                <span className="text-xs font-mono text-zinc-500">·</span>
+                <span className="text-xs font-mono text-zinc-400">.env.local</span>
+              </div>
+              <p className="text-sm text-zinc-300 font-sans leading-relaxed">
+                {aiError || 'To analyze custom live sources, add GEMINI_API_KEY to your .env.local file. Or test the platform now with full sample data.'}
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={loadSampleMode}
+            className="px-6 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-black text-xs sm:text-sm font-bold tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(251,191,36,0.3)] flex items-center space-x-2 cursor-pointer flex-shrink-0 w-full sm:w-auto justify-center"
+          >
+            <span className="w-2 h-2 rounded-full bg-black animate-pulse" />
+            <span>TRY SAMPLE MODE</span>
+          </button>
+        </div>
+      )}
 
       {/* 1-Click Scenario Example Chips */}
       <div className="space-y-2.5">

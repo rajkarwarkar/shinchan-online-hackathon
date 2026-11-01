@@ -119,29 +119,47 @@ flowchart TD
 
 ---
 
-## 🚀 Running the Project
+## 🚀 Setup & Running the Project
 
 ### Prerequisites
 - Node.js 20+ installed
 - npm or pnpm
 
 ### Setup
-```bash
-# Clone the repository
-git clone https://github.com/rajkarwarkar/shinchan-online-hackathon.git
-cd shinchan-online-hackathon
+1. **Clone & install dependencies:**
+   ```bash
+   git clone https://github.com/rajkarwarkar/shinchan-online-hackathon.git
+   cd shinchan-online-hackathon
+   npm install
+   ```
 
-# Install dependencies
-npm install
+2. **Configure environment variables:**
+   - Copy `.env.example` to `.env.local`:
+     ```bash
+     cp .env.example .env.local
+     ```
+   - Open `.env.local` and add your Google Gemini API key:
+     ```env
+     GEMINI_API_KEY="your-gemini-api-key-here"
+     GEMINI_MODEL="gemini-2.5-flash"
+     ```
+   > 💡 **Sample Mode works without a key:** You can run and evaluate the entire platform end-to-end immediately without an API key using the pre-compiled offline Sample Mode.
 
-# Run unit tests
-npm run test
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-# Build for production
-npm run build
+4. **Run tests & production build:**
+   ```bash
+   # Run deterministic verification test suite
+   npm run test
 
-# Start the application
-npm run start
-```
-*Note: Set `GEMINI_API_KEY` in `.env.local` to enable live web extraction with Google Generative AI, or use the built-in offline Sample Mode without any API keys.*
+   # Build for production
+   npm run build
+
+   # Start production server
+   npm run start
+   ```
 
