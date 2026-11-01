@@ -44,7 +44,7 @@ export const HUDProgressDots: React.FC = () => {
 
       {/* Left Vertical Section Dots (HUD Motif) */}
       <div className="fixed left-6 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col items-start space-y-4 pointer-events-auto">
-        <div className="text-[8px] font-mono tracking-widest text-zinc-600 uppercase -rotate-90 origin-left mb-6 ml-2 select-none">
+        <div className="text-xs font-mono tracking-wider text-zinc-500 uppercase -rotate-90 origin-left mb-6 ml-2 select-none">
           CHRONO.MAP
         </div>
 
@@ -65,10 +65,10 @@ export const HUDProgressDots: React.FC = () => {
                 }`}
               />
               <span
-                className={`font-mono text-[9px] tracking-widest uppercase transition-all duration-200 select-none ${
+                className={`font-mono text-xs font-semibold tracking-wider uppercase transition-all duration-200 select-none ${
                   isActive
-                    ? 'text-violet-300 font-bold opacity-100 translate-x-1'
-                    : 'text-zinc-600 opacity-0 group-hover:opacity-100 group-hover:text-zinc-300'
+                    ? 'text-violet-300 opacity-100 translate-x-1'
+                    : 'text-zinc-500 opacity-0 group-hover:opacity-100 group-hover:text-zinc-200'
                 }`}
               >
                 {ch.label}

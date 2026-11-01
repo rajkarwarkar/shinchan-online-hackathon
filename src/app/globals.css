@@ -68,10 +68,10 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Fonts */
+/* Fonts & Human-Centered Typography */
 .font-display {
   font-family: var(--font-display, 'Unbounded', sans-serif);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   text-transform: uppercase;
   font-weight: 800;
 }
@@ -79,8 +79,15 @@ body::after {
 .font-hud {
   font-family: var(--font-mono, monospace);
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 10px;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Human-designed comfortable typography scale */
+body {
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 /* Chrome Noir Headline Styles */

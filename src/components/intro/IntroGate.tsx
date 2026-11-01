@@ -262,40 +262,40 @@ export const IntroGate: React.FC = () => {
       >
         <div className="relative w-full h-full rounded-[28px] sm:rounded-[36px] border border-white/[0.08] pointer-events-none flex flex-col justify-between p-4 sm:p-6">
           {/* Top Left: Wordmark & Role */}
-          <div className="flex items-center space-x-2 text-[10px] font-mono text-zinc-400">
-            <span className="text-white font-bold text-sm">+</span>
-            <div className="flex items-center space-x-1.5 pl-1">
-              <span className="font-bold text-violet-300 uppercase tracking-widest">
+          <div className="flex items-center space-x-2 text-xs font-mono text-zinc-300">
+            <span className="text-white font-bold text-base">+</span>
+            <div className="flex items-center space-x-2 pl-1">
+              <span className="font-bold text-violet-300 uppercase tracking-wider">
                 DARK SPOT®
               </span>
               <span className="text-zinc-600">/</span>
-              <span className="text-zinc-500 hidden sm:inline uppercase tracking-wider text-[9px]">
+              <span className="text-zinc-400 hidden sm:inline uppercase tracking-wide text-xs">
                 INFORMATION GAP SENTINEL
               </span>
             </div>
           </div>
 
           {/* Top Right: Hackathon Header */}
-          <div className="absolute top-4 sm:top-6 right-4 sm:right-6 flex items-center space-x-2 text-[10px] font-mono text-zinc-400">
-            <span className="text-violet-400 text-xs animate-pulse">✦</span>
-            <span className="text-zinc-500 uppercase tracking-widest text-[9px]">
+          <div className="absolute top-4 sm:top-6 right-4 sm:right-6 flex items-center space-x-2 text-xs font-mono text-zinc-300">
+            <span className="text-violet-400 text-sm animate-pulse">✦</span>
+            <span className="text-zinc-400 uppercase tracking-wider text-xs">
               SHINCHAN HACKATHON 2026
             </span>
-            <span className="text-white font-bold text-sm">+</span>
+            <span className="text-white font-bold text-base">+</span>
           </div>
 
           {/* Bottom Left + */}
-          <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 flex items-center space-x-1.5 text-[10px] font-mono text-zinc-500">
-            <span className="text-white font-bold text-sm">+</span>
-            <span className="text-amber-400/80 text-xs">✦</span>
+          <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 flex items-center space-x-2 text-xs font-mono text-zinc-400">
+            <span className="text-white font-bold text-base">+</span>
+            <span className="text-amber-400 text-sm">✦</span>
           </div>
 
           {/* Bottom Right: Version Tag */}
-          <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 flex items-center space-x-2 text-[10px] font-mono text-zinc-500">
-            <span className="tracking-widest uppercase text-[9px]">
+          <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 flex items-center space-x-2 text-xs font-mono text-zinc-400">
+            <span className="tracking-wider uppercase text-xs">
               v1.0 · EVIDENCE-LOCKED
             </span>
-            <span className="text-white font-bold text-sm">+</span>
+            <span className="text-white font-bold text-base">+</span>
           </div>
         </div>
       </motion.div>
@@ -368,14 +368,14 @@ export const IntroGate: React.FC = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-300 font-mono text-[11px] tracking-[0.2em] uppercase"
+              className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-300 text-xs sm:text-sm font-semibold tracking-wider uppercase"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
               <span>WELCOME TO</span>
             </motion.div>
 
             {/* 3-Line Display Heading with Staggered Mask-Wipe */}
-            <div className="font-display text-5xl sm:text-7xl lg:text-8xl tracking-tight leading-[0.88] select-none">
+            <div className="font-display text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[0.92] select-none">
               {/* Line 1: DIGITAL (Solid White) */}
               <div className="overflow-hidden">
                 <motion.div
@@ -413,12 +413,12 @@ export const IntroGate: React.FC = () => {
               </div>
             </div>
 
-            {/* Mono Subtitle */}
+            {/* Human Editorial Subtitle */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-xs sm:text-sm font-mono text-zinc-400 max-w-md tracking-wider pt-2"
+              className="text-base sm:text-lg text-zinc-300 max-w-lg leading-relaxed pt-3 font-sans font-normal"
             >
               Find what search misses. AI-assisted information gap detection platform.
             </motion.p>
@@ -509,20 +509,20 @@ export const IntroGate: React.FC = () => {
                   className="noir-panel-violet rounded-2xl p-4 sm:p-4.5 min-w-[280px] sm:min-w-[320px] flex items-center justify-between gap-4 border border-violet-500/30 backdrop-blur-2xl shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
                 >
                   <div className="space-y-1 flex-1">
-                    <div className="flex items-center justify-between text-[10px] font-mono tracking-widest text-violet-300 uppercase">
+                    <div className="flex items-center justify-between text-xs font-mono font-semibold tracking-wider text-violet-300 uppercase">
                       <span>CALIBRATING ENGINE</span>
-                      <span className="font-bold text-white">{progress}%</span>
+                      <span className="font-bold text-white text-sm">{progress}%</span>
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-violet-500 via-purple-400 to-amber-400 transition-all duration-75"
                         style={{ width: `${progress}%` }}
                       />
                     </div>
 
-                    <div className="text-[9px] font-mono text-zinc-500 tracking-wider">
+                    <div className="text-xs text-zinc-400 font-sans">
                       Preloading models & verified sources
                     </div>
                   </div>
@@ -543,7 +543,7 @@ export const IntroGate: React.FC = () => {
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="group relative overflow-hidden px-8 py-4 sm:py-4.5 rounded-2xl bg-gradient-to-r from-violet-600 via-purple-600 to-violet-500 hover:from-violet-500 hover:to-purple-500 text-white font-mono text-xs sm:text-sm font-black tracking-widest uppercase transition-all shadow-[0_0_40px_rgba(139,92,246,0.6)] flex items-center space-x-3 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 border border-violet-300/40"
+                  className="group relative overflow-hidden px-8 py-4 sm:py-4.5 rounded-2xl bg-gradient-to-r from-violet-600 via-purple-600 to-violet-500 hover:from-violet-500 hover:to-purple-500 text-white font-mono text-sm sm:text-base font-bold tracking-wider uppercase transition-all shadow-[0_0_40px_rgba(139,92,246,0.6)] flex items-center space-x-3 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 border border-violet-300/40"
                 >
                   {/* Chrome Sheen Sweep */}
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
@@ -559,15 +559,15 @@ export const IntroGate: React.FC = () => {
             {/* Secondary Skip Intro Link */}
             <button
               onClick={handleSkip}
-              className="text-[11px] font-mono tracking-widest uppercase text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer underline underline-offset-4 py-2"
+              className="text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition-colors cursor-pointer underline underline-offset-4 px-2 py-1"
             >
               SKIP INTRO
             </button>
           </div>
 
           {/* Bottom Center Hint */}
-          <div className="hidden md:flex items-center space-x-2 text-[10px] font-mono text-zinc-500 tracking-[0.2em] uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+          <div className="hidden md:flex items-center space-x-2 text-xs font-mono text-zinc-400 tracking-wide uppercase">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
             <span>PRESS ENTER OR CLICK TO BEGIN</span>
           </div>
         </motion.div>

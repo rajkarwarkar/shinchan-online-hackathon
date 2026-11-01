@@ -56,56 +56,56 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
     <div className="space-y-8 py-4 sm:py-6 max-w-7xl mx-auto w-full">
       {/* Sample Banner if in Sample Mode */}
       {isSampleMode && (
-        <div className="rounded-xl px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono flex items-center justify-between">
+        <div className="rounded-xl px-4 py-2.5 bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-medium flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            <span className="font-bold tracking-wider uppercase">
-              FICTIONAL SAMPLE DATA (AURORA STEM MERIT SCHOLARSHIP)
+            <span className="font-semibold tracking-wide uppercase">
+              Fictional Sample Data (Aurora STEM Merit Scholarship)
             </span>
           </div>
-          <span className="text-[10px] text-zinc-400 hidden sm:inline">
+          <span className="text-xs text-zinc-400 hidden sm:inline font-mono">
             ZERO EXTERNAL NETWORK / API DEPENDENCY
           </span>
         </div>
       )}
 
       {/* Top Cockpit Bar: Compact 'REPORT' heading + the question */}
-      <div className="noir-panel rounded-3xl p-6 border border-white/10 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-3">
-          <div className="flex items-center space-x-2">
-            <span className="px-2.5 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-[10px] font-mono font-bold tracking-widest uppercase">
+      <div className="noir-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-4">
+          <div className="flex items-center space-x-2.5">
+            <span className="px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-xs font-mono font-bold tracking-wider uppercase">
               AUDIT REPORT
             </span>
             <span className="text-zinc-600 font-thin">/</span>
-            <span className="text-xs font-mono text-zinc-400">
-              {sources.length} SOURCES REVIEWED · {verifiedClaims.length} EVIDENCE QUOTES
+            <span className="text-sm font-medium text-zinc-300">
+              {sources.length} Sources Reviewed · {verifiedClaims.length} Evidence Quotes
             </span>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2.5">
             <button
               onClick={() => setIsExportModalOpen(true)}
-              className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white transition-colors flex items-center space-x-1.5 cursor-pointer"
+              className="px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs sm:text-sm font-medium text-zinc-200 hover:text-white transition-colors flex items-center space-x-2 cursor-pointer"
             >
-              <Download className="w-3.5 h-3.5 text-amber-400" />
-              <span>EXPORT</span>
+              <Download className="w-4 h-4 text-amber-400" />
+              <span>Export</span>
             </button>
 
             <button
               onClick={onBackToWorkspace}
-              className="px-3.5 py-1.5 rounded-full bg-violet-600/30 hover:bg-violet-600/50 border border-violet-500/40 text-xs font-mono text-violet-300 hover:text-white transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-full bg-violet-600/30 hover:bg-violet-600/50 border border-violet-500/40 text-xs sm:text-sm font-medium text-violet-200 hover:text-white transition-colors cursor-pointer"
             >
-              EDIT SOURCES
+              Edit Sources
             </button>
           </div>
         </div>
 
         {/* The Question */}
-        <div className="space-y-1">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+        <div className="space-y-1.5">
+          <div className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
             RESEARCH OBJECTIVE
           </div>
-          <h1 className="text-lg sm:text-2xl font-bold text-white tracking-tight">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
             {question || 'No research question provided.'}
           </h1>
         </div>
@@ -113,7 +113,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
         {/* 4 Glass Stat Tiles + Chrome-Ringed Completeness Gauge */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3.5 pt-2">
           {/* Completeness Gauge */}
-          <div className="col-span-2 lg:col-span-1 noir-panel-violet rounded-2xl p-4 border border-violet-500/30 flex items-center space-x-4">
+          <div className="col-span-2 lg:col-span-1 noir-panel-violet rounded-2xl p-4 sm:p-5 border border-violet-500/30 flex items-center space-x-4">
             <div className="relative w-14 h-14 rounded-full border-2 border-white/20 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(139,92,246,0.3)]">
               <div
                 className="absolute inset-0 rounded-full border-2 border-teal-400"
@@ -122,102 +122,102 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
               <span className="font-display text-base font-black text-white">{completeness}%</span>
             </div>
             <div>
-              <div className="text-[9px] font-mono tracking-widest uppercase text-violet-300">
+              <div className="text-xs font-bold tracking-wider uppercase text-violet-300">
                 COMPLETENESS
               </div>
-              <div className="text-xs text-zinc-400">Relative coverage score</div>
+              <div className="text-xs text-zinc-400 font-sans mt-0.5">Relative coverage score</div>
             </div>
           </div>
 
           {/* Gaps Stat */}
           <button
             onClick={() => setActiveTab('gaps')}
-            className={`noir-panel rounded-2xl p-4 border text-left transition-all cursor-pointer ${
+            className={`noir-panel rounded-2xl p-4 sm:p-5 border text-left transition-all cursor-pointer ${
               activeTab === 'gaps' ? 'border-amber-500/60 bg-amber-500/5' : 'border-white/10 hover:border-amber-500/30'
             }`}
           >
-            <div className="flex items-center justify-between text-amber-400 text-xs mb-1">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider">GAPS</span>
-              <ShieldAlert className="w-3.5 h-3.5" />
+            <div className="flex items-center justify-between text-amber-400 mb-1.5">
+              <span className="text-xs font-bold uppercase tracking-wider">GAPS</span>
+              <ShieldAlert className="w-4 h-4" />
             </div>
-            <div className="text-2xl font-black text-white">{gaps.length}</div>
-            <div className="text-[10px] font-mono text-zinc-400">Omissions detected</div>
+            <div className="text-2xl sm:text-3xl font-black text-white">{gaps.length}</div>
+            <div className="text-xs text-zinc-400 font-sans mt-0.5">Omissions detected</div>
           </button>
 
           {/* Conflicts Stat */}
           <button
             onClick={() => setActiveTab('conflicts')}
-            className={`noir-panel rounded-2xl p-4 border text-left transition-all cursor-pointer ${
+            className={`noir-panel rounded-2xl p-4 sm:p-5 border text-left transition-all cursor-pointer ${
               activeTab === 'conflicts' ? 'border-rose-500/60 bg-rose-500/5' : 'border-white/10 hover:border-rose-500/30'
             }`}
           >
-            <div className="flex items-center justify-between text-rose-400 text-xs mb-1">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider">CLASHES</span>
-              <Layers className="w-3.5 h-3.5" />
+            <div className="flex items-center justify-between text-rose-400 mb-1.5">
+              <span className="text-xs font-bold uppercase tracking-wider">CLASHES</span>
+              <Layers className="w-4 h-4" />
             </div>
-            <div className="text-2xl font-black text-white">{conflicts.length}</div>
-            <div className="text-[10px] font-mono text-zinc-400">Policy conflicts</div>
+            <div className="text-2xl sm:text-3xl font-black text-white">{conflicts.length}</div>
+            <div className="text-xs text-zinc-400 font-sans mt-0.5">Policy conflicts</div>
           </button>
 
           {/* Stale Stat */}
           <button
             onClick={() => setActiveTab('freshness')}
-            className={`noir-panel rounded-2xl p-4 border text-left transition-all cursor-pointer ${
+            className={`noir-panel rounded-2xl p-4 sm:p-5 border text-left transition-all cursor-pointer ${
               activeTab === 'freshness' ? 'border-orange-500/60 bg-orange-500/5' : 'border-white/10 hover:border-orange-500/30'
             }`}
           >
-            <div className="flex items-center justify-between text-orange-400 text-xs mb-1">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider">STALE</span>
-              <Clock className="w-3.5 h-3.5" />
+            <div className="flex items-center justify-between text-orange-400 mb-1.5">
+              <span className="text-xs font-bold uppercase tracking-wider">STALE</span>
+              <Clock className="w-4 h-4" />
             </div>
-            <div className="text-2xl font-black text-white">{freshness.length}</div>
-            <div className="text-[10px] font-mono text-zinc-400">Stale/undated cycles</div>
+            <div className="text-2xl sm:text-3xl font-black text-white">{freshness.length}</div>
+            <div className="text-xs text-zinc-400 font-sans mt-0.5">Stale/undated cycles</div>
           </button>
 
           {/* P0 Critical Actions */}
           <button
             onClick={() => setActiveTab('checklist')}
-            className={`noir-panel rounded-2xl p-4 border text-left transition-all cursor-pointer ${
+            className={`noir-panel rounded-2xl p-4 sm:p-5 border text-left transition-all cursor-pointer ${
               activeTab === 'checklist' ? 'border-violet-500/60 bg-violet-500/5' : 'border-white/10 hover:border-violet-500/30'
             }`}
           >
-            <div className="flex items-center justify-between text-violet-400 text-xs mb-1">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider">P0 ACTIONS</span>
-              <CheckSquare2 className="w-3.5 h-3.5" />
+            <div className="flex items-center justify-between text-violet-400 mb-1.5">
+              <span className="text-xs font-bold uppercase tracking-wider">P0 ACTIONS</span>
+              <CheckSquare2 className="w-4 h-4" />
             </div>
-            <div className="text-2xl font-black text-white">{p0Count}</div>
-            <div className="text-[10px] font-mono text-zinc-400">Blockers remaining</div>
+            <div className="text-2xl sm:text-3xl font-black text-white">{p0Count}</div>
+            <div className="text-xs text-zinc-400 font-sans mt-0.5">Blockers remaining</div>
           </button>
         </div>
       </div>
 
       {/* Always-Visible Trust Legend + Disclaimer */}
-      <div className="noir-panel rounded-2xl p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 text-xs border border-white/10">
+      <div className="noir-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm border border-white/10">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+          <span className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
             TRUST LABELS:
           </span>
-          <div className="trust-badge-sourced px-3 py-1 rounded-full flex items-center space-x-1.5 font-mono text-[10px]">
-            <Quote className="w-3 h-3" />
-            <span>SOURCED (Solid Mint · Verified Quote)</span>
+          <div className="trust-badge-sourced px-3 py-1 rounded-full flex items-center space-x-1.5 text-xs font-medium">
+            <Quote className="w-3.5 h-3.5" />
+            <span>SOURCED (Verified Quote)</span>
           </div>
-          <div className="trust-badge-suggested px-3 py-1 rounded-full flex items-center space-x-1.5 font-mono text-[10px]">
-            <Sparkles className="w-3 h-3" />
-            <span>AI-SUGGESTED (Dashed Lavender · Signal)</span>
+          <div className="trust-badge-suggested px-3 py-1 rounded-full flex items-center space-x-1.5 text-xs font-medium">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>AI-SUGGESTED (Signal)</span>
           </div>
-          <div className="trust-badge-uncertain px-3 py-1 rounded-full flex items-center space-x-1.5 font-mono text-[10px]">
-            <HelpCircle className="w-3 h-3" />
-            <span>UNCERTAIN (Hatched Slate · Low Confidence)</span>
+          <div className="trust-badge-uncertain px-3 py-1 rounded-full flex items-center space-x-1.5 text-xs font-medium">
+            <HelpCircle className="w-3.5 h-3.5" />
+            <span>UNCERTAIN (Low Confidence)</span>
           </div>
         </div>
 
-        <span className="text-[10px] font-mono text-amber-400/80">
+        <span className="text-xs text-amber-300/90 font-sans">
           Disclaimer: AI signals, not guaranteed legal facts. Always cross-verify with official authorities.
         </span>
       </div>
 
       {/* Pill-Style Tabs: Overview · Coverage Map · Gaps · Conflicts · Freshness · Checklist · Sources */}
-      <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
+      <div className="flex items-center space-x-2.5 overflow-x-auto pb-2 scrollbar-none">
         {[
           { id: 'overview', label: 'Overview' },
           { id: 'evidence', label: 'Coverage Map' },
@@ -231,7 +231,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-4 py-2 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer flex-shrink-0 ${
+              className={`px-4.5 py-2 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all cursor-pointer flex-shrink-0 ${
                 isActive
                   ? 'bg-violet-600 text-white font-bold shadow-[0_0_15px_rgba(139,92,246,0.4)]'
                   : 'noir-panel hover:bg-white/10 text-zinc-400 hover:text-white border-white/10'
@@ -250,47 +250,54 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Critical Gaps Spotlight */}
-              <div className="noir-panel rounded-3xl p-6 border border-amber-500/30 space-y-4">
+              <div className="noir-panel rounded-3xl p-6 sm:p-7 border border-amber-500/30 space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-display text-sm font-bold text-white tracking-wider flex items-center space-x-2">
-                    <ShieldAlert className="w-4 h-4 text-amber-400" />
+                  <h3 className="font-display text-base font-bold text-white tracking-wide flex items-center space-x-2">
+                    <ShieldAlert className="w-5 h-5 text-amber-400" />
                     <span>CRITICAL OMISSIONS (DARK SPOTS)</span>
                   </h3>
-                  <span className="text-xs font-mono text-amber-400 font-bold">{gaps.length} Found</span>
+                  <span className="text-xs font-semibold text-amber-300 bg-amber-500/20 px-2.5 py-0.5 rounded-full border border-amber-500/40">
+                    {gaps.length} Found
+                  </span>
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   {gaps.slice(0, 3).map((gap) => (
-                    <div key={gap.id} className="p-3 rounded-2xl bg-black/40 border border-white/5 space-y-1">
-                      <div className="text-xs font-bold text-zinc-200">{gap.title}</div>
-                      <p className="text-[11px] text-zinc-400">{gap.explanation}</p>
+                    <div key={gap.id} className="p-4 rounded-2xl bg-black/40 border border-white/5 space-y-1.5">
+                      <div className="text-sm font-bold text-white">{gap.title}</div>
+                      <p className="text-sm text-zinc-300 leading-relaxed font-sans">{gap.explanation}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Verified Evidence Spotlight */}
-              <div className="noir-panel rounded-3xl p-6 border border-teal-500/30 space-y-4">
+              <div className="noir-panel rounded-3xl p-6 sm:p-7 border border-teal-500/30 space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-display text-sm font-bold text-white tracking-wider flex items-center space-x-2">
-                    <FileCheck2 className="w-4 h-4 text-teal-400" />
+                  <h3 className="font-display text-base font-bold text-white tracking-wide flex items-center space-x-2">
+                    <FileCheck2 className="w-5 h-5 text-teal-400" />
                     <span>VERIFIED EVIDENCE EXCERPTS</span>
                   </h3>
-                  <span className="text-xs font-mono text-teal-400 font-bold">{verifiedClaims.length} Claims</span>
+                  <span className="text-xs font-semibold text-teal-300 bg-teal-500/20 px-2.5 py-0.5 rounded-full border border-teal-500/40">
+                    {verifiedClaims.length} Claims
+                  </span>
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-3">
                   {verifiedClaims.slice(0, 3).map((cl) => {
                     const src = sources.find((s) => s.id === cl.sourceId);
                     return (
                       <div
                         key={cl.id}
                         onClick={() => src && openSourceDrawer(src, cl.quote)}
-                        className="p-3 rounded-2xl bg-black/40 border border-white/5 space-y-1 cursor-pointer hover:border-teal-500/40 transition-all"
+                        className="p-4 rounded-2xl bg-black/40 border border-white/5 space-y-2 cursor-pointer hover:border-teal-500/40 transition-all group"
                       >
-                        <div className="flex items-center justify-between text-[10px] font-mono text-teal-300">
+                        <div className="flex items-center justify-between text-xs font-semibold text-teal-300">
                           <span>{src?.publisher || 'Official Source'}</span>
-                          <span className="underline">View Quote →</span>
+                          <span className="group-hover:underline flex items-center space-x-1">
+                            <span>View Quote</span>
+                            <span>→</span>
+                          </span>
                         </div>
-                        <p className="text-xs italic text-zinc-300">"{cl.quote}"</p>
+                        <p className="text-sm italic text-teal-100/90 leading-relaxed font-sans">"{cl.quote}"</p>
                       </div>
                     );
                   })}
@@ -302,19 +309,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
 
         {/* 2. Coverage Map (Heatmap with pulsing amber Dark Spots) */}
         {activeTab === 'evidence' && (
-          <div className="noir-panel rounded-3xl p-6 border border-white/10 space-y-4 overflow-x-auto">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-mono font-bold tracking-widest uppercase text-violet-300">
+          <div className="noir-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-5 overflow-x-auto">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h3 className="text-sm font-bold tracking-wider uppercase text-violet-300">
                 COVERAGE HEATMAP (ASPECTS × SOURCES)
               </h3>
-              <span className="text-[10px] font-mono text-zinc-400">
-                EMPTY AMBER CELLS ARE THE UNADDRESSED DARK SPOTS
+              <span className="text-xs text-zinc-400 font-sans">
+                Empty amber cells are the unaddressed dark spots
               </span>
             </div>
 
-            <table className="w-full text-left text-xs border-collapse min-w-[650px]">
+            <table className="w-full text-left text-sm border-collapse min-w-[650px]">
               <thead>
-                <tr className="border-b border-white/10 text-zinc-400 font-mono text-[11px]">
+                <tr className="border-b border-white/10 text-zinc-400 font-sans text-xs">
                   <th className="py-3 px-3 font-semibold w-1/3">Decision Aspect</th>
                   {sources.map((s) => (
                     <th key={s.id} className="py-3 px-2 font-semibold text-center truncate max-w-[120px]" title={s.title}>
@@ -329,8 +336,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
                     <td className="py-3 px-3">
                       <div className="flex items-center space-x-2">
                         <span className="font-sans font-semibold text-white">{asp.label}</span>
-                        <span className={`text-[9px] uppercase px-1.5 py-0.5 rounded font-mono ${
-                          asp.importance === 'critical' ? 'bg-rose-500/20 text-rose-300' : 'bg-white/5 text-zinc-400'
+                        <span className={`text-xs uppercase px-2 py-0.5 rounded-full font-semibold ${
+                          asp.importance === 'critical' ? 'bg-rose-500/20 text-rose-300' : 'bg-white/10 text-zinc-300'
                         }`}>
                           {asp.importance}
                         </span>
@@ -386,24 +393,24 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
         {activeTab === 'gaps' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {gaps.map((gap) => (
-              <div key={gap.id} className="noir-panel rounded-3xl p-6 border border-amber-500/30 space-y-4 hover:border-amber-500/60 transition-all flex flex-col justify-between">
-                <div className="space-y-3">
+              <div key={gap.id} className="noir-panel rounded-3xl p-6 sm:p-7 border border-amber-500/30 space-y-4 hover:border-amber-500/60 transition-all flex flex-col justify-between">
+                <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono font-bold uppercase tracking-wider">
+                    <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold uppercase tracking-wider">
                       {gap.severity} GAP
                     </span>
-                    <span className="text-[11px] font-mono text-zinc-400">Aspect: {gap.aspectId}</span>
+                    <span className="text-xs font-mono text-zinc-400">Aspect: {gap.aspectId}</span>
                   </div>
 
-                  <h3 className="text-sm font-bold text-white">{gap.title}</h3>
-                  <p className="text-xs text-zinc-300 leading-relaxed">{gap.explanation}</p>
+                  <h3 className="text-base sm:text-lg font-bold text-white">{gap.title}</h3>
+                  <p className="text-sm text-zinc-300 leading-relaxed font-sans">{gap.explanation}</p>
 
-                  <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 space-y-1">
-                    <div className="flex items-center space-x-1.5 text-amber-300 text-[11px] font-mono font-bold uppercase">
-                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                  <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 space-y-1.5">
+                    <div className="flex items-center space-x-2 text-amber-300 text-xs font-semibold uppercase tracking-wide">
+                      <AlertTriangle className="w-4 h-4 text-amber-400" />
                       <span>WHY IT MATTERS:</span>
                     </div>
-                    <p className="text-xs text-amber-200/90 leading-relaxed">{gap.whyItMatters}</p>
+                    <p className="text-sm text-amber-200/95 leading-relaxed font-sans">{gap.whyItMatters}</p>
                   </div>
                 </div>
               </div>
@@ -419,47 +426,47 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
               const sourceB = sources.find((s) => s.id === conflict.claimB.sourceId);
 
               return (
-                <div key={conflict.id} className="noir-panel rounded-3xl p-6 border border-rose-500/30 space-y-4">
+                <div key={conflict.id} className="noir-panel rounded-3xl p-6 sm:p-7 border border-rose-500/30 space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-mono font-bold uppercase tracking-wider">
+                    <span className="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs font-mono font-bold uppercase tracking-wider">
                       {conflict.type}
                     </span>
                     <span className="text-xs font-mono text-zinc-400">Severity: {conflict.severity}</span>
                   </div>
 
                   {/* Side-by-Side Claim Cards with Magenta VS Divider */}
-                  <div className="grid grid-cols-1 md:grid-cols-11 gap-3 items-center">
+                  <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
                     {/* Claim A */}
-                    <div className="md:col-span-5 p-4 rounded-2xl bg-black/40 border border-teal-500/30 space-y-2">
-                      <div className="text-[10px] font-mono text-teal-400 font-bold uppercase">
+                    <div className="md:col-span-5 p-4 sm:p-5 rounded-2xl bg-black/40 border border-teal-500/30 space-y-2">
+                      <div className="text-xs font-bold text-teal-300 uppercase tracking-wide">
                         SOURCE A · {sourceA?.publisher || 'Official Document'}
                       </div>
-                      <blockquote className="text-xs italic text-teal-100/90">
+                      <blockquote className="text-sm sm:text-base italic text-teal-100/90 leading-relaxed font-sans">
                         "{conflict.claimA.quote}"
                       </blockquote>
                     </div>
 
                     {/* Magenta VS Divider */}
                     <div className="md:col-span-1 text-center py-2">
-                      <span className="px-2.5 py-1 rounded-full bg-rose-500 text-black font-display font-black text-xs shadow-[0_0_15px_#FB3B6B]">
+                      <span className="px-3 py-1.5 rounded-full bg-rose-500 text-black font-display font-black text-xs shadow-[0_0_15px_#FB3B6B]">
                         VS
                       </span>
                     </div>
 
                     {/* Claim B */}
-                    <div className="md:col-span-5 p-4 rounded-2xl bg-black/40 border border-rose-500/30 space-y-2">
-                      <div className="text-[10px] font-mono text-rose-400 font-bold uppercase">
+                    <div className="md:col-span-5 p-4 sm:p-5 rounded-2xl bg-black/40 border border-rose-500/30 space-y-2">
+                      <div className="text-xs font-bold text-rose-300 uppercase tracking-wide">
                         SOURCE B · {sourceB?.publisher || 'Institutional Document'}
                       </div>
-                      <blockquote className="text-xs italic text-rose-100/90">
+                      <blockquote className="text-sm sm:text-base italic text-rose-100/90 leading-relaxed font-sans">
                         "{conflict.claimB.quote}"
                       </blockquote>
                     </div>
                   </div>
 
                   {/* Benign Explanation */}
-                  <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 text-xs text-zinc-300 font-sans">
-                    <strong className="text-violet-300 font-mono">Possible Explanation:</strong> {conflict.possibleExplanation}
+                  <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-sm text-zinc-300 font-sans leading-relaxed">
+                    <strong className="text-violet-300 font-semibold">Possible Explanation:</strong> {conflict.possibleExplanation}
                   </div>
                 </div>
               );
@@ -469,7 +476,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
 
         {/* 5. Freshness Timeline (Amber Ringed Stale/Undated Nodes) */}
         {activeTab === 'freshness' && (
-          <div className="space-y-3">
+          <div className="space-y-3.5">
             {sources.map((src) => {
               const finding = freshness.find((f) => f.sourceId === src.id);
               const isStale = finding?.status === 'older-cycle' || finding?.status === 'possibly-outdated';
@@ -478,7 +485,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
               return (
                 <div
                   key={src.id}
-                  className={`noir-panel rounded-2xl p-5 border space-y-2 transition-all ${
+                  className={`noir-panel rounded-2xl p-5 sm:p-6 border space-y-2.5 transition-all ${
                     isStale
                       ? 'border-amber-500/60 bg-amber-950/10 dark-spot-glow'
                       : isUndated
@@ -487,18 +494,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-white">{src.publisher || src.title}</span>
-                    <span suppressHydrationWarning className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
+                    <span className="text-sm sm:text-base font-bold text-white">{src.publisher || src.title}</span>
+                    <span suppressHydrationWarning className={`text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full border ${
                       isStale ? 'border-amber-500 text-amber-300 bg-amber-500/20' : 'border-white/10 text-zinc-400'
                     }`}>
                       {src.publishedDate ? formatDateDeterministic(src.publishedDate) : 'NO DATE FOUND'}
                     </span>
                   </div>
 
-                  <p className="text-xs text-zinc-300">{src.title}</p>
+                  <p className="text-sm text-zinc-300 font-sans leading-relaxed">{src.title}</p>
                   {finding && (
-                    <div className="text-xs font-mono text-amber-300/90 pt-1">
-                      ⚠️ Audit finding: {finding.reason}
+                    <div className="text-xs sm:text-sm font-medium text-amber-300/95 pt-1 flex items-center space-x-1.5">
+                      <span>⚠️ Audit finding:</span>
+                      <span>{finding.reason}</span>
                     </div>
                   )}
                 </div>
@@ -509,37 +517,37 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
 
         {/* 6. Verification Checklist */}
         {activeTab === 'checklist' && (
-          <div className="space-y-3">
+          <div className="space-y-3.5">
             {checklist.map((item) => (
               <div
                 key={item.id}
                 onClick={() => toggleChecklistItem(item.id)}
-                className={`noir-panel rounded-2xl p-4 sm:p-5 border transition-all cursor-pointer flex items-start space-x-4 ${
+                className={`noir-panel rounded-2xl p-5 sm:p-6 border transition-all cursor-pointer flex items-start space-x-4 ${
                   item.done ? 'opacity-50 border-emerald-500/30' : 'border-white/10 hover:border-violet-500/40'
                 }`}
               >
                 <button
                   type="button"
-                  className={`w-6 h-6 rounded-lg flex items-center justify-center border transition-all mt-0.5 ${
+                  className={`w-6 h-6 rounded-lg flex items-center justify-center border transition-all mt-0.5 flex-shrink-0 ${
                     item.done ? 'bg-emerald-500 text-black border-emerald-400' : 'bg-white/5 border-white/20'
                   }`}
                 >
                   {item.done && <Check className="w-4 h-4" />}
                 </button>
 
-                <div className="flex-1 space-y-1">
+                <div className="flex-1 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border uppercase ${
+                    <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border uppercase ${
                       item.priority === 'P0' ? 'border-rose-500 text-rose-300 bg-rose-500/20' : 'border-white/10 text-zinc-400'
                     }`}>
                       {item.priority} · {item.priority === 'P0' ? 'CRITICAL BLOCKER' : 'VERIFICATION ACTION'}
                     </span>
                   </div>
 
-                  <h4 className={`text-sm font-bold text-white ${item.done ? 'line-through text-zinc-500' : ''}`}>
+                  <h4 className={`text-base font-bold text-white ${item.done ? 'line-through text-zinc-500' : ''}`}>
                     {item.action}
                   </h4>
-                  <p className="text-xs text-zinc-400">Impact: {item.why}</p>
+                  <p className="text-sm text-zinc-300 font-sans leading-relaxed">Impact: {item.why}</p>
                 </div>
               </div>
             ))}

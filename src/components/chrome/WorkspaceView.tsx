@@ -105,22 +105,22 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
   return (
     <div className="space-y-10 py-6 sm:py-8 max-w-5xl mx-auto w-full">
       {/* Top Header */}
-      <div className="text-center space-y-2">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-[10px] font-mono text-violet-300 uppercase tracking-widest">
-          <Sparkles className="w-3 h-3 text-violet-400" />
+      <div className="text-center space-y-3">
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/30 text-xs font-semibold text-violet-300 uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5 text-violet-400" />
           <span>RESEARCH AUDIT CONSOLE</span>
         </div>
-        <h1 className="font-display text-2xl sm:text-4xl font-black text-white tracking-wide">
+        <h1 className="font-display text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
           INPUT RESEARCH OBJECTIVE & SOURCES
         </h1>
-        <p className="text-xs sm:text-sm font-mono text-zinc-400 max-w-xl mx-auto">
+        <p className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed font-sans font-normal">
           Enter your high-stakes question and link source documents. Digital Dark Spot cross-references claims to uncover what is missing.
         </p>
       </div>
 
       {/* 1-Click Scenario Example Chips */}
-      <div className="space-y-2">
-        <span className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase">
+      <div className="space-y-2.5">
+        <span className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
           OR LOAD 1-CLICK CURATED EVALUATION SCENARIOS:
         </span>
         <div className="flex flex-wrap gap-2.5">
@@ -130,13 +130,13 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
               <button
                 key={sc.id}
                 onClick={() => loadScenario(sc.id)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer flex items-center space-x-2 border ${
+                className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer flex items-center space-x-2 border ${
                   isSelected
                     ? 'bg-violet-600/30 border-violet-500 text-white shadow-[0_0_15px_rgba(139,92,246,0.25)]'
                     : 'noir-panel hover:bg-white/5 border-white/10 text-zinc-400 hover:text-white'
                 }`}
               >
-                <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-violet-400 animate-pulse' : 'bg-zinc-600'}`} />
+                <span className={`w-2 h-2 rounded-full ${isSelected ? 'bg-violet-400 animate-pulse' : 'bg-zinc-600'}`} />
                 <span>{sc.name}</span>
               </button>
             );
@@ -147,11 +147,11 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
       {/* Centered Glass Console: Large Textarea with Violet Glow Focus */}
       <div className="noir-panel-violet rounded-3xl p-6 sm:p-8 space-y-4">
         <div className="flex items-center justify-between">
-          <label className="text-xs font-mono font-bold tracking-widest uppercase text-violet-300">
+          <label className="text-xs sm:text-sm font-bold tracking-wider uppercase text-violet-300">
             RESEARCH OBJECTIVE / DECISION GOAL
           </label>
-          <span className="text-[10px] font-mono text-zinc-500">
-            BE SPECIFIC REGARDING CRITERIA, DATES, FEES
+          <span className="text-xs text-zinc-400 font-sans">
+            Be specific regarding criteria, dates, fees
           </span>
         </div>
 
@@ -160,7 +160,7 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="e.g. What are the complete eligibility criteria, deadlines, income ceilings, and renewal requirements for the Aurora STEM Scholarship 2026?"
           rows={3}
-          className="w-full rounded-2xl bg-black/60 border border-white/15 p-4 text-sm sm:text-base text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/30 transition-all font-sans"
+          className="w-full rounded-2xl bg-black/60 border border-white/15 p-4 text-base sm:text-lg text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/30 transition-all font-sans"
         />
       </div>
 
@@ -168,7 +168,7 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
       <div className="noir-panel rounded-3xl p-6 sm:p-8 space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-mono font-bold tracking-widest uppercase text-white">
+            <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-white">
               SOURCE DOCUMENTS ({sources.length})
             </span>
           </div>
@@ -176,19 +176,19 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
           <div className="flex items-center space-x-1.5 p-1 rounded-full bg-black/40 border border-white/10">
             <button
               onClick={() => setActiveTab('url')}
-              className={`px-3 py-1 rounded-full text-xs font-mono transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer ${
                 activeTab === 'url' ? 'bg-white/15 text-white font-bold' : 'text-zinc-400 hover:text-white'
               }`}
             >
-              FETCH URL (SSRF GUARDED)
+              Fetch URL (Guarded)
             </button>
             <button
               onClick={() => setActiveTab('paste')}
-              className={`px-3 py-1 rounded-full text-xs font-mono transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer ${
                 activeTab === 'paste' ? 'bg-white/15 text-white font-bold' : 'text-zinc-400 hover:text-white'
               }`}
             >
-              PASTE DOCUMENT TEXT
+              Paste Document Text
             </button>
           </div>
         </div>
@@ -205,14 +205,14 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
                   onChange={(e) => setInputUrl(e.target.value)}
                   placeholder="https://official-authority.gov/guidelines-2026"
                   disabled={isFetching}
-                  className="w-full pl-10 pr-4 py-3 rounded-2xl bg-black/50 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 transition-all font-mono"
+                  className="w-full pl-10 pr-4 py-3 rounded-2xl bg-black/50 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 transition-all font-mono"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isFetching || !inputUrl.trim()}
-                className="px-5 py-3 rounded-2xl bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white font-mono text-xs font-bold tracking-wider transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] flex items-center justify-center space-x-2 cursor-pointer"
+                className="px-6 py-3 rounded-2xl bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] flex items-center justify-center space-x-2 cursor-pointer"
               >
                 {isFetching ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
                 <span>{isFetching ? 'INGESTING...' : 'INGEST SOURCE'}</span>
@@ -220,7 +220,7 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
             </div>
 
             {errorMessage && (
-              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-mono flex items-center space-x-2">
+              <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs sm:text-sm font-medium flex items-center space-x-2">
                 <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0" />
                 <span>{errorMessage}</span>
               </div>
@@ -236,7 +236,7 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
               value={pastedTitle}
               onChange={(e) => setPastedTitle(e.target.value)}
               placeholder="Document Title (e.g. University Financial Aid Advisory)"
-              className="w-full px-4 py-2.5 rounded-2xl bg-black/50 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 transition-all font-mono"
+              className="w-full px-4 py-3 rounded-2xl bg-black/50 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 transition-all font-sans"
             />
 
             <textarea
@@ -244,13 +244,13 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
               onChange={(e) => setPastedText(e.target.value)}
               placeholder="Paste article text, circular announcement, or terms..."
               rows={4}
-              className="w-full p-4 rounded-2xl bg-black/50 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 transition-all font-sans"
+              className="w-full p-4 rounded-2xl bg-black/50 border border-white/10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500 transition-all font-sans leading-relaxed"
             />
 
             <button
               type="submit"
               disabled={!pastedText.trim()}
-              className="px-5 py-2.5 rounded-2xl bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white font-mono text-xs font-bold tracking-wider transition-all cursor-pointer flex items-center space-x-2"
+              className="px-6 py-3 rounded-2xl bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all cursor-pointer flex items-center space-x-2"
             >
               <Plus className="w-4 h-4" />
               <span>ADD DOCUMENT</span>
@@ -261,11 +261,11 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
         {/* List of Ingested Sources */}
         <div className="space-y-3 pt-2">
           {sources.length === 0 ? (
-            <div className="text-center py-8 text-zinc-500 font-mono text-xs border border-dashed border-white/10 rounded-2xl">
+            <div className="text-center py-10 text-zinc-400 text-sm border border-dashed border-white/10 rounded-2xl font-sans">
               No sources added yet. Ingest URLs or select a 1-click curated scenario above.
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {sources.map((src) => {
                 const credPct = Math.round(src.credibilityScore * 100);
                 const hasDate = Boolean(src.publishedDate || src.modifiedDate);
@@ -274,38 +274,38 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
                 return (
                   <div
                     key={src.id}
-                    className="noir-panel rounded-2xl p-4 border border-white/10 space-y-3 flex flex-col justify-between hover:border-violet-500/40 transition-all group"
+                    className="noir-panel rounded-2xl p-5 border border-white/10 space-y-3 flex flex-col justify-between hover:border-violet-500/40 transition-all group"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-300">
+                        <span className="text-xs font-bold uppercase px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-300">
                           {src.kind}
                         </span>
 
                         <button
                           onClick={() => removeSource(src.id)}
-                          className="p-1 rounded-lg text-zinc-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg text-zinc-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
                           title="Remove source"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
 
-                      <h4 className="text-xs font-bold text-white line-clamp-1">
+                      <h4 className="text-sm sm:text-base font-bold text-white line-clamp-1">
                         {src.title}
                       </h4>
 
-                      <p className="text-[11px] font-mono text-violet-300 truncate">
+                      <p className="text-xs text-violet-300 truncate font-medium">
                         {src.publisher || 'Unknown Publisher'}
                       </p>
                     </div>
 
-                    <div className="pt-2 border-t border-white/5 space-y-1.5 text-[10px] font-mono text-zinc-400">
+                    <div className="pt-2.5 border-t border-white/5 space-y-2 text-xs text-zinc-400">
                       <div className="flex items-center justify-between">
                         <span>Credibility Score</span>
                         <span className="text-teal-400 font-bold">{credPct}%</span>
                       </div>
-                      <div className="w-full h-1 rounded-full bg-zinc-800 overflow-hidden">
+                      <div className="w-full h-1.5 rounded-full bg-zinc-800 overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-violet-500 to-teal-400"
                           style={{ width: `${credPct}%` }}
@@ -315,11 +315,11 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
                       <div className="flex items-center justify-between pt-1">
                         <span>Timestamp</span>
                         {hasDate ? (
-                          <span suppressHydrationWarning className="text-zinc-300">
+                          <span suppressHydrationWarning className="text-zinc-200 font-mono">
                             {formatDateDeterministic(displayDate)}
                           </span>
                         ) : (
-                          <span className="text-amber-400 font-semibold">NO DATE FOUND</span>
+                          <span className="text-amber-400 font-semibold font-mono">NO DATE FOUND</span>
                         )}
                       </div>
                     </div>
@@ -333,9 +333,9 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
 
       {/* Sticky Bottom Dock: Source count + RUN ANALYSIS CTA */}
       <div className="sticky bottom-6 z-30 flex items-center justify-center">
-        <div className="noir-panel-violet rounded-full px-6 py-3 border border-violet-500/30 shadow-[0_10px_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl flex items-center space-x-6">
-          <div className="flex items-center space-x-2 text-xs font-mono text-zinc-300">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+        <div className="noir-panel-violet rounded-full px-7 py-3.5 border border-violet-500/30 shadow-[0_10px_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl flex items-center space-x-6">
+          <div className="flex items-center space-x-2 text-xs sm:text-sm font-medium text-zinc-200">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>
               {sources.length} {sources.length === 1 ? 'Source' : 'Sources'} Ready
             </span>
@@ -344,11 +344,11 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
           <button
             onClick={onRunAnalysis}
             disabled={isRunDisabled}
-            className="px-6 py-2.5 rounded-full bg-violet-600 hover:bg-violet-500 disabled:opacity-40 disabled:hover:bg-violet-600 text-white font-mono text-xs font-bold tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(139,92,246,0.5)] flex items-center space-x-2 cursor-pointer"
+            className="px-7 py-3 rounded-full bg-violet-600 hover:bg-violet-500 disabled:opacity-40 disabled:hover:bg-violet-600 text-white text-xs sm:text-sm font-bold tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(139,92,246,0.5)] flex items-center space-x-2 cursor-pointer"
             title={runReason}
           >
             <span>RUN ANALYSIS</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </div>

@@ -102,19 +102,19 @@ ${report.checklist
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-xl rounded-3xl bg-[#0B0F14] border border-white/10 p-6 space-y-6 shadow-2xl">
         <div className="flex items-start justify-between">
-          <div className="space-y-1">
-            <h2 className="text-lg font-bold text-white flex items-center space-x-2">
+          <div className="space-y-1.5">
+            <h2 className="text-xl font-bold text-white flex items-center space-x-2">
               <Download className="w-5 h-5 text-amber-400" />
               <span>Export Audit Report</span>
             </h2>
-            <p className="text-xs text-zinc-400">
+            <p className="text-sm text-zinc-300 font-sans">
               Download complete evidence traceability data and prioritized checklists.
             </p>
           </div>
 
           <button
             onClick={() => setIsExportModalOpen(false)}
-            className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -125,37 +125,37 @@ ${report.checklist
             onClick={downloadMarkdown}
             className="w-full p-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 flex items-center justify-between text-left transition-all cursor-pointer group"
           >
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+            <div className="flex items-center space-x-3.5">
+              <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
                 <FileText className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white">Download Markdown (.md)</h4>
-                <p className="text-xs text-zinc-400">Standard formatted report for documentation or GitHub</p>
+                <h4 className="text-base font-bold text-white">Download Markdown (.md)</h4>
+                <p className="text-xs sm:text-sm text-zinc-300 font-sans">Standard formatted report for documentation or GitHub</p>
               </div>
             </div>
-            <Download className="w-4 h-4 text-zinc-500 group-hover:text-amber-400 transition-colors" />
+            <Download className="w-4 h-4 text-zinc-400 group-hover:text-amber-400 transition-colors" />
           </button>
 
           <button
             onClick={downloadJSON}
             className="w-full p-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 flex items-center justify-between text-left transition-all cursor-pointer group"
           >
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400">
+            <div className="flex items-center space-x-3.5">
+              <div className="w-11 h-11 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400">
                 <Code2 className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white">Download Full JSON (.json)</h4>
-                <p className="text-xs text-zinc-400">Structured data with claims, offsets, and coverage matrix</p>
+                <h4 className="text-base font-bold text-white">Download Full JSON (.json)</h4>
+                <p className="text-xs sm:text-sm text-zinc-300 font-sans">Structured data with claims, offsets, and coverage matrix</p>
               </div>
             </div>
-            <Download className="w-4 h-4 text-zinc-500 group-hover:text-teal-400 transition-colors" />
+            <Download className="w-4 h-4 text-zinc-400 group-hover:text-teal-400 transition-colors" />
           </button>
 
           <button
             onClick={copyToClipboard}
-            className="w-full p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white flex items-center justify-center space-x-2 transition-colors cursor-pointer"
+            className="w-full p-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-semibold text-zinc-200 hover:text-white flex items-center justify-center space-x-2 transition-colors cursor-pointer"
           >
             {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-zinc-400" />}
             <span>{copied ? 'Copied to Clipboard!' : 'Copy Summary to Clipboard'}</span>

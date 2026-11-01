@@ -42,10 +42,10 @@ export const SourceReaderDrawer: React.FC = () => {
     if (index === -1) {
       return (
         <div className="space-y-4">
-          <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-500/30 text-amber-300 text-xs font-mono">
+          <div className="p-3.5 rounded-xl bg-amber-950/40 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-medium">
             ⚠️ Note: Approximate or summarized quote cited. Full text below:
           </div>
-          <div className="whitespace-pre-wrap font-sans text-xs text-zinc-300 leading-relaxed">
+          <div className="whitespace-pre-wrap font-sans text-sm sm:text-base text-zinc-200 leading-relaxed">
             {text}
           </div>
         </div>
@@ -57,7 +57,7 @@ export const SourceReaderDrawer: React.FC = () => {
     const after = text.slice(index + cleanQuote.length);
 
     return (
-      <div className="whitespace-pre-wrap font-sans text-xs text-zinc-300 leading-relaxed">
+      <div className="whitespace-pre-wrap font-sans text-sm sm:text-base text-zinc-200 leading-relaxed">
         {before}
         <mark ref={highlightRef} className="source-highlight">
           {match}
@@ -81,14 +81,14 @@ export const SourceReaderDrawer: React.FC = () => {
         <div className="p-5 sm:p-6 border-b border-white/10 flex items-start justify-between gap-4 bg-black/40">
           <div className="space-y-1.5 min-w-0">
             <div className="flex items-center space-x-2">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30">
+              <span className="text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30">
                 {source.kind}
               </span>
-              <span className="text-xs font-mono text-zinc-400 truncate">
+              <span className="text-xs sm:text-sm font-medium text-zinc-300 truncate">
                 {source.publisher || 'Direct Source Text'}
               </span>
             </div>
-            <h3 className="text-base font-bold text-white tracking-tight leading-snug">
+            <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug">
               {source.title}
             </h3>
           </div>
@@ -147,7 +147,7 @@ export const SourceReaderDrawer: React.FC = () => {
         </div>
 
         {/* Drawer Footer */}
-        <div className="p-4 border-t border-white/10 bg-black/40 text-[10px] font-mono text-zinc-500 flex items-center justify-between">
+        <div className="p-4 border-t border-white/10 bg-black/40 text-xs font-mono text-zinc-400 flex items-center justify-between">
           <span>DIGITAL DARK SPOT · VERBATIM PASSAGE INSPECTION</span>
           <span>ESC TO CLOSE</span>
         </div>

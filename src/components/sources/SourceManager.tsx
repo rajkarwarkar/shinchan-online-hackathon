@@ -144,7 +144,7 @@ export const SourceManager: React.FC = () => {
                 <span>Fetch & Audit</span>
               </button>
             </div>
-            <p className="text-[11px] text-zinc-500 font-mono">
+            <p className="text-xs text-zinc-400 font-sans">
               Protected by SSRF guard: 8s timeout, 2MB cap, private IP filters.
             </p>
           </form>
@@ -202,12 +202,12 @@ export const SourceManager: React.FC = () => {
 
       {/* Sources List Grid */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between text-xs text-zinc-400">
-          <span className="font-semibold uppercase tracking-wider text-[11px]">
+        <div className="flex items-center justify-between text-xs sm:text-sm text-zinc-300">
+          <span className="font-semibold uppercase tracking-wider text-xs">
             Ingested Sources for Cross-Examination ({sources.length})
           </span>
           {sources.length < 2 && (
-            <span className="text-amber-400 text-[11px] font-mono">
+            <span className="text-amber-400 text-xs font-medium">
               ⚠️ Minimum 2 sources required to run gap & conflict detection
             </span>
           )}
@@ -227,10 +227,10 @@ export const SourceManager: React.FC = () => {
                 {/* Header: Publisher & Badges */}
                 <div className="flex items-start justify-between gap-2">
                   <div className="space-y-0.5 min-w-0">
-                    <span className="text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-300">
+                    <span className="text-xs uppercase font-mono font-semibold px-2 py-0.5 rounded-full bg-white/10 border border-white/10 text-zinc-200">
                       {src.kind}
                     </span>
-                    <h4 className="text-xs sm:text-sm font-bold text-white line-clamp-2 pt-1 leading-snug">
+                    <h4 className="text-sm font-bold text-white line-clamp-2 pt-1 leading-snug">
                       {src.title}
                     </h4>
                   </div>
@@ -245,11 +245,11 @@ export const SourceManager: React.FC = () => {
                 </div>
 
                 {/* Metadata & Credibility Meter */}
-                <div className="space-y-2 pt-2 border-t border-white/5 text-[11px]">
+                <div className="space-y-2 pt-2 border-t border-white/5 text-xs">
                   {/* Credibility Score */}
-                  <div className="flex items-center justify-between text-zinc-400">
+                  <div className="flex items-center justify-between text-zinc-300">
                     <span className="flex items-center space-x-1">
-                      <ShieldCheck className="w-3 h-3 text-teal-400" />
+                      <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
                       <span>Credibility</span>
                     </span>
                     <span className="font-mono font-bold text-teal-300">{credPercent}%</span>
@@ -262,24 +262,24 @@ export const SourceManager: React.FC = () => {
                   </div>
 
                   {/* Temporal Status */}
-                  <div className="flex items-center justify-between text-zinc-400 pt-1">
+                  <div className="flex items-center justify-between text-zinc-300 pt-1">
                     <span className="flex items-center space-x-1">
-                      <Calendar className="w-3 h-3 text-amber-400" />
+                      <Calendar className="w-3.5 h-3.5 text-amber-400" />
                       <span>Timestamp</span>
                     </span>
                     {hasDate ? (
-                      <span suppressHydrationWarning className="font-mono text-zinc-300 text-[10px]">
+                      <span suppressHydrationWarning className="font-mono text-zinc-200 text-xs">
                         {formatDateDeterministic(displayDate)}
                       </span>
                     ) : (
-                      <span className="font-mono text-amber-400 text-[10px] font-semibold">
+                      <span className="font-mono text-amber-400 text-xs font-semibold">
                         Undated
                       </span>
                     )}
                   </div>
 
                   {src.detectedCycleLabel && (
-                    <div className="text-[10px] font-mono text-purple-300 bg-purple-950/30 border border-purple-500/20 px-2 py-0.5 rounded-md inline-block">
+                    <div className="text-xs font-mono text-purple-300 bg-purple-950/30 border border-purple-500/20 px-2 py-0.5 rounded-md inline-block">
                       {src.detectedCycleLabel}
                     </div>
                   )}

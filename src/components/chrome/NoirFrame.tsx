@@ -9,27 +9,27 @@ export const NoirFrame: React.FC<{ children: React.ReactNode }> = ({ children })
       <div className="relative min-h-[calc(100vh-1rem)] sm:min-h-[calc(100vh-1.5rem)] w-full rounded-[28px] sm:rounded-[36px] border border-white/[0.08] shadow-2xl flex flex-col justify-between bg-[#05030A] overflow-x-clip">
         {/* Four Corner "+" and Star Glints Matching Art Direction */}
         {/* Top Left */}
-        <div className="absolute top-3 left-4 z-40 pointer-events-none flex items-center space-x-1 text-[11px] font-mono text-zinc-500">
-          <span className="text-white/60 font-black">+</span>
-          <span className="text-[9px] text-zinc-600 tracking-widest pl-1 hidden md:inline">NOIR.FRAME.01</span>
+        <div className="absolute top-3 left-4 z-40 pointer-events-none flex items-center space-x-1.5 text-xs font-mono text-zinc-400">
+          <span className="text-white/70 font-black">+</span>
+          <span className="text-xs text-zinc-500 font-mono tracking-wider pl-1 hidden md:inline">NOIR.FRAME.01</span>
         </div>
 
         {/* Top Right Star Glint */}
-        <div className="absolute top-3 right-4 z-40 pointer-events-none flex items-center space-x-1 text-[11px] font-mono text-zinc-500">
+        <div className="absolute top-3 right-4 z-40 pointer-events-none flex items-center space-x-1.5 text-xs font-mono text-zinc-400">
           <span className="text-violet-400 text-xs animate-pulse">✦</span>
-          <span className="text-white/60 font-black pl-1">+</span>
+          <span className="text-white/70 font-black pl-1">+</span>
         </div>
 
         {/* Bottom Left Star Glint */}
-        <div className="absolute bottom-3 left-4 z-40 pointer-events-none flex items-center space-x-1 text-[11px] font-mono text-zinc-500">
-          <span className="text-white/60 font-black">+</span>
+        <div className="absolute bottom-3 left-4 z-40 pointer-events-none flex items-center space-x-1.5 text-xs font-mono text-zinc-400">
+          <span className="text-white/70 font-black">+</span>
           <span className="text-amber-400/80 text-xs">✦</span>
         </div>
 
         {/* Bottom Right */}
-        <div className="absolute bottom-3 right-4 z-40 pointer-events-none flex items-center space-x-1 text-[11px] font-mono text-zinc-500">
-          <span className="text-[9px] text-zinc-600 tracking-widest pr-1 hidden md:inline">CHROME.SHINCHAN.2026</span>
-          <span className="text-white/60 font-black">+</span>
+        <div className="absolute bottom-3 right-4 z-40 pointer-events-none flex items-center space-x-1.5 text-xs font-mono text-zinc-400">
+          <span className="text-xs text-zinc-500 font-mono tracking-wider pr-1 hidden md:inline">CHROME.SHINCHAN.2026</span>
+          <span className="text-white/70 font-black">+</span>
         </div>
 
 

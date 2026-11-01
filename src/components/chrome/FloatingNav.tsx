@@ -44,54 +44,54 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentView, onNavigat
           <div className="flex flex-col">
             <div className="flex items-center space-x-1">
               <span className="font-display text-sm sm:text-base font-black tracking-wider text-white group-hover:text-violet-300 transition-colors">
-                DARK SPOT<sup className="text-[10px] text-violet-400 font-mono ml-0.5">®</sup>
+                DARK SPOT<sup className="text-xs text-violet-400 font-mono ml-0.5">®</sup>
               </span>
             </div>
-            <span className="text-[9px] font-mono tracking-[0.16em] uppercase text-zinc-500 hidden sm:inline">
+            <span className="text-xs font-sans text-zinc-400 hidden sm:inline font-medium">
               Information Gap Sentinel
             </span>
           </div>
         </div>
 
         {/* Center: Floating Segmented-Pill Nav (Glass with Hairline Dividers) */}
-        <nav className="noir-panel rounded-full px-1.5 py-1 flex items-center space-x-0.5 border border-white/10 shadow-2xl backdrop-blur-xl">
+        <nav className="noir-panel rounded-full px-2 py-1.5 flex items-center space-x-1 border border-white/10 shadow-2xl backdrop-blur-xl">
           <button
             onClick={() => onNavigate('landing')}
-            className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+            className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer ${
               currentView === 'landing'
                 ? 'bg-white/15 text-white font-bold shadow-sm'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            OVERVIEW
+            Overview
           </button>
 
           <span className="text-white/15 select-none font-thin">|</span>
 
           <button
             onClick={() => onNavigate('workspace')}
-            className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+            className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer ${
               currentView === 'workspace'
                 ? 'bg-violet-600/50 text-white font-bold shadow-sm shadow-violet-500/20'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            WORKSPACE
+            Workspace
           </button>
 
           <span className="text-white/15 select-none font-thin">|</span>
 
           <button
             onClick={() => onNavigate('dashboard')}
-            className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer flex items-center space-x-1.5 ${
+            className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer flex items-center space-x-2 ${
               currentView === 'dashboard'
                 ? 'bg-white/15 text-white font-bold shadow-sm'
                 : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <span>AUDIT REPORT</span>
+            <span>Audit Report</span>
             {report && (
-              <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-full bg-violet-500/30 text-violet-300 border border-violet-500/40">
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-violet-500/30 text-violet-300 border border-violet-500/40">
                 {report.completenessIndex}%
               </span>
             )}
@@ -108,18 +108,18 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentView, onNavigat
                 setIsWhyGapsModalOpen(true);
               }
             }}
-            className="px-3 py-1.5 rounded-full text-xs font-mono tracking-wider text-zinc-400 hover:text-white hover:bg-white/5 transition-all cursor-pointer hidden sm:flex items-center space-x-1"
+            className="px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium text-zinc-400 hover:text-white hover:bg-white/5 transition-all cursor-pointer hidden sm:flex items-center space-x-1.5"
           >
             <HelpCircle className="w-3.5 h-3.5 text-violet-400" />
-            <span>HOW IT WORKS</span>
+            <span>How It Works</span>
           </button>
         </nav>
 
-        {/* Top-Right: Status Chip Matching Reference Image */}
+        {/* Top-Right: Status Chip */}
         <div className="flex items-center space-x-2.5">
           <button
             onClick={loadSampleMode}
-            className={`px-3 py-1.5 rounded-full text-[10px] font-mono tracking-widest uppercase border transition-all cursor-pointer flex items-center space-x-1.5 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase border transition-all cursor-pointer flex items-center space-x-2 ${
               isSampleMode
                 ? 'bg-amber-500/10 border-amber-500/30 text-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.15)]'
                 : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.15)]'
@@ -127,7 +127,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentView, onNavigat
             title="Click to toggle or reload sample mode"
           >
             <span
-              className={`w-1.5 h-1.5 rounded-full animate-ping ${
+              className={`w-2 h-2 rounded-full animate-ping ${
                 isSampleMode ? 'bg-amber-400' : 'bg-emerald-400'
               }`}
             />

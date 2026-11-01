@@ -71,7 +71,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <MagneticButton
                 onClick={onStartAnalysis}
-                className="px-7 py-4 rounded-full bg-violet-600 hover:bg-violet-500 text-white font-mono text-xs font-bold tracking-widest uppercase transition-all shadow-[0_0_35px_rgba(139,92,246,0.45)] flex items-center space-x-3 cursor-pointer"
+                className="px-8 py-4 rounded-full bg-violet-600 hover:bg-violet-500 text-white font-sans text-sm sm:text-base font-bold tracking-wide transition-all shadow-[0_0_35px_rgba(139,92,246,0.45)] flex items-center space-x-3 cursor-pointer"
               >
                 <span>START ANALYSIS</span>
                 <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
@@ -81,9 +81,9 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
 
               <MagneticButton
                 onClick={handleSampleMode}
-                className="px-6 py-4 rounded-full noir-panel hover:bg-white/10 text-zinc-300 hover:text-white font-mono text-xs font-bold tracking-widest uppercase transition-all border border-white/10 flex items-center space-x-2 cursor-pointer"
+                className="px-7 py-4 rounded-full noir-panel hover:bg-white/10 text-zinc-200 hover:text-white font-sans text-sm sm:text-base font-semibold tracking-wide transition-all border border-white/10 flex items-center space-x-2.5 cursor-pointer"
               >
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
                 <span>TRY SAMPLE MODE</span>
               </MagneticButton>
             </div>
@@ -92,13 +92,13 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
             <div className="pt-4">
               <div
                 onClick={onStartAnalysis}
-                className="noir-panel-violet rounded-2xl p-4 max-w-sm flex items-center justify-between gap-4 cursor-pointer group hover:border-violet-500/50 transition-all backdrop-blur-xl"
+                className="noir-panel-violet rounded-2xl p-4 sm:p-5 max-w-sm flex items-center justify-between gap-4 cursor-pointer group hover:border-violet-500/50 transition-all backdrop-blur-xl"
               >
-                <div className="space-y-0.5">
-                  <div className="text-[10px] font-mono tracking-widest text-violet-300 uppercase">
+                <div className="space-y-1">
+                  <div className="text-xs font-mono font-medium tracking-wider text-violet-300 uppercase">
                     EVALUATION ENGINE READY
                   </div>
-                  <div className="text-xs font-bold text-white tracking-wide">
+                  <div className="text-sm sm:text-base font-bold text-white tracking-wide">
                     Available for Critical Research Audit
                   </div>
                 </div>
@@ -115,20 +115,20 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
         </div>
 
         {/* Hero Bottom Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/[0.06] text-[10px] font-mono text-zinc-500">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
           <div className="flex items-center space-x-2">
             <Globe className="w-3.5 h-3.5 text-violet-400 animate-pulse" />
-            <span className="tracking-[0.2em] uppercase text-zinc-400">
+            <span className="tracking-wider uppercase text-zinc-400 font-medium">
               SCROLL DOWN TO WITNESS THE AUDIT PIPELINE
             </span>
           </div>
 
-          <div className="hidden sm:flex items-center space-x-3 text-zinc-500">
+          <div className="hidden sm:flex items-center space-x-3 text-zinc-400">
             <span>SHINCHAN HACKATHON 2026</span>
             <span>•</span>
             <span className="text-violet-400/80">INDIVIDUAL COMPETITOR</span>
             <span>•</span>
-            <span className="text-amber-400/90">EVIDENCE-LOCKED</span>
+            <span className="text-amber-400/90 font-medium">EVIDENCE-LOCKED</span>
           </div>
         </div>
       </section>
@@ -143,7 +143,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
         <div className="space-y-12">
           {/* Eyebrow & Headline */}
           <div className="space-y-4 max-w-3xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[10px] tracking-widest uppercase">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-xs tracking-wider uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
               <span>CHAPTER 02 · THE INFORMATION TRAP</span>
             </div>
@@ -159,55 +159,55 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
           {/* Three Shard Callouts Floating in Noir Space */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Callout 1: Outdated */}
-            <div className="noir-panel rounded-3xl p-6 border border-amber-500/30 space-y-4 bg-gradient-to-b from-[#0A0712]/90 to-[#05030A]/90 backdrop-blur-xl relative group hover:border-amber-400 transition-all shadow-[0_10px_30px_rgba(251,191,36,0.08)]">
+            <div className="noir-panel rounded-3xl p-6 sm:p-7 border border-amber-500/30 space-y-4 bg-gradient-to-b from-[#0A0712]/90 to-[#05030A]/90 backdrop-blur-xl relative group hover:border-amber-400 transition-all shadow-[0_10px_30px_rgba(251,191,36,0.08)]">
               <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
                 <Clock className="w-5 h-5" />
               </div>
               <div className="space-y-1.5">
-                <div className="text-[10px] font-mono tracking-widest uppercase text-amber-400 font-bold">
+                <div className="text-xs font-mono tracking-wider uppercase text-amber-400 font-bold">
                   SIGNAL · TEMPORAL DRIFT
                 </div>
-                <h4 className="font-display text-base font-bold text-white">
+                <h4 className="font-display text-lg font-bold text-white">
                   OUTDATED GUIDELINES
                 </h4>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed font-sans">
+              <p className="text-sm text-zinc-300 leading-relaxed font-sans">
                 Portals quietly retain 2023 eligibility criteria, income caps, or old submission deadlines without date warnings, trapping unsuspecting applicants.
               </p>
             </div>
 
             {/* Callout 2: Conflicting */}
-            <div className="noir-panel rounded-3xl p-6 border border-rose-500/30 space-y-4 bg-gradient-to-b from-[#0A0712]/90 to-[#05030A]/90 backdrop-blur-xl relative group hover:border-rose-400 transition-all shadow-[0_10px_30px_rgba(251,59,107,0.08)]">
+            <div className="noir-panel rounded-3xl p-6 sm:p-7 border border-rose-500/30 space-y-4 bg-gradient-to-b from-[#0A0712]/90 to-[#05030A]/90 backdrop-blur-xl relative group hover:border-rose-400 transition-all shadow-[0_10px_30px_rgba(251,59,107,0.08)]">
               <div className="w-10 h-10 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400">
                 <AlertTriangle className="w-5 h-5" />
               </div>
               <div className="space-y-1.5">
-                <div className="text-[10px] font-mono tracking-widest uppercase text-rose-400 font-bold">
+                <div className="text-xs font-mono tracking-wider uppercase text-rose-400 font-bold">
                   SIGNAL · CONFLICT RADAR
                 </div>
-                <h4 className="font-display text-base font-bold text-white">
+                <h4 className="font-display text-lg font-bold text-white">
                   DISCORDANT POLICIES
                 </h4>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed font-sans">
+              <p className="text-sm text-zinc-300 leading-relaxed font-sans">
                 The main department portal claims a strict June 15 cutoff while official subsidiary guidelines specify rolling admissions with dual conflicting clauses.
               </p>
             </div>
 
             {/* Callout 3: Missing Dark Spots */}
-            <div className="noir-panel rounded-3xl p-6 border border-violet-500/30 space-y-4 bg-gradient-to-b from-[#0A0712]/90 to-[#05030A]/90 backdrop-blur-xl relative group hover:border-violet-400 transition-all shadow-[0_10px_30px_rgba(139,92,246,0.08)]">
+            <div className="noir-panel rounded-3xl p-6 sm:p-7 border border-violet-500/30 space-y-4 bg-gradient-to-b from-[#0A0712]/90 to-[#05030A]/90 backdrop-blur-xl relative group hover:border-violet-400 transition-all shadow-[0_10px_30px_rgba(139,92,246,0.08)]">
               <div className="w-10 h-10 rounded-2xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400">
                 <ShieldAlert className="w-5 h-5" />
               </div>
               <div className="space-y-1.5">
-                <div className="text-[10px] font-mono tracking-widest uppercase text-violet-400 font-bold">
+                <div className="text-xs font-mono tracking-wider uppercase text-violet-400 font-bold">
                   SIGNAL · DARK SPOT
                 </div>
-                <h4 className="font-display text-base font-bold text-white">
+                <h4 className="font-display text-lg font-bold text-white">
                   OMITTED OBLIGATIONS
                 </h4>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed font-sans">
+              <p className="text-sm text-zinc-300 leading-relaxed font-sans">
                 Neither portal mentions required post-selection service bonds, clawback triggers, or mandatory co-signer criteria until after submission.
               </p>
             </div>
@@ -225,7 +225,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
         <div className="space-y-12">
           {/* Eyebrow & Heading */}
           <div className="space-y-4 max-w-3xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-300 font-mono text-[10px] tracking-widest uppercase">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-300 font-mono text-xs tracking-wider uppercase">
               <Sparkles className="w-3.5 h-3.5 text-violet-400" />
               <span>CHAPTER 03 · THE SPOTLIGHT AUDIT</span>
             </div>
@@ -242,15 +242,15 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
           <div className="noir-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6 bg-[#0A0712]/85 backdrop-blur-2xl">
             <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
               <div>
-                <span className="text-[10px] font-mono tracking-widest uppercase text-violet-400 font-bold">
+                <span className="text-xs font-mono tracking-wider uppercase text-violet-400 font-bold">
                   EVALUATION MATRIX · 3 OF 5 ASPECTS DEFICIENT
                 </span>
-                <h3 className="font-display text-lg font-bold text-white mt-1">
+                <h3 className="font-display text-xl font-bold text-white mt-1">
                   Cross-Source Information Matrix
                 </h3>
               </div>
 
-              <div className="flex items-center space-x-4 text-xs font-mono">
+              <div className="flex items-center space-x-4 text-xs sm:text-sm font-semibold">
                 <div className="flex items-center space-x-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-teal-400 shadow-[0_0_8px_rgba(94,234,212,0.8)]" />
                   <span className="text-teal-300 font-bold">SOURCED (40%)</span>
@@ -265,65 +265,65 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
             {/* Facet Bars */}
             <div className="space-y-3.5">
               {/* Aspect 1 */}
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-teal-500/30 flex items-center justify-between gap-4">
-                <div className="space-y-0.5">
-                  <div className="text-xs font-bold text-white flex items-center space-x-2">
+              <div className="p-4 rounded-2xl bg-white/[0.02] border border-teal-500/30 flex items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="text-sm sm:text-base font-bold text-white flex items-center space-x-2">
                     <span className="text-teal-400">✓</span>
                     <span>Eligibility & GPA Requirements</span>
                   </div>
-                  <div className="text-[10px] font-mono text-zinc-400">
+                  <div className="text-xs font-sans text-zinc-300">
                     Verified across official portal and program PDF
                   </div>
                 </div>
-                <span className="trust-badge-sourced px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">
+                <span className="trust-badge-sourced px-3 py-1 rounded-full text-xs font-semibold">
                   SOURCED
                 </span>
               </div>
 
               {/* Aspect 2 */}
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-amber-500/40 flex items-center justify-between gap-4 shadow-[0_0_15px_rgba(251,191,36,0.06)]">
-                <div className="space-y-0.5">
-                  <div className="text-xs font-bold text-amber-200 flex items-center space-x-2">
+              <div className="p-4 rounded-2xl bg-white/[0.02] border border-amber-500/40 flex items-center justify-between gap-4 shadow-[0_0_15px_rgba(251,191,36,0.06)]">
+                <div className="space-y-1">
+                  <div className="text-sm sm:text-base font-bold text-amber-200 flex items-center space-x-2">
                     <span className="text-amber-400">⚠</span>
                     <span>Renewal Terms & Minimum Ongoing Credits</span>
                   </div>
-                  <div className="text-[10px] font-mono text-amber-300/80">
+                  <div className="text-xs font-sans text-amber-300/90">
                     Not found in reviewed sources (potential gap)
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/50">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/50">
                   DARK SPOT
                 </span>
               </div>
 
               {/* Aspect 3 */}
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-teal-500/30 flex items-center justify-between gap-4">
-                <div className="space-y-0.5">
-                  <div className="text-xs font-bold text-white flex items-center space-x-2">
+              <div className="p-4 rounded-2xl bg-white/[0.02] border border-teal-500/30 flex items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="text-sm sm:text-base font-bold text-white flex items-center space-x-2">
                     <span className="text-teal-400">✓</span>
                     <span>Submission Deadlines & Cycle Windows</span>
                   </div>
-                  <div className="text-[10px] font-mono text-zinc-400">
+                  <div className="text-xs font-sans text-zinc-300">
                     Dual dates reconciled with benign cycle difference
                   </div>
                 </div>
-                <span className="trust-badge-sourced px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">
+                <span className="trust-badge-sourced px-3 py-1 rounded-full text-xs font-semibold">
                   SOURCED
                 </span>
               </div>
 
               {/* Aspect 4 */}
-              <div className="p-3.5 rounded-2xl bg-white/[0.02] border border-amber-500/40 flex items-center justify-between gap-4 shadow-[0_0_15px_rgba(251,191,36,0.06)]">
-                <div className="space-y-0.5">
-                  <div className="text-xs font-bold text-amber-200 flex items-center space-x-2">
+              <div className="p-4 rounded-2xl bg-white/[0.02] border border-amber-500/40 flex items-center justify-between gap-4 shadow-[0_0_15px_rgba(251,191,36,0.06)]">
+                <div className="space-y-1">
+                  <div className="text-sm sm:text-base font-bold text-amber-200 flex items-center space-x-2">
                     <span className="text-amber-400">⚠</span>
                     <span>Service Bond Obligation & Clawback Terms</span>
                   </div>
-                  <div className="text-[10px] font-mono text-amber-300/80">
+                  <div className="text-xs font-sans text-amber-300/90">
                     Completely omitted across all primary documents
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/50">
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/50">
                   DARK SPOT
                 </span>
               </div>
@@ -342,7 +342,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
         <div className="space-y-12">
           {/* Eyebrow & Heading */}
           <div className="space-y-4 max-w-3xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 font-mono text-[10px] tracking-widest uppercase">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 font-mono text-xs tracking-wider uppercase">
               <Quote className="w-3.5 h-3.5 text-teal-400" />
               <span>CHAPTER 04 · EVIDENCE-LOCKED TRACEABILITY</span>
             </div>
@@ -358,61 +358,61 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
           {/* Three Trust Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card 1: SOURCED */}
-            <div className="trust-card-sourced rounded-3xl p-6 space-y-4 bg-[#0A0712]/90 backdrop-blur-xl">
+            <div className="trust-card-sourced rounded-3xl p-6 sm:p-7 space-y-4 bg-[#0A0712]/90 backdrop-blur-xl">
               <div className="flex items-center justify-between">
-                <span className="trust-badge-sourced px-3 py-1 rounded-full font-mono text-[10px] font-bold">
+                <span className="trust-badge-sourced px-3 py-1 rounded-full text-xs font-semibold">
                   SOURCED
                 </span>
                 <Quote className="w-4 h-4 text-teal-400" />
               </div>
-              <h4 className="font-display text-base font-bold text-white">
+              <h4 className="font-display text-lg font-bold text-white">
                 Verbatim Verified Excerpt
               </h4>
-              <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+              <p className="text-sm text-zinc-300 font-sans leading-relaxed">
                 Carries an exact quote matched against the fetched DOM. The server computes a normalized string search. If verification fails, it is automatically downgraded to Unverified.
               </p>
-              <div className="pt-2 text-[10px] font-mono text-teal-300 flex items-center space-x-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5" />
+              <div className="pt-2 text-xs font-sans text-teal-300 flex items-center space-x-1.5 font-medium">
+                <CheckCircle2 className="w-4 h-4" />
                 <span>Deterministic server verification</span>
               </div>
             </div>
 
             {/* Card 2: AI-SUGGESTED */}
-            <div className="trust-card-suggested rounded-3xl p-6 space-y-4 bg-[#0A0712]/90 backdrop-blur-xl">
+            <div className="trust-card-suggested rounded-3xl p-6 sm:p-7 space-y-4 bg-[#0A0712]/90 backdrop-blur-xl">
               <div className="flex items-center justify-between">
-                <span className="trust-badge-suggested px-3 py-1 rounded-full font-mono text-[10px] font-bold">
+                <span className="trust-badge-suggested px-3 py-1 rounded-full text-xs font-semibold">
                   AI-SUGGESTED
                 </span>
                 <Sparkles className="w-4 h-4 text-purple-400" />
               </div>
-              <h4 className="font-display text-base font-bold text-white">
+              <h4 className="font-display text-lg font-bold text-white">
                 Inference & Recommendations
               </h4>
-              <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+              <p className="text-sm text-zinc-300 font-sans leading-relaxed">
                 Synthesized insights, missing question prompts, or priority advice. Visually distinguished with dashed borders and sparkle badges so you never confuse AI conjecture with cited fact.
               </p>
-              <div className="pt-2 text-[10px] font-mono text-purple-300 flex items-center space-x-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="pt-2 text-xs font-sans text-purple-300 flex items-center space-x-1.5 font-medium">
+                <Sparkles className="w-4 h-4" />
                 <span>Labeled potential guidance</span>
               </div>
             </div>
 
             {/* Card 3: UNCERTAIN */}
-            <div className="trust-card-uncertain rounded-3xl p-6 space-y-4 bg-[#0A0712]/90 backdrop-blur-xl">
+            <div className="trust-card-uncertain rounded-3xl p-6 sm:p-7 space-y-4 bg-[#0A0712]/90 backdrop-blur-xl">
               <div className="flex items-center justify-between">
-                <span className="trust-badge-uncertain px-3 py-1 rounded-full font-mono text-[10px] font-bold">
+                <span className="trust-badge-uncertain px-3 py-1 rounded-full text-xs font-semibold">
                   UNCERTAIN
                 </span>
                 <HelpCircle className="w-4 h-4 text-slate-400" />
               </div>
-              <h4 className="font-display text-base font-bold text-white">
+              <h4 className="font-display text-lg font-bold text-white">
                 Partial or Unverified Signals
               </h4>
-              <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+              <p className="text-sm text-zinc-300 font-sans leading-relaxed">
                 Rendered with hatched diagonal borders. Applied when quote alignment cannot be established with 100% certainty, or when dates/publishers are missing.
               </p>
-              <div className="pt-2 text-[10px] font-mono text-slate-400 flex items-center space-x-1.5">
-                <HelpCircle className="w-3.5 h-3.5" />
+              <div className="pt-2 text-xs font-sans text-slate-400 flex items-center space-x-1.5 font-medium">
+                <HelpCircle className="w-4 h-4" />
                 <span>Honest uncertainty protocol</span>
               </div>
             </div>
@@ -420,25 +420,25 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
 
           {/* Floating Verbatim Quote Card */}
           <div className="noir-panel-violet rounded-3xl p-6 sm:p-7 border border-violet-500/40 space-y-4 max-w-2xl bg-gradient-to-r from-violet-950/40 via-[#0A0712]/90 to-[#05030A] shadow-[0_0_40px_rgba(139,92,246,0.15)]">
-            <div className="flex items-center justify-between text-[10px] font-mono text-violet-300">
+            <div className="flex items-center justify-between text-xs font-mono text-violet-300">
               <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-teal-400" />
-                <span className="uppercase tracking-widest font-bold">
+                <span className="w-2.5 h-2.5 rounded-full bg-teal-400" />
+                <span className="uppercase tracking-wider font-semibold">
                   SOURCE READER DRAWER · VERBATIM INSPECTOR
                 </span>
               </div>
-              <span className="text-zinc-500">scholarship.gov/faq#p4</span>
+              <span className="text-zinc-400">scholarship.gov/faq#p4</span>
             </div>
 
-            <blockquote className="text-sm font-sans text-zinc-200 border-l-2 border-teal-400 pl-4 py-1 italic leading-relaxed">
+            <blockquote className="text-sm sm:text-base font-sans text-zinc-200 border-l-2 border-teal-400 pl-4 py-1 italic leading-relaxed">
               &quot;Eligible applicants must submit their completed portfolios by no later than <mark className="bg-teal-500/30 text-teal-200 px-1 rounded">May 31 at 23:59 GMT</mark>. Late submissions will not be considered under any extenuating circumstances.&quot;
             </blockquote>
 
-            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 pt-1">
+            <div className="flex items-center justify-between text-xs font-sans text-zinc-400 pt-1">
               <span>Matching confidence: 100% verbatim</span>
-              <span className="text-teal-400 flex items-center space-x-1 cursor-pointer hover:underline">
+              <span className="text-teal-400 flex items-center space-x-1 cursor-pointer hover:underline font-semibold">
                 <span>OPEN READER DRAWER</span>
-                <ExternalLink className="w-3 h-3" />
+                <ExternalLink className="w-3.5 h-3.5" />
               </span>
             </div>
           </div>
@@ -455,7 +455,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
         <div className="space-y-12">
           {/* Eyebrow & Heading */}
           <div className="space-y-4 max-w-3xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-300 font-mono text-[10px] tracking-widest uppercase">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-300 font-mono text-xs tracking-wider uppercase">
               <CheckSquare className="w-3.5 h-3.5 text-violet-400" />
               <span>CHAPTER 05 · ACTIONABLE SYNTHESIS</span>
             </div>
@@ -472,15 +472,15 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
           <div className="noir-panel rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6 max-w-3xl bg-[#0A0712]/90 backdrop-blur-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
               <div>
-                <span className="text-[10px] font-mono tracking-widest uppercase text-violet-400 font-bold">
+                <span className="text-xs font-mono tracking-wider uppercase text-violet-400 font-bold">
                   DECISION READINESS CHECKLIST
                 </span>
-                <h3 className="font-display text-base font-bold text-white mt-0.5">
+                <h3 className="font-display text-lg font-bold text-white mt-0.5">
                   Prioritized Verification Tasks
                 </h3>
               </div>
 
-              <span className="text-xs font-mono text-zinc-400">
+              <span className="text-xs sm:text-sm font-semibold text-zinc-300">
                 {Object.values(checkedItems).filter(Boolean).length} of 4 Completed
               </span>
             </div>
@@ -545,18 +545,18 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
                     </div>
 
                     <div className="flex-1 space-y-1">
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-2.5">
                         <span
-                          className={`text-[9px] font-mono px-2 py-0.5 rounded-full font-bold uppercase ${item.badge}`}
+                          className={`text-xs px-2.5 py-0.5 rounded-full font-semibold uppercase ${item.badge}`}
                         >
                           {item.priority}
                         </span>
-                        <span className="text-[10px] font-mono text-zinc-500">
+                        <span className="text-xs text-zinc-400 font-sans">
                           {item.target}
                         </span>
                       </div>
                       <p
-                        className={`text-xs font-sans ${
+                        className={`text-sm sm:text-base font-sans leading-relaxed ${
                           isChecked
                             ? 'text-zinc-500 line-through'
                             : 'text-zinc-200 font-medium'
@@ -583,7 +583,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
         <div className="space-y-12 my-auto">
           {/* Huge Chrome Outline Headline */}
           <div className="space-y-6 max-w-4xl">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-300 font-mono text-xs tracking-widest uppercase">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-300 font-mono text-xs tracking-wider uppercase">
               <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
               <span>CHAPTER 06 · DEPLOY THE AUDIT ENGINE</span>
             </div>
@@ -600,7 +600,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
               </h2>
             </div>
 
-            <p className="font-mono text-xs sm:text-sm text-zinc-400 max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg text-zinc-300 max-w-2xl leading-relaxed font-sans">
               Never apply for a scholarship, submit a critical visa dossier, or execute a major grant proposal based on unverified summaries. Shine a light on the dark spots today.
             </p>
 
@@ -608,7 +608,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
             <div className="flex flex-wrap items-center gap-5 pt-4">
               <MagneticButton
                 onClick={onStartAnalysis}
-                className="px-8 py-5 rounded-full bg-violet-600 hover:bg-violet-500 text-white font-mono text-xs font-bold tracking-widest uppercase transition-all shadow-[0_0_40px_rgba(139,92,246,0.5)] flex items-center space-x-3 cursor-pointer"
+                className="px-8 py-4 sm:py-5 rounded-full bg-violet-600 hover:bg-violet-500 text-white font-sans text-sm sm:text-base font-bold tracking-wide transition-all shadow-[0_0_40px_rgba(139,92,246,0.5)] flex items-center space-x-3 cursor-pointer"
               >
                 <span>ENTER WORKSPACE NOW</span>
                 <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1.5 transition-transform">
@@ -618,7 +618,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
 
               <MagneticButton
                 onClick={handleSampleMode}
-                className="px-7 py-5 rounded-full noir-panel hover:bg-white/10 text-zinc-300 hover:text-white font-mono text-xs font-bold tracking-widest uppercase transition-all border border-white/10 flex items-center space-x-2 cursor-pointer"
+                className="px-7 py-4 sm:py-5 rounded-full noir-panel hover:bg-white/10 text-zinc-200 hover:text-white font-sans text-sm sm:text-base font-semibold tracking-wide transition-all border border-white/10 flex items-center space-x-2.5 cursor-pointer"
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
                 <span>LOAD DEMO-PROOF SAMPLE PACK</span>
@@ -628,7 +628,7 @@ export const ChaptersDOM: React.FC<ChaptersDOMProps> = ({
         </div>
 
         {/* Footer HUD Details */}
-        <div className="pt-12 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4 text-[10px] font-mono text-zinc-500">
+        <div className="pt-12 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-zinc-400">
           <div className="flex items-center space-x-3">
             <span className="text-violet-400 font-bold">DIGITAL DARK SPOT®</span>
             <span>·</span>

@@ -30,14 +30,14 @@ export const AnalysisProgressView: React.FC<AnalysisProgressViewProps> = ({
         <div className="absolute inset-0 w-28 h-28 -m-2 rounded-full border border-amber-400/40 border-t-amber-400 animate-spin pointer-events-none" />
       </div>
 
-      <div className="text-center space-y-2">
-        <span className="text-[11px] font-mono tracking-[0.2em] text-violet-300 uppercase">
+      <div className="text-center space-y-3">
+        <span className="text-xs font-mono font-medium tracking-wider text-violet-300 uppercase">
           EVIDENCE AUDIT IN PROGRESS
         </span>
-        <h2 className="font-display text-2xl sm:text-3xl font-black text-white tracking-wide">
+        <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
           SYNTHESIZING DIGITAL DARK SPOTS
         </h2>
-        <p className="text-xs font-mono text-zinc-400">
+        <p className="text-sm sm:text-base text-zinc-300 font-sans max-w-lg mx-auto">
           Cross-examining quotes, matching dates, and detecting unmentioned criteria.
         </p>
       </div>
@@ -50,7 +50,7 @@ export const AnalysisProgressView: React.FC<AnalysisProgressViewProps> = ({
             const isCurrent = idx === 3;
 
             return (
-              <div key={stage.id} className="flex items-center justify-between text-xs font-mono">
+              <div key={stage.id} className="flex items-center justify-between text-sm font-sans font-medium">
                 <div className="flex items-center space-x-3">
                   {isCompleted ? (
                     <CheckCircle2 className="w-4 h-4 text-emerald-400" />
@@ -59,12 +59,12 @@ export const AnalysisProgressView: React.FC<AnalysisProgressViewProps> = ({
                   ) : (
                     <div className="w-4 h-4 rounded-full border border-zinc-700" />
                   )}
-                  <span className={isCurrent ? 'text-white font-bold' : isCompleted ? 'text-zinc-300' : 'text-zinc-600'}>
+                  <span className={isCurrent ? 'text-white font-bold' : isCompleted ? 'text-zinc-200' : 'text-zinc-500'}>
                     {stage.label}
                   </span>
                 </div>
 
-                <span className="text-[10px] text-zinc-500">
+                <span className="text-xs font-mono font-medium text-zinc-400">
                   {isCompleted ? '✓ VERIFIED' : isCurrent ? 'AUDITING...' : 'PENDING'}
                 </span>
               </div>
@@ -73,13 +73,13 @@ export const AnalysisProgressView: React.FC<AnalysisProgressViewProps> = ({
         </div>
 
         <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-          <span className="text-[10px] font-mono text-zinc-500">
+          <span className="text-xs font-mono text-zinc-400">
             MODEL: GEMINI 2.5 FLASH · ZERO HALLUCINATION MODE
           </span>
 
           <button
             onClick={onCancel}
-            className="px-4 py-1.5 rounded-full noir-panel hover:bg-white/10 text-zinc-400 hover:text-white text-xs font-mono transition-colors flex items-center space-x-1 cursor-pointer"
+            className="px-4 py-2 rounded-full noir-panel hover:bg-white/10 text-zinc-300 hover:text-white text-xs sm:text-sm font-medium transition-colors flex items-center space-x-1.5 cursor-pointer"
           >
             <X className="w-3.5 h-3.5" />
             <span>Cancel</span>
