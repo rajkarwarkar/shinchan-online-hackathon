@@ -20,3 +20,4 @@ export const R3FWrapper: React.FC = () => {
     </Canvas>
   );
 };
+
