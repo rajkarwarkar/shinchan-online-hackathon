@@ -355,3 +355,4 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ onRunAnalysis }) =
     </div>
   );
 };
+

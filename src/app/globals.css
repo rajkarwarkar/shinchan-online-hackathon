@@ -1,36 +1,40 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --bg-void: #05030A;
-    --bg-surface: #0A0712;
-    --bg-elevated: #110B1E;
-    
-    --text-primary: #F5F3FF;
-    --text-secondary: #A9A3BD;
-    --text-muted: #6E6884;
+@theme {
+  --font-sans: var(--font-inter), sans-serif;
+  --font-mono: var(--font-mono), monospace;
+  --font-display: var(--font-display), 'Unbounded', sans-serif;
+}
 
-    /* Violet Ramp */
-    --violet-100: #C4B5FD;
-    --violet-200: #A78BFA;
-    --violet-300: #8B5CF6;
-    --violet-400: #7C3AED;
-    --violet-500: #4C1D95;
+:root {
+  --bg-void: #05030A;
+  --bg-surface: #0A0712;
+  --bg-elevated: #110B1E;
+  
+  --text-primary: #F5F3FF;
+  --text-secondary: #A9A3BD;
+  --text-muted: #6E6884;
 
-    /* Semantic Status Tokens (Icon + Text + Border Style) */
-    --status-sourced: #5EEAD4;       /* Mint */
-    --status-suggested: #C4B5FD;     /* Lavender */
-    --status-uncertain: #94A3B8;     /* Slate */
-    --status-gap: #FBBF24;           /* Amber Dark Spot */
-    --status-conflict: #FB3B6B;      /* Magenta Red */
+  /* Violet Ramp */
+  --violet-100: #C4B5FD;
+  --violet-200: #A78BFA;
+  --violet-300: #8B5CF6;
+  --violet-400: #7C3AED;
+  --violet-500: #4C1D95;
 
-    /* Glass Tokens */
-    --glass-bg: rgba(255, 255, 255, 0.035);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-border-hover: rgba(255, 255, 255, 0.16);
-    --glass-violet-bg: rgba(139, 92, 246, 0.07);
-    --glass-violet-border: rgba(139, 92, 246, 0.25);
-  }
+  /* Semantic Status Tokens (Icon + Text + Border Style) */
+  --status-sourced: #5EEAD4;       /* Mint */
+  --status-suggested: #C4B5FD;     /* Lavender */
+  --status-uncertain: #94A3B8;     /* Slate */
+  --status-gap: #FBBF24;           /* Amber Dark Spot */
+  --status-conflict: #FB3B6B;      /* Magenta Red */
+
+  /* Glass Tokens */
+  --glass-bg: rgba(255, 255, 255, 0.035);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.16);
+  --glass-violet-bg: rgba(139, 92, 246, 0.07);
+  --glass-violet-border: rgba(139, 92, 246, 0.25);
 }
 
 * {
@@ -39,9 +43,9 @@
 }
 
 body {
-  background-color: var(--bg-void);
-  color: var(--text-primary);
-  font-family: var(--font-inter, sans-serif);
+  background-color: #05030A;
+  color: #F5F3FF;
+  font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
   background-image: 
     radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.18) 0%, rgba(124, 58, 237, 0.06) 35%, transparent 65%),

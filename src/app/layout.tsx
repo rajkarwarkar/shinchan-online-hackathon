@@ -32,13 +32,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${inter.variable} ${jetbrainsMono.variable} ${archivo.variable}`} suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;800;900&display=swap" rel="stylesheet" />
       </head>
-      <body suppressHydrationWarning className="bg-[#05030A] text-[#F5F3FF] antialiased selection:bg-[#7C3AED] selection:text-white min-h-screen">
+      <body
+        suppressHydrationWarning
+        className={`${inter.variable} ${jetbrainsMono.variable} ${archivo.variable} min-h-screen bg-[#05030A] text-[#F5F3FF] antialiased selection:bg-[#7C3AED] selection:text-white font-sans`}
+      >
         {children}
       </body>
     </html>

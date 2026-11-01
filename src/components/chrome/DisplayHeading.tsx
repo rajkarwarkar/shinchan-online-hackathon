@@ -52,3 +52,4 @@ export const DisplayHeading: React.FC<DisplayHeadingProps> = ({
     </div>
   );
 };
+

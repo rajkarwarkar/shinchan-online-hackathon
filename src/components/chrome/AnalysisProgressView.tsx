@@ -89,3 +89,4 @@ export const AnalysisProgressView: React.FC<AnalysisProgressViewProps> = ({
     </div>
   );
 };
+

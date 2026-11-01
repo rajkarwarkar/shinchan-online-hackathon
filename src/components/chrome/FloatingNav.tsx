@@ -147,3 +147,4 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ currentView, onNavigat
     </header>
   );
 };
+

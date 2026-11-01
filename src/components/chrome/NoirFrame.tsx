@@ -48,3 +48,4 @@ export const NoirFrame: React.FC<{ children: React.ReactNode }> = ({ children })
     </div>
   );
 };
+

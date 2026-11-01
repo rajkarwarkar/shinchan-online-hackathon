@@ -209,3 +209,4 @@ export const LandingView: React.FC<LandingViewProps> = ({ onStartAnalysis, onExp
     </div>
   );
 };
+

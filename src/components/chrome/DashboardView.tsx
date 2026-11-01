@@ -549,3 +549,4 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onBackToWorkspace 
     </div>
   );
 };
+
